@@ -138,7 +138,7 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                             save();
                           },
                           child: Text(
-                            "Save Changes",
+                            "保存",
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
@@ -149,7 +149,7 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                             character.reset();
                           },
                           child: Text(
-                            "Reset All",
+                            "还原默认",
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
@@ -165,7 +165,7 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                             storageOperationDialog(context, character.importImage);
                           },
                           child: Text(
-                            "Load Image",
+                            "读取图片",
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
@@ -175,7 +175,7 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                             storageOperationDialog(context, character.exportImage);
                           },
                           child: Text(
-                            "Save Image",
+                            "保存图片",
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
@@ -190,7 +190,7 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                             storageOperationDialog(context, character.exportSTV2);
                           },
                           child: Text(
-                            "Save STV2 JSON",
+                            "保存 STV2 JSON",
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
@@ -200,7 +200,7 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                             storageOperationDialog(context, character.exportMCF);
                           },
                           child: Text(
-                            "Save MCF JSON",
+                            "保存 MCF JSON",
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
@@ -222,7 +222,7 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                             );
                           },
                           child: Text(
-                            "Switch Character",
+                            "切换角色",
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
@@ -233,7 +233,7 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                             storageOperationDialog(context, character.importJSON);
                           },
                           child: Text(
-                            "Load JSON",
+                            "读取 JSON",
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),

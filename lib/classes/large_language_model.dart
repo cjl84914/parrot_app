@@ -324,15 +324,15 @@ class LargeLanguageModel extends ChangeNotifier {
     List<String> missing = [];
 
     if (_name.isEmpty) {
-      missing.add('- A model option is required for prompting.\n');
+      missing.add('- 请点击右上角按钮选择模型.\n');
     } 
     
     if (_uri.isEmpty) {
-      missing.add('- A compatible URL is required for prompting.\n');
+      missing.add('- 请进入模型设置填写URL.\n');
     }
 
     if (_token.isEmpty) {
-      missing.add('- An authentication token is required for prompting.\n');
+      missing.add('- 需要身份令牌验证.\n');
     } 
     
     return missing;

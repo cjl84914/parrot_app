@@ -13,8 +13,8 @@ class LlmDropdown extends StatelessWidget {
         return ShaderMask(
           shaderCallback: (bounds) => const LinearGradient(
             colors: [
-              Color.fromARGB(255, 0, 200, 255),
-              Color.fromARGB(255, 255, 80, 200)
+              Color.fromARGB(255, 226, 86, 61),
+              Color.fromARGB(255, 255, 210, 110)
             ],
             stops: [0.25, 0.75],
             begin: Alignment.topLeft,

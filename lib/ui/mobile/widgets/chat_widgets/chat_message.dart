@@ -72,28 +72,14 @@ class _ChatMessageState extends State<ChatMessage> with SingleTickerProviderStat
                 radius: 16,
               ),
               const SizedBox(width: 10.0),
-              ShaderMask(
-                shaderCallback: (bounds) => const LinearGradient(
-                  colors: [
-                    Color.fromARGB(255, 0, 200, 255),
-                    Color.fromARGB(255, 255, 80, 200)
-                  ],
-                  stops: [0.5, 0.85],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ).createShader(bounds),
-                blendMode: BlendMode
-                    .srcIn, // This blend mode applies the shader to the text color.
-                child: Text(
+              Text(
                   node.role == ChatRole.user ? user.name : character.name,
                   style: const TextStyle(
                     fontWeight: FontWeight.normal,
-                    color: Colors
-                        .white, // This color is needed, but it will be overridden by the shader.
+                    color:  Color.fromARGB(255, 226, 86, 61), // This color is needed, but it will be overridden by the shader.
                     fontSize: 20,
                   ),
                 ),
-              ),
               const Expanded(child: SizedBox()), // Spacer
               if (node.finalised) ...messageOptions(),
               Row(

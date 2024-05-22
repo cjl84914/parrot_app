@@ -29,12 +29,7 @@ class AboutPage extends StatelessWidget {
             Linkify(
                 onOpen: _onOpen,
                 text:
-                    'Maid is a cross-platform open source app for interacting with GGUF Large Language Models. '
-                    'This app is distributed under the MIT License. The source code of this project can be found '
-                    'on github ( https://github.com/MaidFoundation/Maid ). Maid is not affiliated with Meta, '
-                    'OpenAI or any other company that provides a model which can be used with this app. Model files are '
-                    'not included with this app and must be downloaded separately. Model files can be downloaded online '
-                    'at https://huggingface.co',
+                    '语鹦助手是一个跨平台的免费开源AI应用程序，是一个聊天，英语学习的工具。该项目基于Flutter开发，用于本地与llama.cpp模型接口，以及远程与Ollama、Mistral、Google Gemini和OpenAI模型接口。',
                 style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 20.0),
             Text(

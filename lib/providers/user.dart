@@ -84,7 +84,7 @@ class User extends ChangeNotifier {
   void reset() async {
     _customImage = await Utilities.fileFromAssetImage("blankCustomUser.png");
     _profile = await Utilities.fileFromAssetImage("chadUser.png");
-    _name = "User";
+    _name = "用户";
     notifyListeners();
   }
 

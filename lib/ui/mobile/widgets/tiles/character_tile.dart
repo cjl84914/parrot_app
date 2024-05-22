@@ -23,7 +23,7 @@ class CharacterTile extends StatelessWidget {
         }
 
         return Column(children: [
-          Text("AI机器人 - ${character.name}"),
+          Text("对话机器人 - ${character.name}"),
           const SizedBox(height: 10.0),
           ListTile(
             leading: FutureAvatar(

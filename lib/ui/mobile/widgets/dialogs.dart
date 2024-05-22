@@ -55,7 +55,7 @@ void showMissingRequirementsDialog(BuildContext context) {
 
       return AlertDialog(
         title: const Text(
-          "Missing Requirements",
+          "请按照提示操作",
           textAlign: TextAlign.center
         ),
         actionsAlignment: MainAxisAlignment.center,
