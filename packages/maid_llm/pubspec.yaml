@@ -1,0 +1,45 @@
+name: maid_llm
+description: "maid_llm is a dart implementation of llama.cpp used by the mobile artificial intelligence distribution (maid)"
+version: 1.0.1
+homepage: "https://github.com/Mobile-Artificial-Intelligence/maid_llm"
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: '>=3.3.0'
+
+dependencies:
+  ffi: ^2.1.2
+  flutter:
+    sdk: flutter
+  plugin_platform_interface: ^2.0.2
+
+dev_dependencies:
+  ffigen: ^11.0.0
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+ffigen:
+  name: 'maid_llm'
+  description: 'llama.cpp binding'
+  output: 'lib/src/bindings.dart'
+  ignore-source-errors: true
+  headers:
+    entry-points:
+      - 'src/maid_llm.h'
+  compiler-opts:
+    - '-I/usr/lib/clang/17/include'
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  plugin:
+    platforms:
+      android:
+        ffiPlugin: true
+      linux:
+        ffiPlugin: true
+      windows:
+        ffiPlugin: true
