@@ -92,7 +92,6 @@ class _SessionTileState extends State<SessionTile> {
               onPressed: () => Navigator.of(context).pop(),
               child: Text(
                 "Cancel",
-                style: Theme.of(context).textTheme.labelLarge,
               ),
             ),
             FilledButton(
@@ -103,7 +102,6 @@ class _SessionTileState extends State<SessionTile> {
               },
               child: Text(
                 "Rename",
-                style: Theme.of(context).textTheme.labelLarge,
               ),
             ),
           ],

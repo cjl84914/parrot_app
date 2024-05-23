@@ -6,9 +6,9 @@ import 'package:parrot/static/utilities.dart';
 import 'package:parrot/ui/mobile/pages/character/character_browser_page.dart';
 import 'package:parrot/ui/mobile/widgets/appbars/generic_app_bar.dart';
 import 'package:parrot/ui/mobile/widgets/dialogs.dart';
+import 'package:parrot/ui/mobile/widgets/future_avatar.dart';
 import 'package:parrot/ui/mobile/widgets/session_busy_overlay.dart';
 import 'package:parrot/ui/mobile/widgets/tiles/text_field_list_tile.dart';
-import 'package:maid_ui/maid_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -139,7 +139,6 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                           },
                           child: Text(
                             "保存",
-                            style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
                         const SizedBox(width: 10.0),
@@ -150,7 +149,6 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                           },
                           child: Text(
                             "还原默认",
-                            style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
                       ],
@@ -166,7 +164,6 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                           },
                           child: Text(
                             "读取图片",
-                            style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
                         const SizedBox(width: 10.0),
@@ -176,7 +173,6 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                           },
                           child: Text(
                             "保存图片",
-                            style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
                       ],
@@ -191,7 +187,6 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                           },
                           child: Text(
                             "保存 STV2 JSON",
-                            style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
                         const SizedBox(width: 10.0),
@@ -201,7 +196,6 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                           },
                           child: Text(
                             "保存 MCF JSON",
-                            style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
                       ],
@@ -223,7 +217,6 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                           },
                           child: Text(
                             "切换角色",
-                            style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
                         const SizedBox(width: 10.0),
@@ -234,7 +227,6 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                           },
                           child: Text(
                             "读取 JSON",
-                            style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
                       ],
@@ -313,7 +305,6 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                             },
                             child: Text(
                               "Add Greeting",
-                              style: Theme.of(context).textTheme.labelLarge,
                             ),
                           ),
                           const SizedBox(width: 10.0),
@@ -324,7 +315,6 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                             },
                             child: Text(
                               "Remove Greeting",
-                              style: Theme.of(context).textTheme.labelLarge,
                             ),
                           ),
                         ],
@@ -365,7 +355,6 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                             },
                             child: Text(
                               "Add Prompt",
-                              style: Theme.of(context).textTheme.labelLarge,
                             ),
                           ),
                           const SizedBox(width: 10.0),
@@ -376,7 +365,6 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                             },
                             child: Text(
                               "Add Response",
-                              style: Theme.of(context).textTheme.labelLarge,
                             ),
                           ),
                         ],
@@ -392,7 +380,6 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                             },
                             child: Text(
                               "Add System",
-                              style: Theme.of(context).textTheme.labelLarge,
                             ),
                           ),
                           const SizedBox(width: 10.0),
@@ -405,7 +392,6 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
                             },
                             child: Text(
                               "Remove Last",
-                              style: Theme.of(context).textTheme.labelLarge,
                             ),
                           ),
                         ],

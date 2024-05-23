@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:parrot/ui/mobile/widgets/appbars/generic_app_bar.dart';
+import 'package:parrot/ui/mobile/widgets/buttons/model_button.dart';
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/api_key_parameter.dart';
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/n_keep_parameter.dart';
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/n_predict_parameter.dart';
@@ -35,7 +36,6 @@ class OllamaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const GenericAppBar(title: "Ollama Parameters"),
       body: SessionBusyOverlay(
         child: Consumer<Session>(
           builder: (context, session, child) {
@@ -51,9 +51,8 @@ class OllamaPage extends StatelessWidget {
                     onPressed: () {
                       session.model.reset();
                     },
-                    child: Text(
+                    child: const Text(
                       "Reset",
-                      style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ),
                 ),
@@ -66,6 +65,7 @@ class OllamaPage extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                 ),
                 const UrlParameter(),
+                const ModelButton(),
                 const SizedBox(height: 8.0),
                 const SeedParameter(),
                 const UseDefaultParameter(),

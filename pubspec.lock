@@ -486,15 +486,6 @@ packages:
       relative: true
     source: path
     version: "1.0.1"
-  maid_ui:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "9da77009cd5b6ae5ca8b004e1fe6630a765c7059"
-      url: "https://github.com/Mobile-Artificial-Intelligence/maid_ui.git"
-    source: git
-    version: "0.0.1"
   matcher:
     dependency: transitive
     description:

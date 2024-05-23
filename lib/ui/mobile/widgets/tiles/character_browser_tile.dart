@@ -160,7 +160,6 @@ class _CharacterBrowserTileState extends State<CharacterBrowserTile> {
               onPressed: () => Navigator.of(context).pop(),
               child: Text(
                 "Cancel",
-                style: Theme.of(context).textTheme.labelLarge,
               ),
             ),
             FilledButton(
@@ -175,7 +174,6 @@ class _CharacterBrowserTileState extends State<CharacterBrowserTile> {
               },
               child: Text(
                 "Rename",
-                style: Theme.of(context).textTheme.labelLarge,
               ),
             ),
           ],

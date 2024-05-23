@@ -24,7 +24,6 @@ class FormatDropdown extends StatelessWidget {
                     borderRadius: BorderRadius.circular(30.0),
                     borderSide: BorderSide.none,
                   ),
-                  fillColor: Theme.of(context).colorScheme.secondary,
                   filled: true,
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                 ),

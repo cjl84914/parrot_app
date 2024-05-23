@@ -7,7 +7,7 @@ import 'package:parrot/providers/user.dart';
 import 'package:parrot/static/logger.dart';
 import 'package:parrot/main.dart';
 import 'package:parrot/ui/mobile/widgets/appbars/generic_app_bar.dart';
-import 'package:maid_ui/maid_ui.dart';
+import 'package:parrot/ui/mobile/widgets/code_box.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:system_info2/system_info2.dart';
@@ -52,7 +52,6 @@ class _SettingsPageState extends State<SettingsPage> {
                             borderRadius: BorderRadius.circular(30.0),
                             borderSide: BorderSide.none,
                           ),
-                          fillColor: Theme.of(context).colorScheme.secondary,
                           filled: true,
                           floatingLabelBehavior: FloatingLabelBehavior.never,
                         ),

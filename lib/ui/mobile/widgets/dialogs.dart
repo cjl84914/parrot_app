@@ -24,7 +24,6 @@ void storageOperationDialog(BuildContext context, Future<String> Function(BuildC
                   },
                   child: Text(
                     "Close",
-                    style: Theme.of(context).textTheme.labelLarge,
                   ),
                 ),
               ],

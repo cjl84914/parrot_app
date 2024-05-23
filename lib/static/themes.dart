@@ -51,6 +51,11 @@ class Themes {
         style: ButtonStyle(
           foregroundColor: MaterialStateProperty.all(Colors.white),
           backgroundColor: MaterialStateProperty.all(secondary),
+          textStyle: MaterialStateProperty.all(
+            const TextStyle(
+              color: Colors.white
+            )
+          )
         ),
       ),
       switchTheme: SwitchThemeData(
@@ -66,7 +71,7 @@ class Themes {
       ),
       inputDecorationTheme: InputDecorationTheme(
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20.0, 
+          horizontal: 20.0,
           vertical: 15.0
         ),
         border: OutlineInputBorder(

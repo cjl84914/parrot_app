@@ -121,54 +121,54 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 Divider(
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                FilledButton(
-                  onPressed: () {
-                    if (!session.chat.tail.finalised) return;
-                    setState(() {
-                      final newSession = Session();
-                      sessions.add(newSession);
-                      session.from(newSession);
-                    });
-                  },
-                  child: const Text(
-                    "创建对话"
-                  ),
-                ),
-                Divider(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: sessions.length, 
-                    itemBuilder: (context, index) {
-                      return SessionTile(
-                        session: sessions[index], 
-                        onDelete: () {
-                          if (!session.chat.tail.finalised) return;
-                          setState(() {
-                            if (sessions[index].key == session.key) {
-                              session.from(sessions.firstOrNull ?? Session());
-                            }
-                            sessions.removeAt(index);
-                          });
-                        },
-                        onRename: (value) {
-                          setState(() {
-                            if (sessions[index].key == session.key) {
-                              session.name = value;
-                            }
-                            sessions[index].name = value;
-                          });
-                        },
-                      );
-                    }
-                  ),
-                ),
-                Divider(
-                  height: 0.0,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(height: 5.0),
+                // FilledButton(
+                //   onPressed: () {
+                //     if (!session.chat.tail.finalised) return;
+                //     setState(() {
+                //       final newSession = Session();
+                //       sessions.add(newSession);
+                //       session.from(newSession);
+                //     });
+                //   },
+                //   child: const Text(
+                //     "创建对话"
+                //   ),
+                // ),
+                // Divider(
+                //   color: Theme.of(context).colorScheme.primary,
+                // ),
+                // Expanded(
+                //   child: ListView.builder(
+                //     itemCount: sessions.length,
+                //     itemBuilder: (context, index) {
+                //       return SessionTile(
+                //         session: sessions[index],
+                //         onDelete: () {
+                //           if (!session.chat.tail.finalised) return;
+                //           setState(() {
+                //             if (sessions[index].key == session.key) {
+                //               session.from(sessions.firstOrNull ?? Session());
+                //             }
+                //             sessions.removeAt(index);
+                //           });
+                //         },
+                //         onRename: (value) {
+                //           setState(() {
+                //             if (sessions[index].key == session.key) {
+                //               session.name = value;
+                //             }
+                //             sessions[index].name = value;
+                //           });
+                //         },
+                //       );
+                //     }
+                //   ),
+                // ),
+                // Divider(
+                //   height: 0.0,
+                //   color: Theme.of(context).colorScheme.primary,
+                // ),
+                const Expanded(child: SizedBox(height: 5.0)),
                 const UserTile()
               ]
             )

@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/user.dart';
+import 'package:parrot/ui/mobile/widgets/future_tile_image.dart';
 import 'package:provider/provider.dart';
-import 'package:maid_ui/maid_ui.dart';
 
 class ImageSelectorTile extends StatelessWidget {
   final Future<File> image;

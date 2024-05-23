@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:parrot/ui/mobile/widgets/appbars/generic_app_bar.dart';
+import 'package:parrot/ui/mobile/widgets/buttons/model_button.dart';
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/api_key_parameter.dart';
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/n_predict_parameter.dart';
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/penalty_frequency_parameter.dart';
@@ -21,7 +22,6 @@ class OpenAiPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const GenericAppBar(title: "OpenAI Parameters"),
       body: SessionBusyOverlay(
         child: Consumer<Session>(
           builder: (context, session, child) {
@@ -39,7 +39,6 @@ class OpenAiPage extends StatelessWidget {
                     },
                     child: Text(
                       "Reset",
-                      style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ),
                 ),
@@ -52,6 +51,7 @@ class OpenAiPage extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                 ),
                 const UrlParameter(),
+                const ModelButton(),
                 const SizedBox(height: 20.0),
                 const SeedParameter(),
                 const TemperatureParameter(),

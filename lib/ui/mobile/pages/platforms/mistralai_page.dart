@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:parrot/ui/mobile/widgets/appbars/generic_app_bar.dart';
+import 'package:parrot/ui/mobile/widgets/buttons/model_button.dart';
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/api_key_parameter.dart';
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/seed_parameter.dart';
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/temperature_parameter.dart';
@@ -18,7 +19,6 @@ class MistralAiPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const GenericAppBar(title: "MistralAI Parameters"),
       body: SessionBusyOverlay(
         child: Consumer<Session>(
           builder: (context, session, child) {
@@ -36,7 +36,6 @@ class MistralAiPage extends StatelessWidget {
                     },
                     child: Text(
                       "Reset",
-                      style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ),
                 ),

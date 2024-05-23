@@ -45,7 +45,6 @@ class _LlamaCppPageState extends State<LlamaCppPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const GenericAppBar(title: "LlamaCPP Parameters"),
       body: SessionBusyOverlay(
         child: Consumer<Session>(
           builder: (context, session, child) {
@@ -78,7 +77,6 @@ class _LlamaCppPageState extends State<LlamaCppPage> {
                     },
                     child: Text(
                       "Reset",
-                      style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ),
                 ),
@@ -96,7 +94,6 @@ class _LlamaCppPageState extends State<LlamaCppPage> {
                       },
                       child: Text(
                         "Load GGUF",
-                        style: Theme.of(context).textTheme.labelLarge,
                       ),
                     ),
                     const SizedBox(width: 10.0),
@@ -107,7 +104,6 @@ class _LlamaCppPageState extends State<LlamaCppPage> {
                       },
                       child: Text(
                         "Unload GGUF",
-                        style: Theme.of(context).textTheme.labelLarge,
                       ),
                     ),
                   ],

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/user.dart';
 import 'package:parrot/static/utilities.dart';
+import 'package:parrot/ui/mobile/widgets/future_avatar.dart';
 import 'package:parrot/ui/mobile/widgets/tiles/image_selector_tile.dart';
 import 'package:provider/provider.dart';
-import 'package:maid_ui/maid_ui.dart';
 
 class UserTile extends StatefulWidget {
   const UserTile({super.key});
@@ -102,7 +102,6 @@ class _UserTileState extends State<UserTile> {
                   onPressed: () => Navigator.of(context).pop(),
                   child: Text(
                     "取消",
-                    style: Theme.of(context).textTheme.labelLarge,
                   ),
                 ),
                 FilledButton(
@@ -112,7 +111,6 @@ class _UserTileState extends State<UserTile> {
                   },
                   child: Text(
                     "更改",
-                    style: Theme.of(context).textTheme.labelLarge,
                   ),
                 ),
               ],
@@ -161,7 +159,6 @@ class _UserTileState extends State<UserTile> {
                   onPressed: user.loadImage,
                   child: Text(
                     "Load Custom",
-                    style: Theme.of(context).textTheme.labelLarge,
                   ),
                 ),
                 FilledButton(

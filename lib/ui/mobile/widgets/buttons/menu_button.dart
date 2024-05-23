@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:parrot/classes/large_language_model.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:parrot/ui/mobile/pages/about_page.dart';
+import 'package:parrot/ui/mobile/pages/model_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/gemini_page.dart';
 import 'package:parrot/ui/mobile/pages/settings_page.dart';
 import 'package:provider/provider.dart';
@@ -43,12 +44,12 @@ class _MenuButtonState extends State<MenuButton> {
           return IconButton(
             key: iconButtonKey,
             icon: const Icon(
-              Icons.account_tree_rounded,
+              Icons.settings,
               size: 24,
             ),
             onPressed: onPressed,
           );
-        } 
+        }
         else {
           lastModelType = session.model.type;
           lastCheck = DateTime.now();
@@ -63,7 +64,7 @@ class _MenuButtonState extends State<MenuButton> {
                 return IconButton(
                   key: iconButtonKey,
                   icon: const Icon(
-                    Icons.account_tree_rounded,
+                    Icons.settings,
                     size: 24,
                   ),
                   onPressed: onPressed,
@@ -132,26 +133,14 @@ class _MenuButtonState extends State<MenuButton> {
             contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
             title: const Text('模型设置'),
             onTap: () {
+              Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) {
-                  switch (context.read<Session>().model.type) {
-                    case LargeLanguageModelType.llamacpp:
-                      return const LlamaCppPage();
-                    case LargeLanguageModelType.ollama:
-                      return const OllamaPage();
-                    case LargeLanguageModelType.openAI:
-                      return const OpenAiPage();
-                    case LargeLanguageModelType.mistralAI:
-                      return const MistralAiPage();
-                    case LargeLanguageModelType.gemini:
-                      return const GoogleGeminiPage();
-                    default:
-                      return const LlamaCppPage();
-                  }
-                }),
-              );
-            },
+                MaterialPageRoute(builder: (context)
+              {
+                return const ModelSettingPage();
+              }
+              ));},
           ),
         ),
         PopupMenuItem(

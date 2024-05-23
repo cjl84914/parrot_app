@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:parrot/ui/mobile/widgets/code_box.dart';
 import 'package:parrot/ui/mobile/widgets/dialogs.dart';
 import 'package:parrot/providers/character.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:parrot/providers/user.dart';
 import 'package:maid_llm/maid_llm.dart';
+import 'package:parrot/ui/mobile/widgets/future_avatar.dart';
+import 'package:parrot/ui/mobile/widgets/typing_indicator.dart';
 
-import 'package:maid_ui/maid_ui.dart';
 import 'package:provider/provider.dart';
 
 class ChatMessage extends StatefulWidget {
