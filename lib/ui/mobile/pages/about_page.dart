@@ -1,10 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:parrot/ui/mobile/widgets/appbars/generic_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class AboutPage extends StatelessWidget {
+class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
+
+  @override
+  State<AboutPage> createState() => _AboutPageState();
+}
+
+class _AboutPageState extends State<AboutPage> {
+  String version = "";
+
+  @override
+  void initState() {
+    getVersion();
+    super.initState();
+  }
+
+  void getVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      version = packageInfo.version;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,19 +40,21 @@ class AboutPage extends StatelessWidget {
               width: 150,
               height: 150,
             ),
-            const SizedBox(height: 30.0),
+            const SizedBox(height: 10.0),
             Text(
               'Parrot Assistant',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 10.0),
+            Text("版本: $version"),
+            const SizedBox(height: 30.0),
             Linkify(
                 onOpen: _onOpen,
                 text:
-                    '语鹦助手是一个跨平台的免费开源AI应用程序，是一个聊天，英语学习的工具。该项目基于Flutter开发，用于本地与llama.cpp模型接口，以及远程与Ollama、Mistral、Google Gemini和OpenAI模型接口。',
+                    '语鹦助手是一个跨平台的免费开源应用程序，是一个聊天和英语学习的工具。该项目基于Flutter开发，用于本地与llama.cpp模型接口，以及远程与Ollama、Mistral、Google Gemini和OpenAI模型接口。',
                 style: Theme.of(context).textTheme.bodyMedium),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 30.0),
             Text(
               '开发者',
               textAlign: TextAlign.center,

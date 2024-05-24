@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parrot/classes/llama_cpp_model.dart';
 import 'package:parrot/providers/session.dart';
-import 'package:parrot/ui/mobile/widgets/appbars/generic_app_bar.dart';
 import 'package:parrot/ui/mobile/widgets/dialogs.dart';
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/n_predict_parameter.dart';
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/penalize_nl_parameter.dart';
@@ -37,8 +36,9 @@ class _LlamaCppPageState extends State<LlamaCppPage> {
 
   @override
   void dispose() {
-    (cachedSession!.model as LlamaCppModel).init();
-
+    if(cachedSession!.model is LlamaCppModel) {
+      (cachedSession!.model as LlamaCppModel).init();
+    }
     super.dispose();
   }
 

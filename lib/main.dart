@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/user.dart';
 import 'package:parrot/ui/mobile/pages/home_page.dart';
@@ -8,12 +9,19 @@ import 'package:parrot/providers/character.dart';
 import 'package:parrot/static/themes.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_baidu_mob_stat/fl_baidu_mob_stat_ys.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final prefs = await SharedPreferences.getInstance();
+  if(Platform.isAndroid) {
+    final bool key = await FlBaiduMobStatYs()
+        .setApiKey(androidKey: '2fa10b17dd', iosKey: '');
+    print('初始化是否成功：$key');
+    await FlBaiduMobStatYs().setAppChannel("gitee");
+  }
 
+  final prefs = await SharedPreferences.getInstance();
   String? lastUserString = prefs.getString("last_user");
   Map<String, dynamic> lastUser = json.decode(lastUserString ?? "{}");
   User user = User.fromMap(lastUser);

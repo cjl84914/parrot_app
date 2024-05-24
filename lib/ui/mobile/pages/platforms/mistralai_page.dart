@@ -34,7 +34,7 @@ class MistralAiPage extends StatelessWidget {
                     onPressed: () {
                       session.model.reset();
                     },
-                    child: Text(
+                    child: const Text(
                       "Reset",
                     ),
                   ),
@@ -48,6 +48,7 @@ class MistralAiPage extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                 ),
                 const UrlParameter(),
+                const ModelButton(),
                 const SizedBox(height: 20.0),
                 const SeedParameter(),
                 const TopPParameter(),

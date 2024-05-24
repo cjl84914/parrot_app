@@ -3,7 +3,9 @@
 
 ## 📌 项目概述
 
-语鹦助手是一个跨平台的免费开源AI应用程序，是一个聊天，英语学习的工具。该项目基于Flutter开发，用于本地与llama.cpp模型接口，以及远程与Ollama、Mistral、Google Gemini和OpenAI模型接口。
+语鹦助手是一个跨平台的免费开源应用程序，是一个聊天和英语学习的工具。该项目基于Flutter开发，用于本地与llama.cpp模型接口，以及远程与Ollama、Mistral、Google Gemini和OpenAI模型接口。
+
+   <img src="./assets/ui.jpg" width="200" >
 
 ## 🚀 快速开始
 
@@ -38,9 +40,9 @@
 ## 🎯 目标和愿景
 
 - [x] 中文版支持
-- [ ] 测试各平台可用
 - [ ] 语音朗读
 - [ ] 英文对话提示
+- [ ] 测试各平台可用(寻找Windows测试员)
 
 ## 📘 文档
 

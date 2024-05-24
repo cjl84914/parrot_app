@@ -61,11 +61,24 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            if (keystoreProperties['storeFile']) {
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            } else {
+                throw new GradleException("Keystore file not found or not configured in key.properties")
+            }
+        }
+    }
+
     buildTypes {
-//        release {
-//            signingConfig signingConfigs.release
-//            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-//        }
+        release {
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
 
         debug {
             signingConfig signingConfigs.debug

@@ -22,7 +22,7 @@ class _ModelButtonState extends State<ModelButton> {
           title: Row(
         children: [
           const Expanded(
-            child: Text("Model Option"),
+            child: Text("Model Name"),
           ),
           Builder(builder: (c) {
             lastModelType = session.model.type;
@@ -37,8 +37,7 @@ class _ModelButtonState extends State<ModelButton> {
                               value: modelName,
                             ))
                         .toList();
-                    return
-                      DropdownMenu<dynamic>(
+                    return DropdownMenu(
                       hintText: "Select Model",
                       inputDecorationTheme: InputDecorationTheme(
                         border: OutlineInputBorder(
@@ -49,6 +48,7 @@ class _ModelButtonState extends State<ModelButton> {
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                       ),
                       dropdownMenuEntries: modelOptions,
+                      enabled: modelOptions.isNotEmpty,
                       onSelected: (value) {
                         if (value != null) {
                           session.model.name = value;

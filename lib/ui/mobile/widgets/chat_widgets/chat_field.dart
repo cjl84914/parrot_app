@@ -39,9 +39,11 @@ class _ChatFieldState extends State<ChatField> {
 
       // For sharing or opening text coming from outside the app while the app is closed
       ReceiveSharingIntent.instance.getInitialMedia().then((value) {
-        setState(() {
-          _promptController.text = value.first.path;
-        });
+        if(value.isNotEmpty) {
+          setState(() {
+            _promptController.text = value.first.path;
+          });
+        }
       });
     }
   }

@@ -19,18 +19,17 @@ class ModelSettingPage extends StatefulWidget {
 class _ModelSettingPageState extends State<ModelSettingPage> {
   @override
   Widget build(BuildContext context) {
-    var model = context.watch<Session>().model;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.background,
           foregroundColor: Theme.of(context).colorScheme.onPrimary,
           elevation: 0.0,
           actions: const [
-            Expanded(child: SizedBox()),
             LlmDropdown(),
           ],
         ),
         body: Builder(builder: (context) {
+          var model = context.watch<Session>().model;
           switch (model.type) {
             case LargeLanguageModelType.llamacpp:
               return const LlamaCppPage();

@@ -229,10 +229,7 @@ class OllamaModel extends LargeLanguageModel {
 
   @override
   Future<List<String>> get options async {
-    bool permissionGranted = await _getNearbyDevicesPermission();
-    if (!permissionGranted) {
-      return [];
-    }
+    await _getNearbyDevicesPermission();
 
     final url = Uri.parse("$uri/api/tags");
     final headers = {"Accept": "application/json"};
@@ -254,7 +251,6 @@ class OllamaModel extends LargeLanguageModel {
       return newOptions;
     } catch (e) {
       Logger.log('Error: $e');
-      print(e);
       return [];
     }
   }

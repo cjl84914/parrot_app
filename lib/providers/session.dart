@@ -167,8 +167,10 @@ class Session extends ChangeNotifier {
   }
 
   void stop() {
-    (model as LlamaCppModel).stop();
-    Logger.log('Local generation stopped');
+    if(model is LlamaCppModel) {
+      (model as LlamaCppModel).stop();
+      Logger.log('Local generation stopped');
+    }
     notifyListeners();
   }
 

@@ -54,6 +54,8 @@ dependencies:
   maid_llm:
     path: packages/maid_llm
   google_generative_ai: ^0.2.3
+  flutter_baidu_mob_stat: ^1.2.8
+  package_info_plus: ^8.0.0
 
 dev_dependencies:
   flutter_test:
