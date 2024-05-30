@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parrot/classes/large_language_model.dart';
 import 'package:parrot/providers/session.dart';
+import 'package:parrot/ui/mobile/pages/platforms/baiduai_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/gemini_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/llama_cpp_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/mistralai_page.dart';
@@ -17,6 +18,7 @@ class ModelSettingPage extends StatefulWidget {
 }
 
 class _ModelSettingPageState extends State<ModelSettingPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,9 +30,8 @@ class _ModelSettingPageState extends State<ModelSettingPage> {
             LlmDropdown(),
           ],
         ),
-        body: Builder(builder: (context) {
-          var model = context.watch<Session>().model;
-          switch (model.type) {
+        body: Consumer<Session>(builder: (context, session, child) {
+          switch (session.model.type) {
             case LargeLanguageModelType.llamacpp:
               return const LlamaCppPage();
             case LargeLanguageModelType.ollama:
@@ -41,6 +42,8 @@ class _ModelSettingPageState extends State<ModelSettingPage> {
               return const MistralAiPage();
             case LargeLanguageModelType.gemini:
               return const GoogleGeminiPage();
+            case LargeLanguageModelType.baidu:
+              return const BaiduAiPage();
             default:
               return const LlamaCppPage();
           }

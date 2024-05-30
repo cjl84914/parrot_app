@@ -29,6 +29,10 @@ class LlmDropdown extends StatelessWidget {
                   label: "LlamaCPP",
                 ),
                 DropdownMenuEntry<LargeLanguageModelType>(
+                  value: LargeLanguageModelType.baidu,
+                  label: "BaiduAI",
+                ),
+                DropdownMenuEntry<LargeLanguageModelType>(
                   value: LargeLanguageModelType.ollama,
                   label: "Ollama",
                 ),
@@ -37,12 +41,12 @@ class LlmDropdown extends StatelessWidget {
                   label: "OpenAI",
                 ),
                 DropdownMenuEntry<LargeLanguageModelType>(
-                  value: LargeLanguageModelType.mistralAI,
-                  label: "MistralAI",
-                ),
-                DropdownMenuEntry<LargeLanguageModelType>(
                   value: LargeLanguageModelType.gemini,
                   label: "Gemini",
+                ),
+                DropdownMenuEntry<LargeLanguageModelType>(
+                  value: LargeLanguageModelType.mistralAI,
+                  label: "MistralAI",
                 ),
               ],
               onSelected: (LargeLanguageModelType? value) {
@@ -62,6 +66,9 @@ class LlmDropdown extends StatelessWidget {
                       break;
                     case LargeLanguageModelType.gemini:
                       session.switchGemini();
+                      break;
+                    case LargeLanguageModelType.baidu:
+                      session.switchBaiduAI();
                       break;
                     default:
                       break;

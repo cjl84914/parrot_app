@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:parrot/classes/baidu_ai_model.dart';
 import 'package:parrot/classes/google_gemini_model.dart';
 import 'package:parrot/classes/large_language_model.dart';
 import 'package:parrot/classes/llama_cpp_model.dart';
@@ -94,6 +95,9 @@ class Session extends ChangeNotifier {
         break;
       case LargeLanguageModelType.mistralAI:
         switchMistralAI();
+        break;
+      case LargeLanguageModelType.baidu:
+        switchBaiduAI();
         break;
       default:
         switchLlamaCpp();
@@ -265,6 +269,23 @@ class Session extends ChangeNotifier {
     } 
     else {
       model = GoogleGeminiModel(listener: notify);
+    }
+
+    prefs.setInt("llm_type", model.type.index);
+    notifyListeners();
+  }
+
+  void switchBaiduAI() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    Map<String, dynamic> lastBaidu = json.decode(prefs.getString("baidu_ai_model") ?? "{}");
+    Logger.log(lastBaidu.toString());
+
+    if (lastBaidu.isNotEmpty) {
+      model = BaiduAiModel.fromMap(notify, lastBaidu);
+    }
+    else {
+      model = BaiduAiModel(listener: notify);
     }
 
     prefs.setInt("llm_type", model.type.index);

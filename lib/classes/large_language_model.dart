@@ -355,4 +355,4 @@ class LargeLanguageModel extends ChangeNotifier {
   }
 }
 
-enum LargeLanguageModelType { none, llamacpp, openAI, ollama, mistralAI, gemini }
+enum LargeLanguageModelType { none, llamacpp, openAI, ollama, mistralAI, gemini, baidu }

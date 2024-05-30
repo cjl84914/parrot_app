@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/character.dart';
 import 'package:parrot/providers/session.dart';

@@ -40,13 +40,46 @@
 ## 🎯 目标和愿景
 
 - [x] 中文版支持
+- [x] 支持百度AI
 - [ ] 语音朗读
 - [ ] 英文对话提示
 - [ ] 测试各平台可用(寻找Windows测试员)
 
 ## 📘 文档
 
-- <a href="./docs/API-Compatability.xls">API 文档链接</a> 
+- ### 如何连接本地 Ollama
+  1. 打开Ollama官网 <a href="https://www.ollama.com/"> https://www.ollama.com/ </a>
+  2. 安装自己电脑对应版本，打开Ollama
+  3. 下载对话模型
+
+    ```  
+    ollama run qwen:7b-chat-q8_0
+    ```
+  4. 设置环境变量 OLLAMA_HOST = [你的电脑IP]:11434 和 OLLAMA_ORIGINS = *
+  5. 在APP修改URL地址： http://[你的电脑IP]:11434
+    
+- ### 如何连接BaiduAI
+  1. 注册百度开发者账号
+  <a href="https://cloud.baidu.com/">https://cloud.baidu.com/ </a>
+  2. 创建应用，获得API Key和Secret Key
+  <a href="https://cloud.baidu.com/doc/WENXINWORKSHOP/s/Slkkydake">https://cloud.baidu.com/doc/WENXINWORKSHOP/s/Slkkydake </a>
+  3. 执行命令获得access_token
+    ```
+  curl 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=[API Key]&client_secret=[Secret Key]'
+  ```
+  4.  在APP修改API key: [access_token]
+ 
+- ### 如何连接OpenAI（中国地区不能使用）
+  待补充...
+- ### 如何连接Gemini（中国地区不能使用）
+  待补充...
+- ### 如何连接MistralAI
+  待补充...
+- ### 如何使用 LlamaCPP 
+  待补充...
+
+
+- <a href="./docs/API-Compatability.xls">各种平台模型的参数</a>
 
 ## 👥 社区和支持
 

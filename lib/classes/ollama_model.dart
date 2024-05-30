@@ -218,7 +218,6 @@ class OllamaModel extends LargeLanguageModel {
           ),
         );
       }
-
       final stream = chat.stream(PromptValue.chat(chatMessages));
 
       yield* stream.map((final res) => res.output.content);
@@ -235,7 +234,9 @@ class OllamaModel extends LargeLanguageModel {
     final headers = {"Accept": "application/json"};
 
     try {
+      print("Getting ollama options from: $url");
       var request = Request("GET", url)..headers.addAll(headers);
+
 
       var response = await request.send();
       var responseString = await response.stream.bytesToString();
