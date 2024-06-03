@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:parrot/providers/tts.dart';
 import 'package:parrot/ui/mobile/widgets/dialogs.dart';
 import 'package:maid_llm/src/chat_node.dart';
 import 'package:parrot/classes/large_language_model.dart';
@@ -20,7 +21,6 @@ class ChatField extends StatefulWidget {
 class _ChatFieldState extends State<ChatField> {
   final TextEditingController _promptController = TextEditingController();
   StreamSubscription? _intentDataStreamSubscription;
-
   @override
   void initState() {
     super.initState();
@@ -76,7 +76,6 @@ class _ChatFieldState extends State<ChatField> {
     session.notify();
 
     session.prompt(context);
-
     setState(() {
       _promptController.clear();
     });

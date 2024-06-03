@@ -3,7 +3,7 @@
 
 ## 📌 项目概述
 
-语鹦助手是一个跨平台的免费开源应用程序，是一个聊天和英语学习的工具。该项目基于Flutter开发，用于本地与llama.cpp模型接口，以及远程与Ollama、Mistral、Google Gemini和OpenAI模型接口。
+语鹦助手是一个跨平台的免费开源应用程序，是一个聊天和英语学习的工具。该项目基于Flutter开发，用于本地与llama.cpp模型接口，以及远程与百度AI、Ollama、Mistral、Google Gemini和OpenAI模型接口。
 
    <img src="./assets/ui.jpg" width="200" >
 
@@ -41,7 +41,7 @@
 
 - [x] 中文版支持
 - [x] 支持百度AI
-- [ ] 语音朗读
+- [x] 语音朗读
 - [ ] 英文对话提示
 - [ ] 测试各平台可用(寻找Windows测试员)
 
@@ -49,7 +49,7 @@
 
 - ### 如何连接本地 Ollama
   1. 打开Ollama官网 <a href="https://www.ollama.com/"> https://www.ollama.com/ </a>
-  2. 安装自己电脑对应版本，打开Ollama
+  2. 安装电脑系统对应版本，打开Ollama
   3. 下载对话模型
 
     ```  

@@ -48,8 +48,6 @@ class BaiduAiPage extends StatelessWidget {
                 const UrlParameter(),
                 const ModelButton(),
                 const SizedBox(height: 20.0),
-                const TemperatureParameter(),
-                const TopPParameter()
               ]
             );
           },

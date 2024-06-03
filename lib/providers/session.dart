@@ -9,6 +9,7 @@ import 'package:parrot/classes/mistral_ai_model.dart';
 import 'package:parrot/classes/ollama_model.dart';
 import 'package:parrot/classes/open_ai_model.dart';
 import 'package:parrot/providers/character.dart';
+import 'package:parrot/providers/tts.dart';
 import 'package:parrot/providers/user.dart';
 import 'package:parrot/static/logger.dart';
 import 'package:maid_llm/maid_llm.dart';
@@ -119,7 +120,7 @@ class Session extends ChangeNotifier {
   void prompt(BuildContext context) async {
     final user = context.read<User>();
     final character = context.read<Character>();
-
+    final tts = context.read<TTS>();
     final description = Utilities.formatPlaceholders(character.description, user.name, character.name);
     final personality = Utilities.formatPlaceholders(character.personality, user.name, character.name);
     final scenario = Utilities.formatPlaceholders(character.scenario, user.name, character.name);
@@ -140,9 +141,8 @@ class Session extends ChangeNotifier {
       chat.tail.content += message;
       notifyListeners();
     }
-
     chat.tail.finalised = true;
-
+    tts.autoPlay(chat.tail.content);
     notifyListeners();
   }
 

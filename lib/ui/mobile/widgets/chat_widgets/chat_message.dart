@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parrot/providers/tts.dart';
 import 'package:parrot/ui/mobile/widgets/code_box.dart';
 import 'package:parrot/ui/mobile/widgets/dialogs.dart';
 import 'package:parrot/providers/character.dart';
@@ -7,7 +8,6 @@ import 'package:parrot/providers/user.dart';
 import 'package:maid_llm/maid_llm.dart';
 import 'package:parrot/ui/mobile/widgets/future_avatar.dart';
 import 'package:parrot/ui/mobile/widgets/typing_indicator.dart';
-
 import 'package:provider/provider.dart';
 
 class ChatMessage extends StatefulWidget {
@@ -19,30 +19,30 @@ class ChatMessage extends StatefulWidget {
   State<ChatMessage> createState() => _ChatMessageState();
 }
 
-class _ChatMessageState extends State<ChatMessage> with SingleTickerProviderStateMixin {
+class _ChatMessageState extends State<ChatMessage>
+    with SingleTickerProviderStateMixin {
   late ChatNode node;
   bool editing = false;
 
   Widget messageBuilder(String message) {
     List<Widget> widgets = [];
     List<String> parts = message.split('```');
-
     for (int i = 0; i < parts.length; i++) {
       String part = parts[i].trim();
       if (part.isEmpty) continue;
 
       if (i % 2 == 0) {
-        widgets.add(SelectableText(part, style: TextStyle(
+        widgets.add(SelectableText(part,
+            style: TextStyle(
               fontWeight: FontWeight.normal,
               color: Theme.of(context).colorScheme.onPrimary,
               fontSize: 16,
-            )
-          )
-        );
+            )));
       } else {
         widgets.addAll([
           const SizedBox(height: 10),
-          CodeBox(code: part), // Assuming CodeBox is a widget you've defined for displaying code.
+          CodeBox(code: part),
+          // Assuming CodeBox is a widget you've defined for displaying code.
           const SizedBox(height: 10),
         ]);
       }
@@ -62,7 +62,6 @@ class _ChatMessageState extends State<ChatMessage> with SingleTickerProviderStat
 
         int currentIndex = session.chat.indexOf(widget.key!);
         int siblingCount = session.chat.siblingCountOf(widget.key!);
-
         return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -70,18 +69,21 @@ class _ChatMessageState extends State<ChatMessage> with SingleTickerProviderStat
               const SizedBox(width: 10.0),
               FutureAvatar(
                 key: node.role == ChatRole.user ? user.key : character.key,
-                image: node.role == ChatRole.user ? user.profile : character.profile,
+                image: node.role == ChatRole.user
+                    ? user.profile
+                    : character.profile,
                 radius: 16,
               ),
               const SizedBox(width: 10.0),
               Text(
-                  node.role == ChatRole.user ? user.name : character.name,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.normal,
-                    color:  Color.fromARGB(255, 226, 86, 61), // This color is needed, but it will be overridden by the shader.
-                    fontSize: 20,
-                  ),
+                node.role == ChatRole.user ? user.name : character.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: Color.fromARGB(255, 226, 86, 61),
+                  // This color is needed, but it will be overridden by the shader.
+                  fontSize: 20,
                 ),
+              ),
               const Expanded(child: SizedBox()), // Spacer
               if (node.finalised) ...messageOptions(),
               Row(
@@ -134,11 +136,10 @@ class _ChatMessageState extends State<ChatMessage> with SingleTickerProviderStat
       IconButton(
         onPressed: () {
           if (!context.read<Session>().chat.tail.finalised) return;
-          
+
           if (context.read<Session>().model.missingRequirements.isNotEmpty) {
             showMissingRequirementsDialog(context);
-          }
-          else {
+          } else {
             setState(() {
               editing = true;
             });
@@ -150,7 +151,20 @@ class _ChatMessageState extends State<ChatMessage> with SingleTickerProviderStat
   }
 
   List<Widget> assistantOptions() {
+    var ttsState = context.watch<TTS>().ttsState;
     return [
+      IconButton(
+        onPressed: () {
+          if (ttsState == TtsState.playing) {
+            context.read<TTS>().stop();
+          } else {
+            context.read<TTS>().speak(node.content);
+          }
+        },
+        icon: Icon(ttsState == TtsState.playing
+            ? Icons.stop
+            : Icons.play_arrow),
+      ),
       IconButton(
         onPressed: () {
           if (!context.read<Session>().chat.tail.finalised) return;
@@ -190,14 +204,19 @@ class _ChatMessageState extends State<ChatMessage> with SingleTickerProviderStat
             onPressed: () {
               if (!context.read<Session>().chat.tail.finalised) return;
 
-              if (context.read<Session>().model.missingRequirements.isNotEmpty) {
+              if (context
+                  .read<Session>()
+                  .model
+                  .missingRequirements
+                  .isNotEmpty) {
                 showMissingRequirementsDialog(context);
-              } 
-              else {
+              } else {
                 setState(() {
                   editing = false;
                 });
-                context.read<Session>().edit(node.key, messageController.text, context);
+                context
+                    .read<Session>()
+                    .edit(node.key, messageController.text, context);
               }
             },
             icon: const Icon(Icons.done)),
@@ -215,7 +234,7 @@ class _ChatMessageState extends State<ChatMessage> with SingleTickerProviderStat
 
   List<Widget> standardColumn() {
     return [
-      if (!node.finalised && node.content.isEmpty)
+      if (!node.finalised)
         const TypingIndicator() // Assuming TypingIndicator is a custom widget you've defined.
       else
         messageBuilder(node.content),

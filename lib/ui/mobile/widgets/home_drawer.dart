@@ -84,85 +84,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 bottomRight: Radius.circular(20)
               ),
             ),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
+            child: const Padding(
+              padding: EdgeInsets.fromLTRB(10, 40, 10, 10),
               child: Column(children: [
-                const CharacterTile(),
-                const SizedBox(height: 5.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    FilledButton(
-                      onPressed: () {
-                        Navigator.pop(context); // Close the drawer
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const CharacterCustomizationPage()));
-                      },
-                      child: const Text(
-                        "自定义"
-                      ),
-                    ),
-                    FilledButton(
-                      onPressed: () {
-                        Navigator.pop(context); // Close the drawer
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const CharacterBrowserPage()));
-                      },
-                      child: const Text(
-                        "浏览"
-                      ),
-                    )
-                  ]
-                ),
-                Divider(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                FilledButton(
-                  onPressed: () {
-                    if (!session.chat.tail.finalised) return;
-                    setState(() {
-                      final newSession = Session();
-                      sessions.add(newSession);
-                      session.from(newSession);
-                    });
-                  },
-                  child: const Text(
-                    "创建对话"
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: sessions.length,
-                    itemBuilder: (context, index) {
-                      return SessionTile(
-                        session: sessions[index],
-                        onDelete: () {
-                          if (!session.chat.tail.finalised) return;
-                          setState(() {
-                            if (sessions[index].key == session.key) {
-                              session.from(sessions.firstOrNull ?? Session());
-                            }
-                            sessions.removeAt(index);
-                          });
-                        },
-                        onRename: (value) {
-                          setState(() {
-                            if (sessions[index].key == session.key) {
-                              session.name = value;
-                            }
-                            sessions[index].name = value;
-                          });
-                        },
-                      );
-                    }
-                  ),
-                ),
-                const Expanded(child: SizedBox(height: 5.0)),
-                const UserTile()
+                UserTile()
               ]
             )
           )

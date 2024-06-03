@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:parrot/providers/tts.dart';
 import 'package:parrot/providers/user.dart';
 import 'package:parrot/ui/mobile/pages/home_page.dart';
 import 'package:parrot/providers/session.dart';
@@ -14,7 +15,7 @@ import 'package:flutter_baidu_mob_stat/fl_baidu_mob_stat_ys.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if(Platform.isAndroid) {
+  if (Platform.isAndroid && kReleaseMode) {
     final bool key = await FlBaiduMobStatYs()
         .setApiKey(androidKey: '2fa10b17dd', iosKey: '');
     print('初始化是否成功：$key');
@@ -38,6 +39,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => MainProvider()),
+        ChangeNotifierProvider(create: (context) => TTS()),
         ChangeNotifierProvider(create: (context) => user),
         ChangeNotifierProvider(create: (context) => character),
         ChangeNotifierProvider(create: (context) => session),
@@ -75,13 +77,13 @@ class ParrotAppState extends State<ParrotApp> {
     return Consumer<MainProvider>(
       builder: (context, mainProvider, child) {
         return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: '语鹦助手',
-          theme: Themes.lightTheme(),
-          darkTheme: Themes.darkTheme(),
-          themeMode: mainProvider.themeMode,
-          home: const HomePage(title: "语鹦助手")
-        );
+            debugShowCheckedModeBanner: kDebugMode,
+            title: '语鹦助手',
+            theme: Themes.lightTheme(),
+            darkTheme: Themes.darkTheme(),
+            themeMode: mainProvider.themeMode,
+            home: const HomePage(title: "语鹦助手"),
+            );
       },
     );
   }

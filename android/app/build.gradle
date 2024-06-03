@@ -54,12 +54,12 @@ android {
         versionName flutterVersionName
     }
 
-    splits {
-        abi {
-            enable true
-            universalApk true
-        }
-    }
+//    splits {
+//        abi {
+//            enable true
+//            universalApk true
+//        }
+//    }
 
     signingConfigs {
         release {

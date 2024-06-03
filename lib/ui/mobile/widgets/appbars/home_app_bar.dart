@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:parrot/providers/tts.dart';
 import 'package:parrot/ui/mobile/widgets/buttons/menu_button.dart';
+import 'package:provider/provider.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({super.key});
@@ -13,10 +15,20 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).colorScheme.background,
       foregroundColor: Theme.of(context).colorScheme.onPrimary,
       elevation: 0.0,
-      title: const Text("语鹦助手", style: TextStyle( fontSize: 16)),
-      actions: const [
-        SizedBox(width: 34),
-        MenuButton()
+      title: const Text("语鹦助手", style: TextStyle(fontSize: 16)),
+      actions: [
+        const SizedBox(width: 34),
+        Builder(builder: (context) {
+          bool isMuted = context.watch<TTS>().isMuted;
+          return IconButton(
+            icon: Icon(isMuted?Icons.volume_off:Icons.volume_up),
+            onPressed: () {
+              context.read<TTS>().isMuted = !isMuted;
+              context.read<TTS>().notify();
+            },
+          );
+        }),
+        const MenuButton()
       ],
     );
   }

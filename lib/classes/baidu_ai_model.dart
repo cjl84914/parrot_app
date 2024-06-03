@@ -13,7 +13,7 @@ class BaiduAiModel extends LargeLanguageModel {
   LargeLanguageModelType get type => LargeLanguageModelType.baidu;
 
   BaiduAiModel({super.listener,
-    super.name = 'ernie_speed',
+    super.name = 'yi_34b_chat',
     super.uri = defaultUrl,
     super.token,
     super.useDefault,
@@ -52,13 +52,11 @@ class BaiduAiModel extends LargeLanguageModel {
   @override
   Stream<String> prompt(List<ChatNode> messages) async* {
     List<Map<String, dynamic>> chat = [];
-
     for (var message in messages) {
       Logger.log("Message: ${message.content}");
       if (message.content.isEmpty) {
         continue;
       }
-
       switch (message.role) {
         case ChatRole.user:
           chat.add({
@@ -76,39 +74,39 @@ class BaiduAiModel extends LargeLanguageModel {
           break;
       }
     }
-
     try {
-      final url =
-      Uri.parse('$uri/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/$name?access_token=$token');
+      final url = Uri.parse(
+          '$uri/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/$name?access_token=$token');
       final headers = {
-        'content-type': 'application/json',
+        'content-type': 'text/event-stream',
       };
-
-      final body = {'messages': chat,'stream': false};
+      final body = {'messages': chat, 'stream': true};
       var request = Request("POST", url)
         ..headers.addAll(headers)
         ..body = json.encode(body);
       final response = await request.send();
-
-      final stream = response.stream
-          .transform(utf8.decoder)
-          .transform(const LineSplitter());
-      await for (final line in stream) {
-        print(line);
+      final stream = response.stream.transform(utf8.decoder);
+      await for (var line in stream) {
+        // print(line);
         dynamic data = json.decode(line.replaceAll('data:', ''));
-        final content = data['result'] as String?;
-        if (content != null && content.isNotEmpty) {
-          yield content;
+        final errorMsg = data['error_msg'];
+        if (errorMsg == null) {
+          final content = data['result'] as String?;
+          if (content != null && content.isNotEmpty) {
+            yield content;
+          }
+        } else {
+          Logger.log(errorMsg);
         }
       }
     } catch (e) {
-      Logger.log('Error: $e');
+      Logger.log(e.toString());
     }
   }
 
   @override
   Future<List<String>> get options async {
-    return ["yi_34b_chat"];
+    return ["ernie_speed", "yi_34b_chat"];
   }
 
   @override

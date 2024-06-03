@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:maid_llm/maid_llm.dart';
+import 'package:parrot/providers/tts.dart';
 import 'package:parrot/providers/user.dart';
 import 'package:parrot/providers/character.dart';
 import 'package:parrot/providers/session.dart';
@@ -42,23 +44,24 @@ class HomePageState extends State<HomePage> {
         SharedPreferences.getInstance().then((prefs) {
           prefs.setString("last_session", json.encode(session.toMap()));
         });
-        
+
         List<ChatNode> chat = session.chat.getChat();
         if (
-          chat.isEmpty && 
-          character.useGreeting && 
-          character.greetings.isNotEmpty
+        chat.isEmpty &&
+            character.useGreeting &&
+            character.greetings.isNotEmpty
         ) {
           final index = Random().nextInt(character.greetings.length);
 
           if (character.greetings[index].isNotEmpty) {
             final message = ChatNode(
-              key: UniqueKey(),
-              role: ChatRole.assistant,
-              content: Utilities.formatPlaceholders(character.greetings[index], user.name, character.name),
-              finalised: true
+                key: UniqueKey(),
+                role: ChatRole.assistant,
+                content: Utilities.formatPlaceholders(
+                    character.greetings[index], user.name, character.name),
+                finalised: true
             );
-  
+
             session.chat.addNode(message);
             chat = [message];
           }
@@ -70,42 +73,57 @@ class HomePageState extends State<HomePage> {
             key: message.key,
           ));
         }
-
+        _setStateAndMoreToListViewEnd();
         return Builder(
-          builder: (BuildContext context) => GestureDetector(
-            onHorizontalDragEnd: (details) {
-              // Check if the drag is towards right with a certain velocity
-              if (details.primaryVelocity! > 100) {
-                // Open the drawer
-                Scaffold.of(context).openDrawer();
-              }
-            },
-            child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                ),
-                Column(
+          builder: (BuildContext context) =>
+              GestureDetector(
+                onHorizontalDragEnd: (details) {
+                  // Check if the drag is towards right with a certain velocity
+                  if (details.primaryVelocity! > 100) {
+                    // Open the drawer
+                    Scaffold.of(context).openDrawer();
+                  }
+                },
+                child: Stack(
                   children: [
-                    Expanded(
-                      child: ListView.builder(
-                        controller: _consoleScrollController,
-                        itemCount: chatWidgets.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return chatWidgets[index];
-                        },
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Theme
+                            .of(context)
+                            .colorScheme
+                            .background,
                       ),
                     ),
-                    const ChatField(),
+                    Column(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            controller: _consoleScrollController,
+                            itemCount: chatWidgets.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return chatWidgets[index];
+                            },
+                          ),
+                        ),
+                        const ChatField(),
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
-          ),
+              ),
         );
       },
     );
+  }
+
+  _setStateAndMoreToListViewEnd() {
+    try{
+          _consoleScrollController.animateTo(
+              _consoleScrollController.position.maxScrollExtent, duration: const Duration(seconds: 5), curve:  Curves.ease);
+    }catch(e){
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 }
