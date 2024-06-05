@@ -20,7 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Session extends ChangeNotifier {
   Key _key = UniqueKey();
-  LargeLanguageModel model = LlamaCppModel();
+  LargeLanguageModel model = LargeLanguageModel();
   ChatNodeTree chat = ChatNodeTree();
 
   String _name = "";
@@ -57,7 +57,7 @@ class Session extends ChangeNotifier {
   void newSession() {
     name = "New Chat";
     chat = ChatNodeTree();
-    model = LlamaCppModel(listener: notify);
+    model = LargeLanguageModel(listener: notify);
     notifyListeners();
   }
 
@@ -87,9 +87,9 @@ class Session extends ChangeNotifier {
         .values[inputJson['llm_type'] ?? LargeLanguageModelType.llamacpp.index];
 
     switch (type) {
-      case LargeLanguageModelType.llamacpp:
-        switchLlamaCpp();
-        break;
+      // case LargeLanguageModelType.llamacpp:
+      //   switchLlamaCpp();
+      //   break;
       case LargeLanguageModelType.openAI:
         switchOpenAI();
         break;
@@ -103,7 +103,7 @@ class Session extends ChangeNotifier {
         switchBaiduAI();
         break;
       default:
-        switchLlamaCpp();
+        switchBaiduAI();
         break;
     }
 
@@ -192,10 +192,10 @@ class Session extends ChangeNotifier {
   }
 
   void stop() {
-    if (model is LlamaCppModel) {
-      (model as LlamaCppModel).stop();
-      Logger.log('Local generation stopped');
-    }
+    // if (model is LlamaCppModel) {
+    //   (model as LlamaCppModel).stop();
+    //   Logger.log('Local generation stopped');
+    // }
     notifyListeners();
   }
 
@@ -209,22 +209,22 @@ class Session extends ChangeNotifier {
 
   /// -------------------------------------- Model Switching --------------------------------------
 
-  void switchLlamaCpp() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    Map<String, dynamic> lastLlamaCpp =
-        json.decode(prefs.getString("llama_cpp_model") ?? "{}");
-    Logger.log(lastLlamaCpp.toString());
-
-    if (lastLlamaCpp.isNotEmpty) {
-      model = LlamaCppModel.fromMap(notify, lastLlamaCpp);
-    } else {
-      model = LlamaCppModel(listener: notify);
-    }
-
-    prefs.setInt("llm_type", model.type.index);
-    notifyListeners();
-  }
+  // void switchLlamaCpp() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //
+  //   Map<String, dynamic> lastLlamaCpp =
+  //       json.decode(prefs.getString("llama_cpp_model") ?? "{}");
+  //   Logger.log(lastLlamaCpp.toString());
+  //
+  //   if (lastLlamaCpp.isNotEmpty) {
+  //     model = LlamaCppModel.fromMap(notify, lastLlamaCpp);
+  //   } else {
+  //     model = LlamaCppModel(listener: notify);
+  //   }
+  //
+  //   prefs.setInt("llm_type", model.type.index);
+  //   notifyListeners();
+  // }
 
   void switchOpenAI() async {
     final prefs = await SharedPreferences.getInstance();

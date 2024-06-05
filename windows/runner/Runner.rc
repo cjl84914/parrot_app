@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.danemadsen" "\0"
-            VALUE "FileDescription", "maid" "\0"
+            VALUE "CompanyName", "com.example" "\0"
+            VALUE "FileDescription", "parrot_app" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "maid" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.danemadsen. All rights reserved." "\0"
-            VALUE "OriginalFilename", "maid.exe" "\0"
-            VALUE "ProductName", "maid" "\0"
+            VALUE "InternalName", "parrot_app" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
+            VALUE "OriginalFilename", "parrot_app.exe" "\0"
+            VALUE "ProductName", "parrot_app" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

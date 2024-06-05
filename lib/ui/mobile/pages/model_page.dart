@@ -32,8 +32,8 @@ class _ModelSettingPageState extends State<ModelSettingPage> {
         ),
         body: Consumer<Session>(builder: (context, session, child) {
           switch (session.model.type) {
-            case LargeLanguageModelType.llamacpp:
-              return const LlamaCppPage();
+            // case LargeLanguageModelType.llamacpp:
+            //   return const LlamaCppPage();
             case LargeLanguageModelType.ollama:
               return const OllamaPage();
             case LargeLanguageModelType.openAI:
@@ -45,7 +45,7 @@ class _ModelSettingPageState extends State<ModelSettingPage> {
             case LargeLanguageModelType.baidu:
               return const BaiduAiPage();
             default:
-              return const LlamaCppPage();
+              return const BaiduAiPage();
           }
         }));
   }

@@ -14,12 +14,13 @@ import 'package:flutter_baidu_mob_stat/fl_baidu_mob_stat_ys.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  if (Platform.isAndroid && kReleaseMode) {
-    final bool key = await FlBaiduMobStatYs()
-        .setApiKey(androidKey: '2fa10b17dd', iosKey: '');
-    print('初始化是否成功：$key');
-    await FlBaiduMobStatYs().setAppChannel("gitee");
+  if(!kIsWeb) {
+    if (Platform.isAndroid && kReleaseMode) {
+      final bool key = await FlBaiduMobStatYs()
+          .setApiKey(androidKey: '2fa10b17dd', iosKey: '');
+      print('初始化是否成功：$key');
+      await FlBaiduMobStatYs().setAppChannel("gitee");
+    }
   }
 
   final prefs = await SharedPreferences.getInstance();
