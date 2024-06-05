@@ -6,7 +6,7 @@ import 'package:langchain/langchain.dart';
 import 'package:langchain_openai/langchain_openai.dart';
 import 'package:parrot/classes/large_language_model.dart';
 import 'package:parrot/static/logger.dart';
-import 'package:maid_llm/maid_llm.dart';
+import 'package:parrot/ui/mobile/widgets/llm/chat_node.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OpenAiModel extends LargeLanguageModel {

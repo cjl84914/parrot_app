@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:ui';
 import 'package:http/http.dart';
 import 'package:parrot/classes/large_language_model.dart';
 import 'package:parrot/static/logger.dart';
-import 'package:maid_llm/maid_llm.dart';
+import 'package:parrot/ui/mobile/widgets/llm/chat_node.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BaiduAiModel extends LargeLanguageModel {
@@ -12,15 +13,16 @@ class BaiduAiModel extends LargeLanguageModel {
   @override
   LargeLanguageModelType get type => LargeLanguageModelType.baidu;
 
-  BaiduAiModel({super.listener,
-    super.name = 'yi_34b_chat',
-    super.uri = defaultUrl,
-    super.token,
-    super.useDefault,
-    super.seed,
-    super.temperature,
-    super.topK,
-    super.topP});
+  BaiduAiModel(
+      {super.listener,
+      super.name = 'yi_34b_chat',
+      super.uri = defaultUrl,
+      super.token,
+      super.useDefault,
+      super.seed,
+      super.temperature,
+      super.topK,
+      super.topP});
 
   BaiduAiModel.fromMap(VoidCallback listener, Map<String, dynamic> json) {
     addListener(listener);
@@ -74,33 +76,34 @@ class BaiduAiModel extends LargeLanguageModel {
           break;
       }
     }
-    try {
-      final url = Uri.parse(
-          '$uri/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/$name?access_token=$token');
-      final headers = {
-        'content-type': 'text/event-stream',
-      };
-      final body = {'messages': chat, 'stream': true};
-      var request = Request("POST", url)
-        ..headers.addAll(headers)
-        ..body = json.encode(body);
-      final response = await request.send();
-      final stream = response.stream.transform(utf8.decoder);
-      await for (var line in stream) {
-        // print(line);
-        dynamic data = json.decode(line.replaceAll('data:', ''));
-        final errorMsg = data['error_msg'];
-        if (errorMsg == null) {
-          final content = data['result'] as String?;
-          if (content != null && content.isNotEmpty) {
-            yield content;
-          }
-        } else {
-          Logger.log(errorMsg);
-        }
+
+    final url = Uri.parse(
+        '$uri/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/$name?access_token=$token');
+    final headers = {'content-type': 'application/json'};
+    final body = {'messages': chat, 'stream': true};
+    var request = Request("POST", url)
+      ..headers.addAll(headers)
+      ..body = jsonEncode(body);
+    final response = await request.send();
+    final stream = response.stream.transform(utf8.decoder);
+    await for (var line in stream) {
+      print(line);
+      dynamic data;
+      try {
+        data = jsonDecode(line.replaceAll('data:', ''));
+      } catch (e) {
+        Logger.log(e.toString());
+        continue;
       }
-    } catch (e) {
-      Logger.log(e.toString());
+      final errorMsg = data['error_msg'];
+      if (errorMsg == null) {
+        final content = data['result'] as String?;
+        if (content != null && content.isNotEmpty) {
+          yield content;
+        }
+      } else {
+        Logger.log(errorMsg);
+      }
     }
   }
 

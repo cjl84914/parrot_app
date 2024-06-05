@@ -115,7 +115,7 @@ class TTS with ChangeNotifier {
 
   Future speak(text) async {
     if (isSupportingOS()) {
-      if (text != null) {
+      if (text != null && text != "") {
         if (ttsState == TtsState.playing) {
           await stop();
         }

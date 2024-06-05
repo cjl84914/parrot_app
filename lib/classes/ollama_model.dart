@@ -9,11 +9,10 @@ import 'package:langchain/langchain.dart';
 import 'package:langchain_ollama/langchain_ollama.dart';
 import 'package:parrot/classes/large_language_model.dart';
 import 'package:parrot/static/logger.dart';
-import 'package:maid_llm/maid_llm.dart';
 import 'package:network_info_plus/network_info_plus.dart';
+import 'package:parrot/ui/mobile/widgets/llm/chat_node.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 class OllamaModel extends LargeLanguageModel {
   @override

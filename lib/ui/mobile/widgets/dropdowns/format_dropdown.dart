@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:parrot/classes/llama_cpp_model.dart';
 import 'package:parrot/providers/session.dart';
+import 'package:parrot/ui/mobile/widgets/llm/gpt_params.dart';
 import 'package:provider/provider.dart';
-import 'package:maid_llm/maid_llm.dart';
 
 class FormatDropdown extends StatelessWidget {
   const FormatDropdown({super.key});

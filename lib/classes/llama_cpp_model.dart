@@ -7,7 +7,10 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:parrot/classes/large_language_model.dart';
 import 'package:parrot/static/logger.dart';
-import 'package:maid_llm/maid_llm.dart';
+import 'package:parrot/ui/mobile/widgets/llm/chat_node.dart';
+import 'package:parrot/ui/mobile/widgets/llm/gpt_params.dart';
+import 'package:parrot/ui/mobile/widgets/llm/maid_llm.dart';
+import 'package:parrot/ui/mobile/widgets/llm/sampling_params.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LlamaCppModel extends LargeLanguageModel {

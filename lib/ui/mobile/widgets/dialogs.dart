@@ -1,9 +1,13 @@
-  
+import 'dart:core';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:provider/provider.dart';
 
-void storageOperationDialog(BuildContext context, Future<String> Function(BuildContext context) storageFunction) {
+void storageOperationDialog(BuildContext context,
+    Future<String> Function(BuildContext context) storageFunction) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -12,10 +16,7 @@ void storageOperationDialog(BuildContext context, Future<String> Function(BuildC
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return AlertDialog(
-              title: Text(
-                snapshot.data!,
-                textAlign: TextAlign.center
-              ),
+              title: Text(snapshot.data!, textAlign: TextAlign.center),
               actionsAlignment: MainAxisAlignment.center,
               actions: [
                 FilledButton(
@@ -30,15 +31,12 @@ void storageOperationDialog(BuildContext context, Future<String> Function(BuildC
             );
           } else {
             return const AlertDialog(
-              title: Text(
-                "Storage Operation Pending",
-                textAlign: TextAlign.center
-              ),
-              content: Center(
-                heightFactor: 1.0,
-                child: CircularProgressIndicator(),
-              )
-            );
+                title: Text("Storage Operation Pending",
+                    textAlign: TextAlign.center),
+                content: Center(
+                  heightFactor: 1.0,
+                  child: CircularProgressIndicator(),
+                ));
           }
         },
       );
@@ -53,24 +51,93 @@ void showMissingRequirementsDialog(BuildContext context) {
       final requirement = context.read<Session>().model.missingRequirements;
 
       return AlertDialog(
-        title: const Text(
-          "请按照提示操作",
-          textAlign: TextAlign.center
-        ),
+        title: const Text("请按照提示操作", textAlign: TextAlign.center),
         actionsAlignment: MainAxisAlignment.center,
-        content: Text(
-          requirement.join()
-        ),
+        content: Text(requirement.join()),
         actions: [
           FilledButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text(
               "OK",
-              style: Theme.of(context).textTheme.labelLarge
             ),
           ),
         ],
       );
     },
   );
+}
+
+void showTranslateTextDialog(BuildContext context, String content) async {
+  final onDeviceTranslator = OnDeviceTranslator(
+      sourceLanguage: TranslateLanguage.english,
+      targetLanguage: TranslateLanguage.chinese);
+  final String response = await onDeviceTranslator.translateText(content);
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        actionsAlignment: MainAxisAlignment.center,
+        content: SingleChildScrollView(child: SelectableText("$content\n\n$response")),
+        actions: [
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text(
+              "Close",
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+void showSmartReplyDialog(BuildContext context, String content) async {
+  String translateText = "";
+  showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+            actionsAlignment: MainAxisAlignment.center,
+            scrollable: true,
+            content: SingleChildScrollView(
+                child: FutureBuilder(
+                    future: context.read<Session>().getTips(),
+                    builder: (c, AsyncSnapshot s) {
+                      if (s.data == null) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else {
+                        return Column(children: [
+                            SelectableText(s.data),
+                      Visibility(
+                      visible: Platform.isIOS || Platform.isAndroid,
+                      child: StatefulBuilder(builder: (c, setState) {
+                            return translateText == ""
+                                ? IconButton(
+                                    onPressed: () async {
+                                      final onDeviceTranslator =
+                                          OnDeviceTranslator(
+                                              sourceLanguage:
+                                                  TranslateLanguage.english,
+                                              targetLanguage:
+                                                  TranslateLanguage.chinese);
+                                      translateText = await onDeviceTranslator
+                                          .translateText(s.data);
+                                      setState(() {});
+                                    },
+                                    icon: const Icon(Icons.translate, size: 18),
+                                  )
+                                : Text(translateText);
+                          }))
+                        ]);
+                      }
+                    })),
+            actions: [
+              FilledButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text(
+                  "Close",
+                ),
+              ),
+            ]);
+      });
 }

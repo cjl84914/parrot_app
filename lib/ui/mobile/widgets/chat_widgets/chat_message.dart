@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/tts.dart';
 import 'package:parrot/ui/mobile/widgets/code_box.dart';
@@ -5,8 +7,8 @@ import 'package:parrot/ui/mobile/widgets/dialogs.dart';
 import 'package:parrot/providers/character.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:parrot/providers/user.dart';
-import 'package:maid_llm/maid_llm.dart';
 import 'package:parrot/ui/mobile/widgets/future_avatar.dart';
+import 'package:parrot/ui/mobile/widgets/llm/chat_node.dart';
 import 'package:parrot/ui/mobile/widgets/typing_indicator.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +50,9 @@ class _ChatMessageState extends State<ChatMessage>
       }
     }
 
-    return Column(
+    return
+
+      Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: widgets,
     );
@@ -81,10 +85,22 @@ class _ChatMessageState extends State<ChatMessage>
                   fontWeight: FontWeight.normal,
                   color: Color.fromARGB(255, 226, 86, 61),
                   // This color is needed, but it will be overridden by the shader.
-                  fontSize: 20,
+                  fontSize: 14,
                 ),
               ),
-              const Expanded(child: SizedBox()), // Spacer
+              const Expanded(child: SizedBox()),
+            ],
+          ),
+          Padding(
+              // left padding 30 right 10
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: editing ? editingColumn() : standardColumn(),
+              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
               if (node.finalised) ...messageOptions(),
               Row(
                 mainAxisSize: MainAxisSize.max,
@@ -115,13 +131,6 @@ class _ChatMessageState extends State<ChatMessage>
               )
             ],
           ),
-          Padding(
-              // left padding 30 right 10
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: editing ? editingColumn() : standardColumn(),
-              ))
         ]);
       },
     );
@@ -145,7 +154,7 @@ class _ChatMessageState extends State<ChatMessage>
             });
           }
         },
-        icon: const Icon(Icons.edit),
+        icon: const Icon(Icons.edit, size: 18),
       ),
     ];
   }
@@ -161,10 +170,25 @@ class _ChatMessageState extends State<ChatMessage>
             context.read<TTS>().speak(node.content);
           }
         },
-        icon: Icon(ttsState == TtsState.playing
-            ? Icons.stop
-            : Icons.play_arrow),
+        icon: Icon(ttsState == TtsState.playing ? Icons.stop : Icons.play_arrow,
+            size: 18),
       ),
+      Visibility(
+          visible: Platform.isIOS || Platform.isAndroid,
+          child:
+      IconButton(
+        onPressed: () {
+          showTranslateTextDialog(context, node.content);
+        },
+        icon: const Icon(Icons.translate, size: 18),
+      )),
+      IconButton(
+        onPressed: () {
+          showSmartReplyDialog(context, node.content);
+        },
+        icon: const Icon(Icons.tips_and_updates_outlined, size: 18),
+      ),
+      const Expanded(child: SizedBox()),
       IconButton(
         onPressed: () {
           if (!context.read<Session>().chat.tail.finalised) return;
@@ -176,7 +200,7 @@ class _ChatMessageState extends State<ChatMessage>
             setState(() {});
           }
         },
-        icon: const Icon(Icons.refresh),
+        icon: const Icon(Icons.refresh, size: 18),
       ),
     ];
   }
@@ -199,9 +223,9 @@ class _ChatMessageState extends State<ChatMessage>
         keyboardType: TextInputType.multiline,
       ),
       Row(children: [
-        IconButton(
-            padding: const EdgeInsets.all(0),
-            onPressed: () {
+        InkWell
+        (
+            onTap: () {
               if (!context.read<Session>().chat.tail.finalised) return;
 
               if (context
@@ -219,15 +243,16 @@ class _ChatMessageState extends State<ChatMessage>
                     .edit(node.key, messageController.text, context);
               }
             },
-            icon: const Icon(Icons.done)),
-        IconButton(
-            padding: const EdgeInsets.all(0),
-            onPressed: () {
+            child: const Icon(Icons.done)),
+        const SizedBox(width: 16),
+        InkWell
+          (
+            onTap: () {
               setState(() {
                 editing = false;
               });
             },
-            icon: const Icon(Icons.close))
+            child: const Icon(Icons.close))
       ])
     ];
   }

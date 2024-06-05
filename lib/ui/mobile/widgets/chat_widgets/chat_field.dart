@@ -1,13 +1,11 @@
 import 'dart:io';
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:parrot/providers/tts.dart';
 import 'package:parrot/ui/mobile/widgets/dialogs.dart';
-import 'package:maid_llm/src/chat_node.dart';
 import 'package:parrot/classes/large_language_model.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:parrot/static/logger.dart';
+import 'package:parrot/ui/mobile/widgets/llm/chat_node.dart';
 import 'package:provider/provider.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
