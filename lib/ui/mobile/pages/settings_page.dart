@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/character.dart';
 import 'package:parrot/providers/session.dart';
@@ -22,8 +23,10 @@ class _SettingsPageState extends State<SettingsPage> {
   static int ram = -1;
   @override
   void initState() {
-    if(!Platform.isIOS){
-      ram = SysInfo.getTotalPhysicalMemory() ~/ (1024 * 1024 * 1024);
+    if(!kIsWeb) {
+      if (!Platform.isIOS) {
+        ram = SysInfo.getTotalPhysicalMemory() ~/ (1024 * 1024 * 1024);
+      }
     }
     super.initState();
   }

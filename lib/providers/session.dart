@@ -102,6 +102,9 @@ class Session extends ChangeNotifier {
       case LargeLanguageModelType.baidu:
         switchBaiduAI();
         break;
+      case LargeLanguageModelType.gemini:
+        switchGemini();
+        break;
       default:
         switchBaiduAI();
         break;

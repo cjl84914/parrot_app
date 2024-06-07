@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:parrot/ui/mobile/widgets/dialogs.dart';
 import 'package:parrot/classes/large_language_model.dart';
@@ -22,27 +23,27 @@ class _ChatFieldState extends State<ChatField> {
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid
-        // || Platform.isIOS
-    ) {
-      // For sharing or opening text coming from outside the app while the app is in the memory
-      _intentDataStreamSubscription =
-          ReceiveSharingIntent.instance.getMediaStream().listen((value) {
-        setState(() {
-          _promptController.text = value.first.path;
-        });
-      }, onError: (err) {
-        Logger.log("Error: $err");
-      });
+    if (!kIsWeb) {
+      if (Platform.isAndroid) {
+        // For sharing or opening text coming from outside the app while the app is in the memory
+        _intentDataStreamSubscription =
+            ReceiveSharingIntent.instance.getMediaStream().listen((value) {
+              setState(() {
+                _promptController.text = value.first.path;
+              });
+            }, onError: (err) {
+              Logger.log("Error: $err");
+            });
 
-      // For sharing or opening text coming from outside the app while the app is closed
-      ReceiveSharingIntent.instance.getInitialMedia().then((value) {
-        if(value.isNotEmpty) {
-          setState(() {
-            _promptController.text = value.first.path;
-          });
-        }
-      });
+        // For sharing or opening text coming from outside the app while the app is closed
+        ReceiveSharingIntent.instance.getInitialMedia().then((value) {
+          if (value.isNotEmpty) {
+            setState(() {
+              _promptController.text = value.first.path;
+            });
+          }
+        });
+      }
     }
   }
 
@@ -53,8 +54,10 @@ class _ChatFieldState extends State<ChatField> {
   }
 
   void send() async {
-    if (Platform.isAndroid || Platform.isIOS) {
-      FocusScope.of(context).unfocus();
+    if(!kIsWeb) {
+      if (Platform.isAndroid || Platform.isIOS) {
+        FocusScope.of(context).unfocus();
+      }
     }
 
     final session = context.read<Session>();

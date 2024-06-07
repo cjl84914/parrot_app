@@ -43,39 +43,39 @@ class _UserTileState extends State<UserTile> {
   }
 
   void onPressed() {
-    final RenderBox renderBox = iconButtonKey.currentContext!.findRenderObject() as RenderBox;
+    final RenderBox renderBox =
+        iconButtonKey.currentContext!.findRenderObject() as RenderBox;
     final Offset offset = renderBox.localToGlobal(Offset.zero);
     final Size size = renderBox.size;
 
     showMenu(
-      context: context,
-      position: RelativeRect.fromLTRB(
-        offset.dx,
-        offset.dy + size.height,
-        offset.dx,
-        offset.dy,
-      ),
-      items: [
-        PopupMenuItem(
-          child: ListTile(
-            title: const Text("改名"),
-            onTap: () {
-              Navigator.pop(context); // Close the menu first
-              showRenameDialog(context);
-            },
-          ),
+        context: context,
+        position: RelativeRect.fromLTRB(
+          offset.dx,
+          offset.dy + size.height,
+          offset.dx,
+          offset.dy,
         ),
-        PopupMenuItem(
-          child: ListTile(
-            title: const Text("更改照片"),
-            onTap: () {
-              Navigator.pop(context); // Close the menu first
-              showImageDialog(context);
-            },
+        items: [
+          PopupMenuItem(
+            child: ListTile(
+              title: const Text("改名"),
+              onTap: () {
+                Navigator.pop(context); // Close the menu first
+                showRenameDialog(context);
+              },
+            ),
           ),
-        ),
-      ]
-    );
+          PopupMenuItem(
+            child: ListTile(
+              title: const Text("更改照片"),
+              onTap: () {
+                Navigator.pop(context); // Close the menu first
+                showImageDialog(context);
+              },
+            ),
+          ),
+        ]);
   }
 
   void showRenameDialog(BuildContext context) {
@@ -132,28 +132,29 @@ class _UserTileState extends State<UserTile> {
                 "Change Profile Picture",
                 textAlign: TextAlign.center,
               ),
-              content: GridView(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                ),
-                shrinkWrap: true,
-                children: [
-                  ImageSelectorTile(
-                    image: Utilities.fileFromAssetImage("chadUser.png")
-                  ),
-                  ImageSelectorTile(
-                    image: Utilities.fileFromAssetImage("thadUser.png")
-                  ),
-                  ImageSelectorTile(
-                    image: Utilities.fileFromAssetImage("eugeneUser.png")
-                  ),
-                  ImageSelectorTile(
-                    image: User.customImageFuture
-                  ),
-                ]
-              ),
+              content: Container(
+                  height: 300,
+                  width: 300,
+                  child: GridView(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                      ),
+                      shrinkWrap: true,
+                      children: [
+                        ImageSelectorTile(
+                            image:
+                                Utilities.fileFromAssetImage("chadUser.png")),
+                        ImageSelectorTile(
+                            image:
+                                Utilities.fileFromAssetImage("thadUser.png")),
+                        ImageSelectorTile(
+                            image:
+                                Utilities.fileFromAssetImage("eugeneUser.png")),
+                        ImageSelectorTile(image: User.customImageFuture),
+                      ])),
               actions: [
                 FilledButton(
                   onPressed: user.loadImage,
@@ -165,7 +166,6 @@ class _UserTileState extends State<UserTile> {
                   onPressed: () => Navigator.of(context).pop(),
                   child: Text(
                     "Close",
-                    style: Theme.of(context).textTheme.labelLarge,
                   ),
                 ),
               ],

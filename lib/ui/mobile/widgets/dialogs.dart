@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 import 'package:parrot/providers/session.dart';
@@ -71,13 +72,23 @@ void showTranslateTextDialog(BuildContext context, String content) async {
   final onDeviceTranslator = OnDeviceTranslator(
       sourceLanguage: TranslateLanguage.english,
       targetLanguage: TranslateLanguage.chinese);
-  final String response = await onDeviceTranslator.translateText(content);
   showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
         actionsAlignment: MainAxisAlignment.center,
-        content: SingleChildScrollView(child: SelectableText("$content\n\n$response")),
+        content: SingleChildScrollView(
+            child: FutureBuilder(
+                future: onDeviceTranslator.translateText(content),
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  if (snapshot.data == null) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else {
+                    var response = snapshot.data;
+                    return SelectableText("$content\n\n$response");
+                  }
+                })),
         actions: [
           FilledButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -107,27 +118,34 @@ void showSmartReplyDialog(BuildContext context, String content) async {
                         return const Center(child: CircularProgressIndicator());
                       } else {
                         return Column(children: [
-                            SelectableText(s.data),
-                      Visibility(
-                      visible: Platform.isIOS || Platform.isAndroid,
-                      child: StatefulBuilder(builder: (c, setState) {
-                            return translateText == ""
-                                ? IconButton(
-                                    onPressed: () async {
-                                      final onDeviceTranslator =
-                                          OnDeviceTranslator(
-                                              sourceLanguage:
-                                                  TranslateLanguage.english,
-                                              targetLanguage:
-                                                  TranslateLanguage.chinese);
-                                      translateText = await onDeviceTranslator
-                                          .translateText(s.data);
-                                      setState(() {});
-                                    },
-                                    icon: const Icon(Icons.translate, size: 18),
-                                  )
-                                : Text(translateText);
-                          }))
+                          SelectableText(s.data),
+                          !kIsWeb
+                              ? Visibility(
+                                  visible: Platform.isIOS || Platform.isAndroid,
+                                  child:
+                                      StatefulBuilder(builder: (c, setState) {
+                                    return translateText == ""
+                                        ? IconButton(
+                                            onPressed: () async {
+                                              final onDeviceTranslator =
+                                                  OnDeviceTranslator(
+                                                      sourceLanguage:
+                                                          TranslateLanguage
+                                                              .english,
+                                                      targetLanguage:
+                                                          TranslateLanguage
+                                                              .chinese);
+                                              translateText =
+                                                  await onDeviceTranslator
+                                                      .translateText(s.data);
+                                              setState(() {});
+                                            },
+                                            icon: const Icon(Icons.translate,
+                                                size: 18),
+                                          )
+                                        : Text(translateText);
+                                  }))
+                              : Container()
                         ]);
                       }
                     })),

@@ -45,7 +45,7 @@ class _ModelSettingPageState extends State<ModelSettingPage> {
             case LargeLanguageModelType.baidu:
               return const BaiduAiPage();
             default:
-              return const BaiduAiPage();
+              return Container();
           }
         }));
   }

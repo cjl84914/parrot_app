@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/tts.dart';
 import 'package:parrot/ui/mobile/widgets/code_box.dart';
@@ -173,7 +174,7 @@ class _ChatMessageState extends State<ChatMessage>
         icon: Icon(ttsState == TtsState.playing ? Icons.stop : Icons.play_arrow,
             size: 18),
       ),
-      Visibility(
+      !kIsWeb?Visibility(
           visible: Platform.isIOS || Platform.isAndroid,
           child:
       IconButton(
@@ -181,7 +182,7 @@ class _ChatMessageState extends State<ChatMessage>
           showTranslateTextDialog(context, node.content);
         },
         icon: const Icon(Icons.translate, size: 18),
-      )),
+      )):Container(),
       IconButton(
         onPressed: () {
           showSmartReplyDialog(context, node.content);

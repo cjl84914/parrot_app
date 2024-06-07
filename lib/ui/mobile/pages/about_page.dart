@@ -52,7 +52,7 @@ class _AboutPageState extends State<AboutPage> {
             Linkify(
                 onOpen: _onOpen,
                 text:
-                    '语鹦助手是一个跨平台的免费开源应用程序，是一个聊天和英语学习的工具。该项目基于Flutter开发，用于本地与llama.cpp模型接口，以及远程与Ollama、Mistral、Google Gemini和OpenAI模型接口。',
+                    '语鹦助手是一个跨平台的免费开源应用程序，是一个聊天和英语学习的工具。该项目基于Flutter开发，用于远程与Ollama、Mistral、Google Gemini和OpenAI模型接口。',
                 style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 30.0),
             Text(

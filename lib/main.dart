@@ -15,9 +15,9 @@ import 'package:flutter_baidu_mob_stat/fl_baidu_mob_stat_ys.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if(!kIsWeb) {
-    if (Platform.isAndroid && kReleaseMode) {
+    if ((Platform.isAndroid || Platform.isIOS) && kReleaseMode) {
       final bool key = await FlBaiduMobStatYs()
-          .setApiKey(androidKey: '2fa10b17dd', iosKey: '');
+          .setApiKey(androidKey: '2fa10b17dd', iosKey: '63183f3fc2');
       print('初始化是否成功：$key');
       await FlBaiduMobStatYs().setAppChannel("gitee");
     }
@@ -78,7 +78,7 @@ class ParrotAppState extends State<ParrotApp> {
     return Consumer<MainProvider>(
       builder: (context, mainProvider, child) {
         return MaterialApp(
-            debugShowCheckedModeBanner: kDebugMode,
+            debugShowCheckedModeBanner: false,
             title: '语鹦助手',
             theme: Themes.lightTheme(),
             darkTheme: Themes.darkTheme(),

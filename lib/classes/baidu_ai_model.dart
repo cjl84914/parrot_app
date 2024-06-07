@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:ui';
 import 'package:http/http.dart';
 import 'package:parrot/classes/large_language_model.dart';
@@ -46,8 +45,8 @@ class BaiduAiModel extends LargeLanguageModel {
 
   @override
   void fromMap(Map<String, dynamic> json) {
-    if (json['uri'] == null) json['uri'] = defaultUrl;
     super.fromMap(json);
+    uri = json['url'] ?? defaultUrl;
     notifyListeners();
   }
 
@@ -87,7 +86,6 @@ class BaiduAiModel extends LargeLanguageModel {
     final response = await request.send();
     final stream = response.stream.transform(utf8.decoder);
     await for (var line in stream) {
-      print(line);
       dynamic data;
       try {
         data = jsonDecode(line.replaceAll('data:', ''));
@@ -114,7 +112,7 @@ class BaiduAiModel extends LargeLanguageModel {
 
   @override
   Future<void> resetUri() async {
-    uri = '';
+    uri = defaultUrl;
     notifyListeners();
   }
 

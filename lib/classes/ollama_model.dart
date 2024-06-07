@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:lan_scanner/lan_scanner.dart';
 import 'package:langchain/langchain.dart';
@@ -99,6 +100,10 @@ class OllamaModel extends LargeLanguageModel {
     if (_ip.isNotEmpty && (await _checkIpForOllama(_ip)).isNotEmpty) {
       uri = 'http://$_ip:11434';
       notifyListeners();
+      return;
+    }
+
+    if(kIsWeb){
       return;
     }
 
@@ -256,9 +261,11 @@ class OllamaModel extends LargeLanguageModel {
   }
 
   Future<bool> _getNearbyDevicesPermission() async {
+    if(kIsWeb) {return true;}
     if (!Platform.isAndroid && !Platform.isIOS) {
       return true;
     }
+
     var permissions = <Permission>[]; // List of permissions to request
     if (Platform.isAndroid) {
       // Get sdk version
