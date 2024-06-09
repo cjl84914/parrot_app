@@ -20,6 +20,7 @@ class ChatField extends StatefulWidget {
 class _ChatFieldState extends State<ChatField> {
   final TextEditingController _promptController = TextEditingController();
   StreamSubscription? _intentDataStreamSubscription;
+
   @override
   void initState() {
     super.initState();
@@ -28,12 +29,12 @@ class _ChatFieldState extends State<ChatField> {
         // For sharing or opening text coming from outside the app while the app is in the memory
         _intentDataStreamSubscription =
             ReceiveSharingIntent.instance.getMediaStream().listen((value) {
-              setState(() {
-                _promptController.text = value.first.path;
-              });
-            }, onError: (err) {
-              Logger.log("Error: $err");
-            });
+          setState(() {
+            _promptController.text = value.first.path;
+          });
+        }, onError: (err) {
+          Logger.log("Error: $err");
+        });
 
         // For sharing or opening text coming from outside the app while the app is closed
         ReceiveSharingIntent.instance.getInitialMedia().then((value) {
@@ -54,7 +55,7 @@ class _ChatFieldState extends State<ChatField> {
   }
 
   void send() async {
-    if(!kIsWeb) {
+    if (!kIsWeb) {
       if (Platform.isAndroid || Platform.isIOS) {
         FocusScope.of(context).unfocus();
       }
@@ -62,17 +63,10 @@ class _ChatFieldState extends State<ChatField> {
 
     final session = context.read<Session>();
 
-    
-    session.chat.add(
-      UniqueKey(), 
-      content: _promptController.text.trim(), 
-      role: ChatRole.user
-    );
+    session.chat.add(UniqueKey(),
+        content: _promptController.text.trim(), role: ChatRole.user);
 
-    session.chat.add(
-      UniqueKey(),
-      role: ChatRole.assistant
-    );
+    session.chat.add(UniqueKey(), role: ChatRole.assistant);
 
     session.notify();
 
@@ -99,10 +93,21 @@ class _ChatFieldState extends State<ChatField> {
                     color: Colors.red,
                   )),
             Expanded(
+                child: KeyboardListener(
+              focusNode: FocusNode(),
+              onKeyEvent: (KeyEvent event) {
+                if(event.logicalKey.keyLabel=="Enter"){
+                  if (session.model.missingRequirements.isNotEmpty) {
+                    showMissingRequirementsDialog(context);
+                  } else if (session.chat.tail.finalised) {
+                    send();
+                  }
+                }
+              },
               child: TextField(
                 keyboardType: TextInputType.multiline,
                 minLines: 1,
-                maxLines: 9,
+                maxLines: 1,
                 enableInteractiveSelection: true,
                 controller: _promptController,
                 cursorColor: Theme.of(context).colorScheme.secondary,
@@ -111,20 +116,19 @@ class _ChatFieldState extends State<ChatField> {
                   hintStyle: Theme.of(context).textTheme.labelSmall,
                 ),
               ),
-            ),
+            )),
             IconButton(
                 onPressed: () {
                   if (session.model.missingRequirements.isNotEmpty) {
                     showMissingRequirementsDialog(context);
-                  }
-                  else if (session.chat.tail.finalised) {
+                  } else if (session.chat.tail.finalised) {
                     send();
                   }
                 },
                 iconSize: 50,
                 icon: Icon(
                   Icons.arrow_circle_right,
-                  color: !session.chat.tail.finalised 
+                  color: !session.chat.tail.finalised
                       ? Theme.of(context).colorScheme.onPrimary
                       : Theme.of(context).colorScheme.secondary,
                 )),

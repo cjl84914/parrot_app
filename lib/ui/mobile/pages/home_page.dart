@@ -118,8 +118,7 @@ class HomePageState extends State<HomePage> {
 
   _setStateAndMoreToListViewEnd() {
     try{
-          _consoleScrollController.animateTo(
-              _consoleScrollController.position.maxScrollExtent, duration: const Duration(seconds: 5), curve:  Curves.ease);
+      _consoleScrollController.jumpTo( _consoleScrollController.position.maxScrollExtent);
     }catch(e){
       if (kDebugMode) {
         print(e);
