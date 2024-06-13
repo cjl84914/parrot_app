@@ -33,7 +33,7 @@ class BaiduAiModel extends LargeLanguageModel {
     List<String> missing = [];
 
     if (token.isEmpty) {
-      missing.add('- 百度AI鉴权失败.\n');
+      missing.add('- 请输入API Key.\n');
     }
 
     if (name.isEmpty) {
@@ -75,39 +75,38 @@ class BaiduAiModel extends LargeLanguageModel {
           break;
       }
     }
-
-    final url = Uri.parse(
-        '$uri/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/$name?access_token=$token');
-    final headers = {'content-type': 'application/json'};
-    final body = {'messages': chat, 'stream': true};
-    var request = Request("POST", url)
-      ..headers.addAll(headers)
-      ..body = jsonEncode(body);
-    final response = await request.send();
-    final stream = response.stream.transform(utf8.decoder);
-    await for (var line in stream) {
-      dynamic data;
-      try {
-        data = jsonDecode(line.replaceAll('data:', ''));
-      } catch (e) {
-        Logger.log(e.toString());
-        continue;
-      }
-      final errorMsg = data['error_msg'];
-      if (errorMsg == null) {
-        final content = data['result'] as String?;
-        if (content != null && content.isNotEmpty) {
-          yield content;
+    try {
+      final url = Uri.parse(
+          '$uri/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/$name?access_token=$token');
+      final headers = {'content-type': 'application/json'};
+      final body = {'messages': chat, 'stream': true};
+      var request = Request("POST", url)
+        ..headers.addAll(headers)
+        ..body = jsonEncode(body);
+      final response = await request.send();
+      final stream = response.stream.transform(utf8.decoder);
+      await for (var line in stream) {
+        dynamic data = jsonDecode(line.replaceAll('data:', ''));
+        final errorMsg = data['error_msg'];
+        if (errorMsg == null) {
+          final content = data['result'] as String?;
+          if (content != null && content.isNotEmpty) {
+            yield content;
+          }
+        } else {
+          yield errorMsg;
+          Logger.log(errorMsg);
         }
-      } else {
-        Logger.log(errorMsg);
       }
+    } catch (e) {
+      yield e.toString();
+      Logger.log(e.toString());
     }
   }
 
   @override
   Future<List<String>> get options async {
-    return ["ernie_speed", "yi_34b_chat"];
+    return ["yi_34b_chat"];
   }
 
   @override

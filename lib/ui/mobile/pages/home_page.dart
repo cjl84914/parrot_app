@@ -117,11 +117,14 @@ class HomePageState extends State<HomePage> {
   }
 
   _setStateAndMoreToListViewEnd() {
-    try{
-      _consoleScrollController.jumpTo( _consoleScrollController.position.maxScrollExtent);
-    }catch(e){
-      if (kDebugMode) {
-        print(e);
+    if(mounted) {
+      try {
+        _consoleScrollController.jumpTo(
+            _consoleScrollController.position.maxScrollExtent);
+      } catch (e) {
+        // if (kDebugMode) {
+        //   print(e);
+        // }
       }
     }
   }

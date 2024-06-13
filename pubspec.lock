@@ -404,42 +404,42 @@ packages:
     dependency: "direct main"
     description:
       name: langchain
-      sha256: "0852c8025066083556907f8a9bdb8cb0dfa983540f548893f42f8ebb13da0dd6"
+      sha256: fb5ed87198a950cae12dc8efbb606cf96079e89df45df5596d54ea2b68acf766
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.5.0+1"
+    version: "0.7.2"
   langchain_core:
     dependency: transitive
     description:
       name: langchain_core
-      sha256: "5362a1cb9c019fdb7ea96956966876561871add368c7f5cb3470169bd6a17720"
+      sha256: ae65d1fb8039cddf21b462734735b8435d1fa7c63b6d392eefbfcd813b9a5f38
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.1.0"
+    version: "0.3.2"
   langchain_mistralai:
     dependency: "direct main"
     description:
       name: langchain_mistralai
-      sha256: "1ec23b9403346fda74963022fd497b436849f62e290c2e9684db6eb15db3bede"
+      sha256: "9543a13fd3e0b4ebd29c432b2e7caa81cf00fac7b4a7ed0956ba5c9e786a932a"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.1.0"
+    version: "0.2.1"
   langchain_ollama:
     dependency: "direct main"
     description:
       name: langchain_ollama
-      sha256: a2a0624022631ae16ad6ebd3a635768fedca24d55b2a76a4e6d8d1d03f8d65fa
+      sha256: dee949ddd12d57ce4ffff1d82586a1fbdc6340eaae3056efed36ad76a7139e69
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.1.0"
+    version: "0.2.2"
   langchain_openai:
     dependency: "direct main"
     description:
       name: langchain_openai
-      sha256: "9e187f3308f048d8f25465b0d7da90000833dc33c9eb3a089c8358574bda44f9"
+      sha256: "530f1f0c056d54f2abe8f17cb84c7f15b41a73121a128d0a98cbf8a7488a3a84"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.5.0+1"
+    version: "0.6.2"
   langchain_tiktoken:
     dependency: transitive
     description:
@@ -572,18 +572,18 @@ packages:
     dependency: transitive
     description:
       name: ollama_dart
-      sha256: "0af52c17a6dda9f6a30d79b9529bf38128d9b01dabd9d5f625040a32035eec24"
+      sha256: f951f01d299376706bc245c03710205a530c76a64a8458a282a6bbb2e30e2c63
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.3+1"
+    version: "0.1.1"
   openai_dart:
     dependency: transitive
     description:
       name: openai_dart
-      sha256: a9a07cadf2e91ecae6418b7ecc68352d4d71742f2eca199c023fb3be42a42265
+      sha256: ae2c220158084ed41d33cfe301e2852683042ec2843549117d527e4844d10054
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.2"
+    version: "0.3.3"
   package_config:
     dependency: transitive
     description:
@@ -760,6 +760,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.8.0"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.27.7"
   shared_preferences:
     dependency: "direct main"
     description:

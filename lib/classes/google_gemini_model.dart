@@ -71,6 +71,7 @@ class GoogleGeminiModel extends LargeLanguageModel {
         }
       }
     } catch (e) {
+      yield e.toString();
       Logger.log('Error: $e');
     }
   }

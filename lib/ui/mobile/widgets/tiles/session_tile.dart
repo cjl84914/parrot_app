@@ -7,7 +7,11 @@ class SessionTile extends StatefulWidget {
   final void Function() onDelete;
   final void Function(String) onRename;
 
-  const SessionTile({super.key, required this.session, required this.onDelete, required this.onRename});
+  const SessionTile(
+      {super.key,
+      required this.session,
+      required this.onDelete,
+      required this.onRename});
 
   @override
   State<SessionTile> createState() => _SessionTileState();
@@ -22,20 +26,24 @@ class _SessionTileState extends State<SessionTile> {
         if (displayMessage.length > 30) {
           displayMessage = '${displayMessage.substring(0, 30)}...';
         }
-
         return GestureDetector(
-          onSecondaryTapUp: onSecondaryTapUp,
-          onLongPressStart: onLongPressStart,
-          onTap: () {
-            if (!session.chat.tail.finalised) return;
-            session.from(widget.session);
-          },
-          child: ListTile(
+            onLongPressStart: onLongPressStart,
+            child: ListTile(
+              onTap: () {
+                if (!session.chat.tail.finalised) return;
+                session.from(widget.session);
+                Navigator.pop(context);
+              },
               title: Text(
-            displayMessage,
-            style: Theme.of(context).textTheme.labelLarge,
-          )),
-        );
+                displayMessage,
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+              subtitle: Text(
+                widget.session.model.name,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(color: Colors.grey, fontSize: 14),
+              )
+            ));
       },
     );
   }
@@ -59,11 +67,11 @@ class _SessionTileState extends State<SessionTile> {
       items: <PopupMenuEntry>[
         PopupMenuItem(
           onTap: widget.onDelete,
-          child: const Text('Delete'),
+          child: const Text('删除'),
         ),
         PopupMenuItem(
           onTap: showRenameDialog,
-          child: const Text('Rename'),
+          child: const Text('更改'),
         ),
       ],
     );
@@ -78,20 +86,20 @@ class _SessionTileState extends State<SessionTile> {
       builder: (context) {
         return AlertDialog(
           title: const Text(
-            "Rename Session",
+            "对话名称",
             textAlign: TextAlign.center,
           ),
           content: TextField(
             controller: controller,
             decoration: const InputDecoration(
-              hintText: "Enter new name",
+              hintText: "请输入名称",
             ),
           ),
           actions: [
             FilledButton(
               onPressed: () => Navigator.of(context).pop(),
               child: Text(
-                "Cancel",
+                "取消",
               ),
             ),
             FilledButton(
@@ -101,7 +109,7 @@ class _SessionTileState extends State<SessionTile> {
                 Navigator.of(context).pop();
               },
               child: Text(
-                "Rename",
+                "确认",
               ),
             ),
           ],

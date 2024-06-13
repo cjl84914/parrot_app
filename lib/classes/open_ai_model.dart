@@ -16,7 +16,7 @@ class OpenAiModel extends LargeLanguageModel {
   LargeLanguageModelType get type => LargeLanguageModelType.openAI;
 
   OpenAiModel({
-    super.listener, 
+    super.listener,
     super.name,
     super.uri = defaultUrl,
     super.token,
@@ -50,16 +50,16 @@ class OpenAiModel extends LargeLanguageModel {
 
     if (name.isEmpty) {
       missing.add('- A model option is required for prompting.\n');
-    } 
-    
+    }
+
     if (uri.isEmpty) {
       missing.add('- A compatible URL is required for prompting.\n');
     }
 
     if (uri == defaultUrl && token.isEmpty) {
       missing.add('- An authentication token is required for prompting.\n');
-    } 
-    
+    }
+
     return missing;
   }
 
@@ -102,14 +102,18 @@ class OpenAiModel extends LargeLanguageModel {
         )
       );
 
-      final stream = chat.stream(PromptValue.chat(chatMessages));
+      final aiMsg = await chat.invoke(PromptValue.chat(chatMessages));
+      yield aiMsg.toString();
+      // final stream = chat.stream(PromptValue.chat(chatMessages));
+      // yield* stream.map((final res) => res.output.content);
 
-      yield* stream.map((final res) => res.output.content);
     } catch (e) {
+      final exception = e as OpenAIClientException;
+      yield exception.toString();
       Logger.log('Error: $e');
     }
   }
-  
+
   @override
   Future<List<String>> get options async {
     try {
@@ -123,7 +127,7 @@ class OpenAiModel extends LargeLanguageModel {
 
       final request = Request("GET", url)
         ..headers.addAll(headers);
-      
+
       final response = await request.send();
 
       if (response.statusCode == 200) {
@@ -139,7 +143,7 @@ class OpenAiModel extends LargeLanguageModel {
             .where((model) => model['id'].contains('gpt-3.5') || model['id'].contains('gpt-4'))
             .map((model) => model['id'] as String)
             .toList();
-          } 
+          }
           else {
             return models
             .map((model) => model['id'] as String)
@@ -156,7 +160,7 @@ class OpenAiModel extends LargeLanguageModel {
       return [];
     }
   }
-  
+
   @override
   Future<void> resetUri() async {
     uri = defaultUrl;

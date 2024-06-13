@@ -226,6 +226,7 @@ class OllamaModel extends LargeLanguageModel {
 
       yield* stream.map((final res) => res.output.content);
     } catch (e) {
+      yield e.toString();
       Logger.log('Error: $e');
     }
   }

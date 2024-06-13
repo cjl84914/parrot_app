@@ -26,6 +26,9 @@ class _ModelButtonState extends State<ModelButton> {
           ),
           Builder(builder: (c) {
             lastModelType = session.model.type;
+            if(session.model.options==null){
+              return Container();
+            }
             return FutureBuilder(
                 future: session.model.options,
                 builder: (context, snapshot) {
@@ -52,6 +55,7 @@ class _ModelButtonState extends State<ModelButton> {
                       onSelected: (value) {
                         if (value != null) {
                           session.model.name = value;
+                          session.notify();
                         }
                       },
                       initialSelection: session.model.name,

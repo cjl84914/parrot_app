@@ -7,6 +7,8 @@
 
    <img src="./assets/ui.jpg" width="200" >
 
+<a href="https://www.bilibili.com/video/BV1bZ421u7V7/?share_source=copy_web&vd_source=456a4760536816952cff18d98169c64e" target="_blank">【B站演示：AI外教免费陪聊？】 </a>
+
 ## 🚀 快速开始
 
 ### 前提条件
@@ -44,7 +46,10 @@
 - [x] 语音朗读
 - [x] 中英翻译
 - [x] 英文对话提示
-- [ ] 测试各平台可用（已测试Android, Windows, Macos）
+- [x] 英文对话提示
+- [x] 多个对话
+- [ ] 优化UI和UX
+- [ ] 测试各平台可用（已测试Android, Windows, Macos, Web）
 
 ## 📘 文档
 

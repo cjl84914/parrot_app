@@ -55,7 +55,7 @@ class Session extends ChangeNotifier {
   }
 
   void newSession() {
-    name = "New Chat";
+    name = "新的对话";
     chat = ChatNodeTree();
     model = LargeLanguageModel(listener: notify);
     notifyListeners();

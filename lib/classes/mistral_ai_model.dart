@@ -81,9 +81,9 @@ class MistralAiModel extends LargeLanguageModel {
       );
 
       final stream = chat.stream(PromptValue.chat(chatMessages));
-
       yield* stream.map((final res) => res.output.content);
     } catch (e) {
+      yield e.toString();
       Logger.log('Error: $e');
     }
   }

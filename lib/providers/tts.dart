@@ -41,16 +41,18 @@ class TTS with ChangeNotifier {
     prefs = await SharedPreferences.getInstance();
     flutterTts = FlutterTts();
     _setAwaitOptions();
-    if (Platform.isIOS) {
-      await flutterTts.setSharedInstance(true);
-      await flutterTts.setIosAudioCategory(
-          IosTextToSpeechAudioCategory.playback,
-          [
-            IosTextToSpeechAudioCategoryOptions.allowBluetooth,
-            IosTextToSpeechAudioCategoryOptions.allowBluetoothA2DP,
-            IosTextToSpeechAudioCategoryOptions.mixWithOthers
-          ],
-          IosTextToSpeechAudioMode.voicePrompt);
+    if(!kIsWeb) {
+      if (Platform.isIOS) {
+        await flutterTts.setSharedInstance(true);
+        await flutterTts.setIosAudioCategory(
+            IosTextToSpeechAudioCategory.playback,
+            [
+              IosTextToSpeechAudioCategoryOptions.allowBluetooth,
+              IosTextToSpeechAudioCategoryOptions.allowBluetoothA2DP,
+              IosTextToSpeechAudioCategoryOptions.mixWithOthers
+            ],
+            IosTextToSpeechAudioMode.voicePrompt);
+      }
     }
     flutterTts.setStartHandler(() {
       ttsState = TtsState.playing;
