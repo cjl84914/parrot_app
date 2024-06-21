@@ -3,7 +3,7 @@
 
 ## 📌 项目概述
 
-语鹦助手是一个跨平台的免费开源应用程序，是一个聊天和英语学习的工具。该项目基于Flutter开发，用于本地与llama.cpp模型接口，以及远程与百度AI、Ollama、Mistral、Google Gemini和OpenAI模型接口。
+语鹦助手是一个跨平台的免费开源应用程序，是一个聊天和英语学习的工具。该项目基于Flutter开发，用于本地与llama.cpp模型接口，以及远程与智谱AI、百度AI、Ollama、Mistral、Google Gemini和OpenAI模型接口。
 
    <img src="./assets/ui.jpg" width="200" >
 
@@ -46,8 +46,8 @@
 - [x] 语音朗读
 - [x] 中英翻译
 - [x] 英文对话提示
-- [x] 英文对话提示
 - [x] 多个对话
+- [x] 对接智谱AI
 - [ ] 优化UI和UX
 - [ ] 测试各平台可用（已测试Android, Windows, Macos, Web）
 
@@ -74,7 +74,9 @@
   curl 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=[API Key]&client_secret=[Secret Key]'
   ```
   4.  在APP修改API key: [access_token]
- 
+  
+- ### 如何连接智谱AI
+待补充...
 - ### 如何连接OpenAI（中国地区不能使用）
   待补充...
 - ### 如何连接Gemini（中国地区不能使用）

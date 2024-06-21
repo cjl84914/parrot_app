@@ -10,7 +10,7 @@ class BaiduAiModel extends LargeLanguageModel {
   static const String defaultUrl = 'https://aip.baidubce.com';
 
   @override
-  LargeLanguageModelType get type => LargeLanguageModelType.baidu;
+  LargeLanguageModelType get type => LargeLanguageModelType.baiduAI;
 
   BaiduAiModel(
       {super.listener,
@@ -106,7 +106,7 @@ class BaiduAiModel extends LargeLanguageModel {
 
   @override
   Future<List<String>> get options async {
-    return ["yi_34b_chat"];
+    return ["yi_34b_chat","ernie-lite-8k","ernie_speed", "ernie-tiny-8k"];
   }
 
   @override

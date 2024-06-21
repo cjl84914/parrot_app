@@ -8,6 +8,7 @@ import 'package:parrot/classes/llama_cpp_model.dart';
 import 'package:parrot/classes/mistral_ai_model.dart';
 import 'package:parrot/classes/ollama_model.dart';
 import 'package:parrot/classes/open_ai_model.dart';
+import 'package:parrot/classes/zhipu_ai_model.dart';
 import 'package:parrot/providers/character.dart';
 import 'package:parrot/providers/tts.dart';
 import 'package:parrot/providers/user.dart';
@@ -99,7 +100,7 @@ class Session extends ChangeNotifier {
       case LargeLanguageModelType.mistralAI:
         switchMistralAI();
         break;
-      case LargeLanguageModelType.baidu:
+      case LargeLanguageModelType.baiduAI:
         switchBaiduAI();
         break;
       case LargeLanguageModelType.gemini:
@@ -309,6 +310,23 @@ class Session extends ChangeNotifier {
       model = BaiduAiModel.fromMap(notify, lastBaidu);
     } else {
       model = BaiduAiModel(listener: notify);
+    }
+
+    prefs.setInt("llm_type", model.type.index);
+    notifyListeners();
+  }
+
+  void switchZhiPuAI() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    Map<String, dynamic> lastBaidu =
+    json.decode(prefs.getString("zhipu_ai_model") ?? "{}");
+    Logger.log(lastBaidu.toString());
+
+    if (lastBaidu.isNotEmpty) {
+      model = ZhiPuAiModel.fromMap(notify, lastBaidu);
+    } else {
+      model = ZhiPuAiModel(listener: notify);
     }
 
     prefs.setInt("llm_type", model.type.index);

@@ -3,10 +3,10 @@ import 'package:parrot/classes/large_language_model.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:parrot/ui/mobile/pages/platforms/baiduai_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/gemini_page.dart';
-import 'package:parrot/ui/mobile/pages/platforms/llama_cpp_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/mistralai_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/ollama_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/openai_page.dart';
+import 'package:parrot/ui/mobile/pages/platforms/zhipuai_page.dart';
 import 'package:parrot/ui/mobile/widgets/dropdowns/llm_dropdown.dart';
 import 'package:provider/provider.dart';
 
@@ -42,8 +42,10 @@ class _ModelSettingPageState extends State<ModelSettingPage> {
               return const MistralAiPage();
             case LargeLanguageModelType.gemini:
               return const GoogleGeminiPage();
-            case LargeLanguageModelType.baidu:
+            case LargeLanguageModelType.baiduAI:
               return const BaiduAiPage();
+            case LargeLanguageModelType.ZhiPuAI:
+              return const ZhiPuAiPage();
             default:
               return Container();
           }

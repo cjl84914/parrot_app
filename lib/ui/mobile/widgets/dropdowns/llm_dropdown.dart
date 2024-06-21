@@ -24,12 +24,12 @@ class LlmDropdown extends StatelessWidget {
               .srcIn, // This blend mode applies the shader to the text color.
           child: DropdownMenu<LargeLanguageModelType>(
               dropdownMenuEntries: const [
-                // DropdownMenuEntry<LargeLanguageModelType>(
-                //   value: LargeLanguageModelType.llamacpp,
-                //   label: "LlamaCPP",
-                // ),
                 DropdownMenuEntry<LargeLanguageModelType>(
-                  value: LargeLanguageModelType.baidu,
+                  value: LargeLanguageModelType.ZhiPuAI,
+                  label: "ZhiPuAI",
+                ),
+                DropdownMenuEntry<LargeLanguageModelType>(
+                  value: LargeLanguageModelType.baiduAI,
                   label: "BaiduAI",
                 ),
                 DropdownMenuEntry<LargeLanguageModelType>(
@@ -48,6 +48,10 @@ class LlmDropdown extends StatelessWidget {
                   value: LargeLanguageModelType.mistralAI,
                   label: "MistralAI",
                 ),
+                // DropdownMenuEntry<LargeLanguageModelType>(
+                //   value: LargeLanguageModelType.llamacpp,
+                //   label: "LlamaCPP",
+                // ),
               ],
               onSelected: (LargeLanguageModelType? value) {
                 if (value != null) {
@@ -67,8 +71,11 @@ class LlmDropdown extends StatelessWidget {
                     case LargeLanguageModelType.gemini:
                       session.switchGemini();
                       break;
-                    case LargeLanguageModelType.baidu:
+                    case LargeLanguageModelType.baiduAI:
                       session.switchBaiduAI();
+                      break;
+                    case LargeLanguageModelType.ZhiPuAI:
+                      session.switchZhiPuAI();
                       break;
                     default:
                       break;

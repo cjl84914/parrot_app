@@ -113,6 +113,8 @@ class OllamaModel extends LargeLanguageModel {
     }
 
     final localIP = await NetworkInfo().getWifiIP();
+    if(localIP==null){
+    }
 
     // Get the first 3 octets of the local IP
     final baseIP = ipToCSubnet(localIP ?? '');
