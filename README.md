@@ -13,7 +13,7 @@
 
 ### 前提条件
 
-- [操作系统要求]（Android、Windows、macOS、Linux、iOS(开发中)）
+- [操作系统要求]（Android、Windows、macOS、Linux、iOS）
 - [必要的软件或库]（Flutter 3.16+）
 
 ### 安装步骤
@@ -48,8 +48,9 @@
 - [x] 英文对话提示
 - [x] 多个对话
 - [x] 对接智谱AI
+- [ ] 对接零一万物AI、月之暗面AI、通义千问AI
 - [ ] 优化UI和UX
-- [ ] 测试各平台可用（已测试Android, Windows, Macos, Web）
+- [ ] 测试各平台可用（已测试Android、iOS、Windows、Macos、Web）
 
 ## 📘 文档
 

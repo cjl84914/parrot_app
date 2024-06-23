@@ -25,13 +25,21 @@ class LlmDropdown extends StatelessWidget {
           child: DropdownMenu<LargeLanguageModelType>(
               dropdownMenuEntries: const [
                 DropdownMenuEntry<LargeLanguageModelType>(
-                  value: LargeLanguageModelType.ZhiPuAI,
-                  label: "ZhiPuAI",
+                  value: LargeLanguageModelType.zhiPuAI,
+                  label: "智谱AI",
                 ),
                 DropdownMenuEntry<LargeLanguageModelType>(
-                  value: LargeLanguageModelType.baiduAI,
-                  label: "BaiduAI",
+                  value: LargeLanguageModelType.lingYiAI,
+                  label: "零一万物AI",
                 ),
+                DropdownMenuEntry<LargeLanguageModelType>(
+                  value: LargeLanguageModelType.moonshotAI,
+                  label: "MoonshotAI",
+                ),
+                // DropdownMenuEntry<LargeLanguageModelType>(
+                //   value: LargeLanguageModelType.baiduAI,
+                //   label: "百度千帆",
+                // ),
                 DropdownMenuEntry<LargeLanguageModelType>(
                   value: LargeLanguageModelType.ollama,
                   label: "Ollama",
@@ -48,17 +56,10 @@ class LlmDropdown extends StatelessWidget {
                   value: LargeLanguageModelType.mistralAI,
                   label: "MistralAI",
                 ),
-                // DropdownMenuEntry<LargeLanguageModelType>(
-                //   value: LargeLanguageModelType.llamacpp,
-                //   label: "LlamaCPP",
-                // ),
               ],
               onSelected: (LargeLanguageModelType? value) {
                 if (value != null) {
                   switch (value) {
-                    // case LargeLanguageModelType.llamacpp:
-                    //   session.switchLlamaCpp();
-                    //   break;
                     case LargeLanguageModelType.openAI:
                       session.switchOpenAI();
                       break;
@@ -74,8 +75,14 @@ class LlmDropdown extends StatelessWidget {
                     case LargeLanguageModelType.baiduAI:
                       session.switchBaiduAI();
                       break;
-                    case LargeLanguageModelType.ZhiPuAI:
+                    case LargeLanguageModelType.zhiPuAI:
                       session.switchZhiPuAI();
+                      break;
+                    case LargeLanguageModelType.lingYiAI:
+                      session.switchLingYiAI();
+                      break;
+                    case LargeLanguageModelType.moonshotAI:
+                      session.switchMoonshotAI();
                       break;
                     default:
                       break;
@@ -87,7 +94,7 @@ class LlmDropdown extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 20,
               ),
-              label: Text("选择模型"),
+              label: const Text("选择模型"),
               inputDecorationTheme: const InputDecorationTheme(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
               ),

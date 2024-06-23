@@ -9,13 +9,13 @@ import 'package:parrot/static/logger.dart';
 import 'package:parrot/ui/mobile/widgets/llm/chat_node.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ZhiPuAiModel extends LargeLanguageModel {
-  static const String defaultUrl = 'https://open.bigmodel.cn/api/paas/v4';
+class MoonAiModel extends LargeLanguageModel {
+  static const String defaultUrl = 'https://api.moonshot.cn/v1';
 
   @override
-  LargeLanguageModelType get type => LargeLanguageModelType.zhiPuAI;
+  LargeLanguageModelType get type => LargeLanguageModelType.moonshotAI;
 
-  ZhiPuAiModel({
+  MoonAiModel({
     super.listener,
     super.name,
     super.uri = defaultUrl,
@@ -27,7 +27,7 @@ class ZhiPuAiModel extends LargeLanguageModel {
     super.penaltyFreq,
   });
 
-  ZhiPuAiModel.fromMap(VoidCallback listener, Map<String, dynamic> json) {
+  MoonAiModel.fromMap(VoidCallback listener, Map<String, dynamic> json) {
     addListener(listener);
     fromMap(json);
   }
@@ -113,7 +113,42 @@ class ZhiPuAiModel extends LargeLanguageModel {
 
   @override
   Future<List<String>> get options async {
-    return ["glm-4" ,"glm-4-0520","glm-4-air","glm-4-airx","glm-4-flash"];
+    try {
+      final url = Uri.parse('https://api.moonshot.cn/v1/models');
+
+      final headers = {
+        'Content-Type': 'application/json',
+        'Accept':'application/json',
+        'Authorization':'Bearer $token',
+      };
+
+      final request = Request("GET", url)
+        ..headers.addAll(headers);
+
+      final response = await request.send();
+
+      if (response.statusCode == 200) {
+
+        final body = await response.stream.bytesToString();
+        final data = json.decode(body);
+        Logger.log('Data: $data');
+
+        final models = data['data'] as List<dynamic>?;
+
+        if (models != null) {
+            return models
+                .map((model) => model['id'] as String)
+                .toList();
+        } else {
+          throw Exception('Model Data is null');
+        }
+      } else {
+        throw Exception('Failed to update options: ${response.statusCode}');
+      }
+    } catch (e) {
+      Logger.log('Error: $e');
+      return ["moonshot-v1-128k","moonshot-v1-32k","moonshot-v1-8k"];
+    }
   }
 
   @override
@@ -125,7 +160,7 @@ class ZhiPuAiModel extends LargeLanguageModel {
   @override
   void save() {
     SharedPreferences.getInstance().then((prefs) {
-      prefs.setString("zhipu_ai_model", json.encode(toMap()));
+      prefs.setString("moon_ai_model", json.encode(toMap()));
     });
   }
 

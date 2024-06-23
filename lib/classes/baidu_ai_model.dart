@@ -106,7 +106,7 @@ class BaiduAiModel extends LargeLanguageModel {
 
   @override
   Future<List<String>> get options async {
-    return ["yi_34b_chat","ernie-lite-8k","ernie_speed", "ernie-tiny-8k"];
+    return ["ernie-lite-8k","ernie_speed", "ernie-tiny-8k"];
   }
 
   @override

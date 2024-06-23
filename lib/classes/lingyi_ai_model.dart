@@ -9,13 +9,13 @@ import 'package:parrot/static/logger.dart';
 import 'package:parrot/ui/mobile/widgets/llm/chat_node.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ZhiPuAiModel extends LargeLanguageModel {
-  static const String defaultUrl = 'https://open.bigmodel.cn/api/paas/v4';
+class LingYiAiModel extends LargeLanguageModel {
+  static const String defaultUrl = 'https://api.lingyiwanwu.com/v1';
 
   @override
-  LargeLanguageModelType get type => LargeLanguageModelType.zhiPuAI;
+  LargeLanguageModelType get type => LargeLanguageModelType.lingYiAI;
 
-  ZhiPuAiModel({
+  LingYiAiModel({
     super.listener,
     super.name,
     super.uri = defaultUrl,
@@ -27,7 +27,7 @@ class ZhiPuAiModel extends LargeLanguageModel {
     super.penaltyFreq,
   });
 
-  ZhiPuAiModel.fromMap(VoidCallback listener, Map<String, dynamic> json) {
+  LingYiAiModel.fromMap(VoidCallback listener, Map<String, dynamic> json) {
     addListener(listener);
     fromMap(json);
   }
@@ -80,7 +80,8 @@ class ZhiPuAiModel extends LargeLanguageModel {
         case ChatRole.assistant:
           chatMessages.add(ChatMessage.ai(message.content));
           break;
-        case ChatRole.system: // Under normal circumstances, this should only be used for preprompt
+        case ChatRole
+              .system: // Under normal circumstances, this should only be used for preprompt
           chatMessages.add(ChatMessage.system(message.content));
           break;
         default:
@@ -90,21 +91,18 @@ class ZhiPuAiModel extends LargeLanguageModel {
 
     try {
       final chat = ChatOpenAI(
-        baseUrl: uri,
-        apiKey: token,
-        defaultOptions: ChatOpenAIOptions(
-          model: name,
-          temperature: temperature,
-          frequencyPenalty: penaltyFreq,
-          presencePenalty: penaltyPresent,
-          maxTokens: nPredict,
-          topP: topP
-        )
-      );
+          baseUrl: uri,
+          apiKey: token,
+          defaultOptions: ChatOpenAIOptions(
+              model: name,
+              temperature: temperature,
+              frequencyPenalty: penaltyFreq,
+              presencePenalty: penaltyPresent,
+              maxTokens: nPredict,
+              topP: topP));
 
       final stream = chat.stream(PromptValue.chat(chatMessages));
       yield* stream.map((final res) => res.output.content);
-
     } catch (e) {
       yield e.toString();
       Logger.log('Error: $e');
@@ -113,7 +111,51 @@ class ZhiPuAiModel extends LargeLanguageModel {
 
   @override
   Future<List<String>> get options async {
-    return ["glm-4" ,"glm-4-0520","glm-4-air","glm-4-airx","glm-4-flash"];
+    try {
+      final url = Uri.parse('https://api.lingyiwanwu.com/v1/models');
+
+      final headers = {
+        'Content-Type': 'application/json',
+        'Accept':'application/json',
+        'Authorization':'Bearer $token',
+      };
+
+      final request = Request("GET", url)
+        ..headers.addAll(headers);
+
+      final response = await request.send();
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        final body = await response.stream.bytesToString();
+        final data = json.decode(body);
+        Logger.log('Data: $data');
+
+        final models = data['data'] as List<dynamic>?;
+
+        if (models != null) {
+          return models
+              .map((model) => model['id'] as String)
+              .toList();
+        } else {
+          throw Exception('Model Data is null');
+        }
+      } else {
+        throw Exception('Failed to update options: ${response.statusCode}');
+      }
+    } catch (e) {
+      Logger.log('Error: $e');
+      return [
+        "yi-large",
+        "yi-medium",
+        "yi-vision",
+        "yi-medium-200k",
+        "yi-spark",
+        "yi-large-rag",
+        "yi-large-turbo",
+        "yi-large-preview"
+      ];
+    }
   }
 
   @override
@@ -125,7 +167,7 @@ class ZhiPuAiModel extends LargeLanguageModel {
   @override
   void save() {
     SharedPreferences.getInstance().then((prefs) {
-      prefs.setString("zhipu_ai_model", json.encode(toMap()));
+      prefs.setString("lingyi_ai_model", json.encode(toMap()));
     });
   }
 

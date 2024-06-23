@@ -3,7 +3,9 @@ import 'package:parrot/classes/large_language_model.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:parrot/ui/mobile/pages/platforms/baiduai_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/gemini_page.dart';
+import 'package:parrot/ui/mobile/pages/platforms/lingyiai_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/mistralai_page.dart';
+import 'package:parrot/ui/mobile/pages/platforms/moonai_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/ollama_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/openai_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/zhipuai_page.dart';
@@ -32,8 +34,6 @@ class _ModelSettingPageState extends State<ModelSettingPage> {
         ),
         body: Consumer<Session>(builder: (context, session, child) {
           switch (session.model.type) {
-            // case LargeLanguageModelType.llamacpp:
-            //   return const LlamaCppPage();
             case LargeLanguageModelType.ollama:
               return const OllamaPage();
             case LargeLanguageModelType.openAI:
@@ -44,8 +44,12 @@ class _ModelSettingPageState extends State<ModelSettingPage> {
               return const GoogleGeminiPage();
             case LargeLanguageModelType.baiduAI:
               return const BaiduAiPage();
-            case LargeLanguageModelType.ZhiPuAI:
+            case LargeLanguageModelType.zhiPuAI:
               return const ZhiPuAiPage();
+            case LargeLanguageModelType.lingYiAI:
+              return const LingYiAiPage();
+            case LargeLanguageModelType.moonshotAI:
+              return const MoonAiPage();
             default:
               return Container();
           }

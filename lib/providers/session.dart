@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:parrot/classes/baidu_ai_model.dart';
 import 'package:parrot/classes/google_gemini_model.dart';
 import 'package:parrot/classes/large_language_model.dart';
+import 'package:parrot/classes/lingyi_ai_model.dart';
 import 'package:parrot/classes/llama_cpp_model.dart';
 import 'package:parrot/classes/mistral_ai_model.dart';
+import 'package:parrot/classes/moon_ai_model.dart';
 import 'package:parrot/classes/ollama_model.dart';
 import 'package:parrot/classes/open_ai_model.dart';
 import 'package:parrot/classes/zhipu_ai_model.dart';
@@ -88,9 +90,6 @@ class Session extends ChangeNotifier {
         .values[inputJson['llm_type'] ?? LargeLanguageModelType.llamacpp.index];
 
     switch (type) {
-      // case LargeLanguageModelType.llamacpp:
-      //   switchLlamaCpp();
-      //   break;
       case LargeLanguageModelType.openAI:
         switchOpenAI();
         break;
@@ -106,8 +105,16 @@ class Session extends ChangeNotifier {
       case LargeLanguageModelType.gemini:
         switchGemini();
         break;
+      case LargeLanguageModelType.zhiPuAI:
+        switchZhiPuAI();
+        break;
+      case LargeLanguageModelType.lingYiAI:
+        switchLingYiAI();
+        break;
+      case LargeLanguageModelType.moonshotAI:
+        switchMoonshotAI();
+        break;
       default:
-        switchBaiduAI();
         break;
     }
 
@@ -302,12 +309,12 @@ class Session extends ChangeNotifier {
   void switchBaiduAI() async {
     final prefs = await SharedPreferences.getInstance();
 
-    Map<String, dynamic> lastBaidu =
+    Map<String, dynamic> lastModel =
         json.decode(prefs.getString("baidu_ai_model") ?? "{}");
-    Logger.log(lastBaidu.toString());
+    Logger.log(lastModel.toString());
 
-    if (lastBaidu.isNotEmpty) {
-      model = BaiduAiModel.fromMap(notify, lastBaidu);
+    if (lastModel.isNotEmpty) {
+      model = BaiduAiModel.fromMap(notify, lastModel);
     } else {
       model = BaiduAiModel(listener: notify);
     }
@@ -319,14 +326,48 @@ class Session extends ChangeNotifier {
   void switchZhiPuAI() async {
     final prefs = await SharedPreferences.getInstance();
 
-    Map<String, dynamic> lastBaidu =
+    Map<String, dynamic> lastModel =
     json.decode(prefs.getString("zhipu_ai_model") ?? "{}");
-    Logger.log(lastBaidu.toString());
+    Logger.log(lastModel.toString());
 
-    if (lastBaidu.isNotEmpty) {
-      model = ZhiPuAiModel.fromMap(notify, lastBaidu);
+    if (lastModel.isNotEmpty) {
+      model = ZhiPuAiModel.fromMap(notify, lastModel);
     } else {
       model = ZhiPuAiModel(listener: notify);
+    }
+
+    prefs.setInt("llm_type", model.type.index);
+    notifyListeners();
+  }
+
+  void switchLingYiAI() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    Map<String, dynamic> lastModel =
+    json.decode(prefs.getString("lingyi_ai_model") ?? "{}");
+    Logger.log(model.toString());
+
+    if (lastModel.isNotEmpty) {
+      model = LingYiAiModel.fromMap(notify, lastModel);
+    } else {
+      model = LingYiAiModel(listener: notify);
+    }
+
+    prefs.setInt("llm_type", model.type.index);
+    notifyListeners();
+  }
+
+  void switchMoonshotAI() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    Map<String, dynamic> lastModel =
+    json.decode(prefs.getString("moon_ai_model") ?? "{}");
+    Logger.log(model.toString());
+
+    if (lastModel.isNotEmpty) {
+      model = MoonAiModel.fromMap(notify, lastModel);
+    } else {
+      model = MoonAiModel(listener: notify);
     }
 
     prefs.setInt("llm_type", model.type.index);
