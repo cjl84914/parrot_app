@@ -29,6 +29,10 @@ class LlmDropdown extends StatelessWidget {
                   label: "智谱AI",
                 ),
                 DropdownMenuEntry<LargeLanguageModelType>(
+                  value: LargeLanguageModelType.qWenAi,
+                  label: "通义千问AI",
+                ),
+                DropdownMenuEntry<LargeLanguageModelType>(
                   value: LargeLanguageModelType.lingYiAI,
                   label: "零一万物AI",
                 ),
@@ -36,10 +40,6 @@ class LlmDropdown extends StatelessWidget {
                   value: LargeLanguageModelType.moonshotAI,
                   label: "MoonshotAI",
                 ),
-                // DropdownMenuEntry<LargeLanguageModelType>(
-                //   value: LargeLanguageModelType.baiduAI,
-                //   label: "百度千帆",
-                // ),
                 DropdownMenuEntry<LargeLanguageModelType>(
                   value: LargeLanguageModelType.ollama,
                   label: "Ollama",
@@ -83,6 +83,9 @@ class LlmDropdown extends StatelessWidget {
                       break;
                     case LargeLanguageModelType.moonshotAI:
                       session.switchMoonshotAI();
+                      break;
+                    case LargeLanguageModelType.qWenAi:
+                      session.switchQWenAI();
                       break;
                     default:
                       break;

@@ -8,6 +8,7 @@ import 'package:parrot/ui/mobile/pages/platforms/mistralai_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/moonai_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/ollama_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/openai_page.dart';
+import 'package:parrot/ui/mobile/pages/platforms/qwenai_page.dart';
 import 'package:parrot/ui/mobile/pages/platforms/zhipuai_page.dart';
 import 'package:parrot/ui/mobile/widgets/dropdowns/llm_dropdown.dart';
 import 'package:provider/provider.dart';
@@ -50,6 +51,8 @@ class _ModelSettingPageState extends State<ModelSettingPage> {
               return const LingYiAiPage();
             case LargeLanguageModelType.moonshotAI:
               return const MoonAiPage();
+            case LargeLanguageModelType.qWenAi:
+              return const QWenAiPage();
             default:
               return Container();
           }

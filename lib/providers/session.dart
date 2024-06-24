@@ -10,6 +10,7 @@ import 'package:parrot/classes/mistral_ai_model.dart';
 import 'package:parrot/classes/moon_ai_model.dart';
 import 'package:parrot/classes/ollama_model.dart';
 import 'package:parrot/classes/open_ai_model.dart';
+import 'package:parrot/classes/qwen_ai_model.dart';
 import 'package:parrot/classes/zhipu_ai_model.dart';
 import 'package:parrot/providers/character.dart';
 import 'package:parrot/providers/tts.dart';
@@ -113,6 +114,9 @@ class Session extends ChangeNotifier {
         break;
       case LargeLanguageModelType.moonshotAI:
         switchMoonshotAI();
+        break;
+      case LargeLanguageModelType.qWenAi:
+        switchQWenAI();
         break;
       default:
         break;
@@ -368,6 +372,23 @@ class Session extends ChangeNotifier {
       model = MoonAiModel.fromMap(notify, lastModel);
     } else {
       model = MoonAiModel(listener: notify);
+    }
+
+    prefs.setInt("llm_type", model.type.index);
+    notifyListeners();
+  }
+
+  void switchQWenAI() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    Map<String, dynamic> lastModel =
+    json.decode(prefs.getString("qwen_ai_model") ?? "{}");
+    Logger.log(model.toString());
+
+    if (lastModel.isNotEmpty) {
+      model = QWenAiModel.fromMap(notify, lastModel);
+    } else {
+      model = QWenAiModel(listener: notify);
     }
 
     prefs.setInt("llm_type", model.type.index);
