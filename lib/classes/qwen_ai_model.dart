@@ -95,9 +95,6 @@ class QWenAiModel extends LargeLanguageModel {
         defaultOptions: ChatOpenAIOptions(
           model: name,
           temperature: temperature,
-          frequencyPenalty: penaltyFreq,
-          presencePenalty: penaltyPresent,
-          maxTokens: nPredict,
           topP: topP
         )
       );

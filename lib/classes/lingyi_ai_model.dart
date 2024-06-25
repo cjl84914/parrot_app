@@ -95,11 +95,8 @@ class LingYiAiModel extends LargeLanguageModel {
           apiKey: token,
           defaultOptions: ChatOpenAIOptions(
               model: name,
-              temperature: temperature,
-              frequencyPenalty: penaltyFreq,
-              presencePenalty: penaltyPresent,
-              maxTokens: nPredict,
-              topP: topP));
+              temperature: temperature
+          ));
 
       final stream = chat.stream(PromptValue.chat(chatMessages));
       yield* stream.map((final res) => res.output.content);
