@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class SliderListTile extends StatelessWidget {
   final String labelText;
@@ -7,6 +8,7 @@ class SliderListTile extends StatelessWidget {
   final double sliderMax;
   final int sliderDivisions;
   final Function(double) onValueChanged;
+  final String tips;
 
   const SliderListTile({
     super.key,
@@ -16,6 +18,7 @@ class SliderListTile extends StatelessWidget {
     required this.sliderMax,
     required this.sliderDivisions,
     required this.onValueChanged,
+    this.tips = '',
   });
 
   @override
@@ -34,14 +37,19 @@ class SliderListTile extends StatelessWidget {
     }
 
     return ListTile(
+      onTap: (){
+        if(tips.isNotEmpty) {
+          EasyLoading.showToast(tips);
+        }
+      },
       title: Row(
         children: [
           Expanded(
             flex: 2,
-            child: Text(labelText),
+            child: Text(labelText, style: const TextStyle(fontSize: 14)),
           ),
           Expanded(
-            flex: 6,
+            flex: 5,
             child: Slider(
               value: inputValue.toDouble(),
               min: sliderMin,
@@ -54,7 +62,7 @@ class SliderListTile extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: TextFormField(
               textAlign: TextAlign.center,
               keyboardType: TextInputType.number,

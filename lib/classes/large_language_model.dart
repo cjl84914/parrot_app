@@ -14,10 +14,10 @@ class LargeLanguageModel extends ChangeNotifier {
 
   int _seed = 0;
   int _nKeep = 48;
-  int _nPredict = 1024;
+  int _nPredict = 256;
   int _topK = 40;
   
-  double _topP = 0.7;
+  double _topP = 0.95;
   double _minP = 0.1;
   double _tfsZ = 1.0;
   double _typicalP = 1.0;

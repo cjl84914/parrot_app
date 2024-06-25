@@ -12,6 +12,7 @@ class TemperatureParameter extends StatelessWidget {
       builder: (context, session, child) {
         return SliderListTile(
           labelText: 'temperature',
+          tips: "值越大，回复越随机",
           inputValue: session.model.temperature,
           sliderMin: 0.0,
           sliderMax: 1.0,

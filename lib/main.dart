@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:parrot/providers/tts.dart';
 import 'package:parrot/providers/user.dart';
 import 'package:parrot/ui/mobile/pages/home_page.dart';
@@ -83,6 +84,7 @@ class ParrotAppState extends State<ParrotApp> {
             theme: Themes.lightTheme(),
             darkTheme: Themes.darkTheme(),
             themeMode: mainProvider.themeMode,
+            builder: EasyLoading.init(),
             home: const HomePage(title: "语鹦助手"),
             );
       },

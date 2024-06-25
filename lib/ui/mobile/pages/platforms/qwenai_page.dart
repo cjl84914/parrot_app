@@ -8,6 +8,7 @@ import 'package:parrot/ui/mobile/widgets/parameter_widgets/api_key_parameter.dar
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/n_predict_parameter.dart';
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/penalty_frequency_parameter.dart';
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/penalty_present_parameter.dart';
+import 'package:parrot/ui/mobile/widgets/parameter_widgets/penalty_repeat_parameter.dart';
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/seed_parameter.dart';
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/temperature_parameter.dart';
 import 'package:parrot/ui/mobile/widgets/parameter_widgets/top_p_parameter.dart';
@@ -55,6 +56,10 @@ class QWenAiPage extends StatelessWidget {
                 const SizedBox(height: 20.0),
                 const SeedParameter(),
                 const TemperatureParameter(),
+                const PenaltyRepeatParameter(),
+                const PenaltyPresentParameter(),
+                const NPredictParameter(),
+                const TopPParameter()
               ]
             );
           },

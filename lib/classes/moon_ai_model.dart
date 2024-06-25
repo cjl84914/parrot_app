@@ -37,8 +37,9 @@ class MoonAiModel extends LargeLanguageModel {
     super.fromMap(json);
     uri = json['url'] ?? defaultUrl;
     token = json['token'] ?? '';
-    nPredict = json['nPredict'] ?? 512;
-    topP = json['topP'] ?? 0.95;
+    nPredict = json['nPredict'] ?? 1024;
+    topP = json['topP'] ?? 1.0;
+    temperature = json['temperature'] ?? 0.0;
     penaltyPresent = json['penaltyPresent'] ?? 0.0;
     penaltyFreq = json['penaltyFreq'] ?? 0.0;
     notifyListeners();
@@ -95,6 +96,10 @@ class MoonAiModel extends LargeLanguageModel {
         defaultOptions: ChatOpenAIOptions(
           model: name,
           temperature: temperature,
+          frequencyPenalty: penaltyFreq,
+          presencePenalty: penaltyPresent,
+          maxTokens: nPredict,
+          topP: topP
         )
       );
 

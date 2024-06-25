@@ -12,6 +12,7 @@ class TopPParameter extends StatelessWidget {
       builder: (context, session, child) {
         return SliderListTile(
           labelText: 'top_p',
+          tips: "与temperature类似，但是不要和随机性一起改",
           inputValue: session.model.topP,
           sliderMin: 0.0,
           sliderMax: 1.0,

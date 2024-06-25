@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/session.dart';
+import 'package:parrot/ui/mobile/pages/character/character_customization_page.dart';
 import 'package:provider/provider.dart';
 
 class SessionTile extends StatefulWidget {
@@ -70,11 +71,19 @@ class _SessionTileState extends State<SessionTile> {
           child: const Text('删除'),
         ),
         PopupMenuItem(
-          onTap: showRenameDialog,
+          onTap: showModifyDialog,
           child: const Text('更改'),
         ),
       ],
     );
+  }
+
+  void showModifyDialog() {
+    Navigator.pop(context); // Close the drawer
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const CharacterCustomizationPage()));
   }
 
   void showRenameDialog() {

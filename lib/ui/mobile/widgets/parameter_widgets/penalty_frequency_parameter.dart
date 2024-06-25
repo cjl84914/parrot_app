@@ -12,6 +12,7 @@ class PenaltyFrequencyParameter extends StatelessWidget {
       builder: (context, session, child) {
         return SliderListTile(
           labelText: 'penalty_freq',
+            tips: "值越大，越有可能降低重复字词",
           inputValue: session.model.penaltyFreq,
           sliderMin: 0.0,
           sliderMax: 1.0,

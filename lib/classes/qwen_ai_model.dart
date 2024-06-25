@@ -37,10 +37,11 @@ class QWenAiModel extends LargeLanguageModel {
     super.fromMap(json);
     uri = json['url'] ?? defaultUrl;
     token = json['token'] ?? '';
-    nPredict = json['nPredict'] ?? 512;
-    topP = json['topP'] ?? 0.95;
+    nPredict = json['nPredict'] ?? 1500;
+    temperature = json['temperature'] ?? 0.8;
+    topP = json['topP'] ?? 0.8;
     penaltyPresent = json['penaltyPresent'] ?? 0.0;
-    penaltyFreq = json['penaltyFreq'] ?? 0.0;
+    penaltyRepeat = json['penaltyRepeat'] ?? 0.0;
     notifyListeners();
   }
 
@@ -95,6 +96,9 @@ class QWenAiModel extends LargeLanguageModel {
         defaultOptions: ChatOpenAIOptions(
           model: name,
           temperature: temperature,
+          frequencyPenalty: penaltyFreq,
+          presencePenalty: penaltyPresent,
+          maxTokens: nPredict,
           topP: topP
         )
       );

@@ -12,6 +12,7 @@ class PenaltyPresentParameter extends StatelessWidget {
       builder: (context, session, child) {
         return SliderListTile(
           labelText: 'penalty_present',
+          tips: "值越大，越有可能扩张到新话题",
           inputValue: session.model.penaltyPresent,
           sliderMin: 0.0,
           sliderMax: 1.0,

@@ -1,10 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
-
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:parrot/providers/tts.dart';
 import 'package:parrot/providers/user.dart';
 import 'package:parrot/providers/character.dart';
 import 'package:parrot/providers/session.dart';

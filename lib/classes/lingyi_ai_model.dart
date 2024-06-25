@@ -37,8 +37,9 @@ class LingYiAiModel extends LargeLanguageModel {
     super.fromMap(json);
     uri = json['url'] ?? defaultUrl;
     token = json['token'] ?? '';
-    nPredict = json['nPredict'] ?? 512;
-    topP = json['topP'] ?? 0.95;
+    nPredict = json['nPredict'] ?? 1024;
+    topP = json['topP'] ?? 0.9;
+    temperature = json['temperature'] ?? 0.3;
     penaltyPresent = json['penaltyPresent'] ?? 0.0;
     penaltyFreq = json['penaltyFreq'] ?? 0.0;
     notifyListeners();
@@ -95,7 +96,9 @@ class LingYiAiModel extends LargeLanguageModel {
           apiKey: token,
           defaultOptions: ChatOpenAIOptions(
               model: name,
-              temperature: temperature
+              temperature: temperature,
+              maxTokens: nPredict,
+              topP: topP
           ));
 
       final stream = chat.stream(PromptValue.chat(chatMessages));

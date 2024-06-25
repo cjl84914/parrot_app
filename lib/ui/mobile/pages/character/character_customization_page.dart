@@ -83,7 +83,7 @@ class _CharacterCustomizationPageState extends State<CharacterCustomizationPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const GenericAppBar(title: "Character Customization"),
+      appBar: const GenericAppBar(title: "对话设置"),
       body: Consumer<Character>(
         builder: (context, character, child) {
           SharedPreferences.getInstance().then((prefs) {

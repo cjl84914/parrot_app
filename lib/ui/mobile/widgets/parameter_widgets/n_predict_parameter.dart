@@ -10,7 +10,8 @@ class NPredictParameter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<Session>(builder: (context, session, child) {
       return SliderListTile(
-          labelText: 'n_predict',
+          labelText: 'max_tokens',
+          tips: "聊天完成时生成的最大 token 数",
           inputValue: session.model.nPredict,
           sliderMin: 1.0,
           sliderMax: 4096.0,

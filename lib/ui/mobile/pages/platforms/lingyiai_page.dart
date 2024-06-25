@@ -54,7 +54,9 @@ class LingYiAiPage extends StatelessWidget {
                 const ModelButton(),
                 const SizedBox(height: 20.0),
                 const SeedParameter(),
-                const TemperatureParameter()
+                const TemperatureParameter(),
+                const NPredictParameter(),
+                const TopPParameter()
               ]
             );
           },
