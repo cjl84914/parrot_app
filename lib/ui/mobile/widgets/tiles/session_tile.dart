@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:parrot/ui/mobile/pages/character/character_customization_page.dart';
+import 'package:parrot/ui/mobile/widgets/future_avatar.dart';
 import 'package:provider/provider.dart';
 
 class SessionTile extends StatefulWidget {
@@ -23,28 +24,33 @@ class _SessionTileState extends State<SessionTile> {
   Widget build(BuildContext context) {
     return Consumer<Session>(
       builder: (context, session, child) {
-        String displayMessage = widget.session.name;
+        String displayMessage = widget.session.character.name;
         if (displayMessage.length > 30) {
           displayMessage = '${displayMessage.substring(0, 30)}...';
         }
         return GestureDetector(
             onLongPressStart: onLongPressStart,
             child: ListTile(
-              onTap: () {
-                if (!session.chat.tail.finalised) return;
-                session.from(widget.session);
-                Navigator.pop(context);
-              },
-              title: Text(
-                displayMessage,
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
-              subtitle: Text(
-                widget.session.model.name,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: Colors.grey, fontSize: 14),
-              )
-            ));
+                onTap: () {
+                  if (!widget.session.chat.tail.finalised) return;
+                  print(widget.session.character.name);
+                  session.from(widget.session);
+                  Navigator.pop(context);
+                },
+                leading: FutureAvatar(
+                  key: widget.session.character.key,
+                  image: widget.session.character.profile,
+                  radius: 16,
+                ),
+                title: Text(
+                  displayMessage,
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+                subtitle: Text(
+                  widget.session.model.name,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: Colors.grey, fontSize: 14),
+                )));
       },
     );
   }
@@ -70,20 +76,12 @@ class _SessionTileState extends State<SessionTile> {
           onTap: widget.onDelete,
           child: const Text('删除'),
         ),
-        PopupMenuItem(
-          onTap: showModifyDialog,
-          child: const Text('更改'),
-        ),
+        // PopupMenuItem(
+        //   onTap: showRenameDialog,
+        //   child: const Text('更改'),
+        // ),
       ],
     );
-  }
-
-  void showModifyDialog() {
-    Navigator.pop(context); // Close the drawer
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const CharacterCustomizationPage()));
   }
 
   void showRenameDialog() {

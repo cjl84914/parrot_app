@@ -3,7 +3,9 @@ import 'package:parrot/providers/character.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:parrot/providers/tts.dart';
 import 'package:parrot/providers/user.dart';
+import 'package:parrot/ui/mobile/pages/character/character_customization_page.dart';
 import 'package:parrot/ui/mobile/widgets/buttons/menu_button.dart';
+import 'package:parrot/ui/mobile/widgets/future_avatar.dart';
 import 'package:parrot/ui/mobile/widgets/tiles/session_tile.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +18,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     Session session = context.watch<Session>();
-    String displayMessage = session.name;
+    String displayMessage = session.character.name;
     if (displayMessage.length > 30) {
       displayMessage = '${displayMessage.substring(0, 30)}...';
     }
@@ -24,19 +26,30 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).colorScheme.background,
       foregroundColor: Theme.of(context).colorScheme.onPrimary,
       elevation: 0.0,
-      title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-        Text(
+      title: ListTile(
+        onTap: () async{
+          await Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const CharacterCustomizationPage()));
+          context.read<Session>().notify();
+        },
+        contentPadding: EdgeInsets.zero,
+        leading: FutureAvatar(
+          key: session.character.key,
+          image: session.character.profile,
+          radius: 16,
+        ),
+        title:Text(
           displayMessage,
           style: Theme.of(context).textTheme.labelLarge,
         ),
-        Text(
+       subtitle:  Text(
           session.model.name,
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(color: Colors.grey, fontSize: 14),
         )
-      ]),
+      ),
       actions: [
         Builder(builder: (context) {
           bool isMuted = context.watch<TTS>().isMuted;

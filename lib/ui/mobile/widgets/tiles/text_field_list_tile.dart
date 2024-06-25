@@ -27,7 +27,7 @@ class TextFieldListTile extends StatelessWidget{
           Text(headingText),
           TextField(
             keyboardType: multiline ? TextInputType.multiline : TextInputType.text,
-            maxLines: multiline ? null : 1,
+            maxLines: multiline ? 10 : null,
             cursorColor: Theme.of(context).colorScheme.secondary,
             controller: controller ?? TextEditingController(text: initialValue),
             decoration: InputDecoration(

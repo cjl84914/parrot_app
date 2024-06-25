@@ -102,10 +102,8 @@ class OpenAiModel extends LargeLanguageModel {
         )
       );
 
-      final aiMsg = await chat.invoke(PromptValue.chat(chatMessages));
-      yield aiMsg.toString();
-      // final stream = chat.stream(PromptValue.chat(chatMessages));
-      // yield* stream.map((final res) => res.output.content);
+      final stream = chat.stream(PromptValue.chat(chatMessages));
+      yield* stream.map((final res) => res.output.content);
 
     } catch (e) {
       final exception = e as OpenAIClientException;

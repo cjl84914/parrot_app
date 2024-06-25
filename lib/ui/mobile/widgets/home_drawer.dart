@@ -2,9 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/session.dart';
-import 'package:parrot/ui/mobile/pages/character/character_browser_page.dart';
-import 'package:parrot/ui/mobile/pages/character/character_customization_page.dart';
-import 'package:parrot/ui/mobile/widgets/tiles/character_tile.dart';
 import 'package:parrot/ui/mobile/widgets/tiles/session_tile.dart';
 import 'package:parrot/ui/mobile/widgets/tiles/user_tile.dart';
 import 'package:provider/provider.dart';
@@ -101,7 +98,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                         session.from(newSession);
                       });
                     },
-                    child: const Text("创建对话"),
+                    child: const Text("创建助手"),
                   ),
                   Expanded(
                     child: ListView.builder(
@@ -122,10 +119,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                             },
                             onRename: (value) {
                               setState(() {
-                                if (sessions[index].key == session.key) {
-                                  session.name = value;
-                                }
-                                sessions[index].name = value;
+                                session.character.name = value;
                               });
                             },
                           );

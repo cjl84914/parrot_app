@@ -37,7 +37,7 @@ class MoonAiPage extends StatelessWidget {
                     onPressed: () {
                       session.model.reset();
                     },
-                    child: Text(
+                    child: const Text(
                       "Reset",
                     ),
                   ),

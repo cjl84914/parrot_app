@@ -61,8 +61,8 @@ class _ChatMessageState extends State<ChatMessage>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer3<Session, User, Character>(
-      builder: (context, session, user, character, child) {
+    return Consumer2<Session, User>(
+      builder: (context, session, user, child) {
         node = session.chat.find(widget.key!)!;
 
         int currentIndex = session.chat.indexOf(widget.key!);
@@ -73,15 +73,15 @@ class _ChatMessageState extends State<ChatMessage>
             children: [
               const SizedBox(width: 10.0),
               FutureAvatar(
-                key: node.role == ChatRole.user ? user.key : character.key,
+                key: node.role == ChatRole.user ? user.key : session.character.key,
                 image: node.role == ChatRole.user
                     ? user.profile
-                    : character.profile,
+                    : session.character.profile,
                 radius: 16,
               ),
               const SizedBox(width: 10.0),
               Text(
-                node.role == ChatRole.user ? user.name : character.name,
+                node.role == ChatRole.user ? user.name : session.character.name,
                 style: const TextStyle(
                   fontWeight: FontWeight.normal,
                   color: Color.fromARGB(255, 226, 86, 61),

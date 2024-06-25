@@ -29,9 +29,9 @@ void main() async {
   Map<String, dynamic> lastUser = json.decode(lastUserString ?? "{}");
   User user = User.fromMap(lastUser);
 
-  String? lastCharacterString = prefs.getString("last_character");
-  Map<String, dynamic> lastCharacter = json.decode(lastCharacterString ?? "{}");
-  Character character = Character.fromMap(lastCharacter);
+  // String? lastCharacterString = prefs.getString("last_character");
+  // Map<String, dynamic> lastCharacter = json.decode(lastCharacterString ?? "{}");
+  // Character character = Character.fromMap(lastCharacter);
 
   String? lastSessionString = prefs.getString("last_session");
   Map<String, dynamic> lastSession = json.decode(lastSessionString ?? "{}");
@@ -43,7 +43,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => MainProvider()),
         ChangeNotifierProvider(create: (context) => TTS()),
         ChangeNotifierProvider(create: (context) => user),
-        ChangeNotifierProvider(create: (context) => character),
+        // ChangeNotifierProvider(create: (context) => character),
         ChangeNotifierProvider(create: (context) => session),
       ],
       child: const ParrotApp(),

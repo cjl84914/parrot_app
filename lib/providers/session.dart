@@ -26,6 +26,7 @@ class Session extends ChangeNotifier {
   Key _key = UniqueKey();
   LargeLanguageModel model = LargeLanguageModel();
   ChatNodeTree chat = ChatNodeTree();
+  Character character = Character();
 
   String _name = "";
 
@@ -62,6 +63,7 @@ class Session extends ChangeNotifier {
     name = "新的对话";
     chat = ChatNodeTree();
     model = LargeLanguageModel(listener: notify);
+    character = Character();
     notifyListeners();
   }
 
@@ -74,6 +76,7 @@ class Session extends ChangeNotifier {
     _name = session.name;
     chat = session.chat;
     model = session.model;
+    character = session.character;
     notifyListeners();
   }
 
@@ -86,6 +89,7 @@ class Session extends ChangeNotifier {
     _name = inputJson['name'] ?? "New Chat";
 
     chat.root = ChatNode.fromMap(inputJson['chat'] ?? {});
+    character = Character.fromMap(inputJson['character'] ?? {});
 
     final type = LargeLanguageModelType
         .values[inputJson['llm_type'] ?? LargeLanguageModelType.llamacpp.index];
@@ -131,29 +135,20 @@ class Session extends ChangeNotifier {
       'chat': chat.root.toMap(),
       'llm_type': model.type.index,
       'model': model.toMap(),
+      'character': character.toMap()
     };
   }
 
   void prompt(BuildContext context) async {
     final user = context.read<User>();
-    final character = context.read<Character>();
     final tts = context.read<TTS>();
-    final description = Utilities.formatPlaceholders(
-        character.description, user.name, character.name);
-    final personality = Utilities.formatPlaceholders(
-        character.personality, user.name, character.name);
-    final scenario = Utilities.formatPlaceholders(
-        character.scenario, user.name, character.name);
     final system = Utilities.formatPlaceholders(
         character.system, user.name, character.name);
-
-    final preprompt =
-        'Description: $description\nPersonality: $personality\nScenario: $scenario\nSystem: $system';
 
     List<ChatNode> messages = [];
 
     messages.add(
-        ChatNode(key: UniqueKey(), role: ChatRole.system, content: preprompt));
+        ChatNode(key: UniqueKey(), role: ChatRole.system, content: system));
     messages.addAll(chat.getChat());
 
     Logger.log("Prompting with ${model.type.name}");

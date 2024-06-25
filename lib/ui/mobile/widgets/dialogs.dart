@@ -7,9 +7,9 @@ import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:provider/provider.dart';
 
-void storageOperationDialog(BuildContext context,
-    Future<String> Function(BuildContext context) storageFunction) {
-  showDialog(
+Future storageOperationDialog(BuildContext context,
+    Future<String> Function(BuildContext context) storageFunction) async{
+  await showDialog(
     context: context,
     builder: (BuildContext context) {
       return FutureBuilder<String>(
@@ -24,7 +24,7 @@ void storageOperationDialog(BuildContext context,
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text(
+                  child: const Text(
                     "Close",
                   ),
                 ),

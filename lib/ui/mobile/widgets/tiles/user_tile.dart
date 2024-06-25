@@ -132,7 +132,7 @@ class _UserTileState extends State<UserTile> {
                 "Change Profile Picture",
                 textAlign: TextAlign.center,
               ),
-              content: Container(
+              content: SizedBox(
                   height: 300,
                   width: 300,
                   child: GridView(
@@ -158,13 +158,13 @@ class _UserTileState extends State<UserTile> {
               actions: [
                 FilledButton(
                   onPressed: user.loadImage,
-                  child: Text(
+                  child: const Text(
                     "Load Custom",
                   ),
                 ),
                 FilledButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text(
+                  child: const Text(
                     "Close",
                   ),
                 ),

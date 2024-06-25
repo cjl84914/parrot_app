@@ -104,7 +104,8 @@ class LingYiAiModel extends LargeLanguageModel {
       final stream = chat.stream(PromptValue.chat(chatMessages));
       yield* stream.map((final res) => res.output.content);
     } catch (e) {
-      yield e.toString();
+      final exception = e as OpenAIClientException;
+      yield exception.toString();
       Logger.log('Error: $e');
     }
   }

@@ -48,6 +48,7 @@
 - [x] 英文对话提示
 - [x] 多个对话
 - [x] 对接智谱AI、零一万物AI、月之暗面AI、通义千问AI
+- [x] 支持角色设定
 - [ ] 优化UI和UX
 - [ ] 测试各平台可用（已测试Android、iOS、Windows、Macos、Web）
 

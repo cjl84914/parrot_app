@@ -35,33 +35,13 @@ class HomePageState extends State<HomePage> {
   }
 
   Widget _buildBody() {
-    return Consumer3<Session, User, Character>(
-      builder: (context, session, user, character, child) {
+    return Consumer2<Session, User>(
+      builder: (context, session, user, child) {
         SharedPreferences.getInstance().then((prefs) {
           prefs.setString("last_session", json.encode(session.toMap()));
         });
 
         List<ChatNode> chat = session.chat.getChat();
-        if (
-        chat.isEmpty &&
-            character.useGreeting &&
-            character.greetings.isNotEmpty
-        ) {
-          final index = Random().nextInt(character.greetings.length);
-
-          if (character.greetings[index].isNotEmpty) {
-            final message = ChatNode(
-                key: UniqueKey(),
-                role: ChatRole.assistant,
-                content: Utilities.formatPlaceholders(
-                    character.greetings[index], user.name, character.name),
-                finalised: true
-            );
-
-            session.chat.addNode(message);
-            chat = [message];
-          }
-        }
 
         chatWidgets.clear();
         for (final message in chat) {
