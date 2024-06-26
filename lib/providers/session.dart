@@ -247,6 +247,7 @@ class Session extends ChangeNotifier {
       model = OpenAiModel.fromMap(notify, lastOpenAI);
     } else {
       model = OpenAiModel(listener: notify);
+      model.reset();
     }
 
     prefs.setInt("llm_type", model.type.index);
@@ -264,6 +265,7 @@ class Session extends ChangeNotifier {
       model = OllamaModel.fromMap(notify, lastOllama);
     } else {
       model = OllamaModel(listener: notify);
+      model.reset();
       await model.resetUri();
     }
 
@@ -282,6 +284,7 @@ class Session extends ChangeNotifier {
       model = MistralAiModel.fromMap(notify, lastMistralAI);
     } else {
       model = MistralAiModel(listener: notify);
+      model.reset();
     }
 
     prefs.setInt("llm_type", model.type.index);
@@ -299,6 +302,7 @@ class Session extends ChangeNotifier {
       model = GoogleGeminiModel.fromMap(notify, lastGemini);
     } else {
       model = GoogleGeminiModel(listener: notify);
+      model.reset();
     }
 
     prefs.setInt("llm_type", model.type.index);
@@ -316,6 +320,7 @@ class Session extends ChangeNotifier {
       model = BaiduAiModel.fromMap(notify, lastModel);
     } else {
       model = BaiduAiModel(listener: notify);
+      model.reset();
     }
 
     prefs.setInt("llm_type", model.type.index);
@@ -333,6 +338,7 @@ class Session extends ChangeNotifier {
       model = ZhiPuAiModel.fromMap(notify, lastModel);
     } else {
       model = ZhiPuAiModel(listener: notify);
+      model.reset();
     }
 
     prefs.setInt("llm_type", model.type.index);
@@ -350,6 +356,7 @@ class Session extends ChangeNotifier {
       model = LingYiAiModel.fromMap(notify, lastModel);
     } else {
       model = LingYiAiModel(listener: notify);
+      model.reset();
     }
 
     prefs.setInt("llm_type", model.type.index);
@@ -367,6 +374,7 @@ class Session extends ChangeNotifier {
       model = MoonAiModel.fromMap(notify, lastModel);
     } else {
       model = MoonAiModel(listener: notify);
+      model.reset();
     }
 
     prefs.setInt("llm_type", model.type.index);
@@ -384,6 +392,7 @@ class Session extends ChangeNotifier {
       model = QWenAiModel.fromMap(notify, lastModel);
     } else {
       model = QWenAiModel(listener: notify);
+      model.reset();
     }
 
     prefs.setInt("llm_type", model.type.index);

@@ -26,11 +26,11 @@ class OllamaModel extends LargeLanguageModel {
     List<String> missing = [];
 
     if (name.isEmpty) {
-      missing.add('- A model option is required for prompting.\n');
+      missing.add('- 请点击头部选择模型.\n');
     }
 
     if (uri.isEmpty) {
-      missing.add('- A compatible URL is required for prompting.\n');
+      missing.add('- 请进入模型设置填写URL.\n');
     }
 
     return missing;
@@ -103,7 +103,7 @@ class OllamaModel extends LargeLanguageModel {
       return;
     }
 
-    if(kIsWeb){
+    if (kIsWeb) {
       return;
     }
 
@@ -113,8 +113,7 @@ class OllamaModel extends LargeLanguageModel {
     }
 
     final localIP = await NetworkInfo().getWifiIP();
-    if(localIP==null){
-    }
+    if (localIP == null) {}
 
     // Get the first 3 octets of the local IP
     final baseIP = ipToCSubnet(localIP ?? '');
@@ -244,7 +243,6 @@ class OllamaModel extends LargeLanguageModel {
       print("Getting ollama options from: $url");
       var request = Request("GET", url)..headers.addAll(headers);
 
-
       var response = await request.send();
       var responseString = await response.stream.bytesToString();
       var data = json.decode(responseString);
@@ -264,7 +262,9 @@ class OllamaModel extends LargeLanguageModel {
   }
 
   Future<bool> _getNearbyDevicesPermission() async {
-    if(kIsWeb) {return true;}
+    if (kIsWeb) {
+      return true;
+    }
     if (!Platform.isAndroid && !Platform.isIOS) {
       return true;
     }

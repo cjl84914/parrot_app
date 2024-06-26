@@ -119,13 +119,13 @@ class TTS with ChangeNotifier {
     flutterTts.setPitch(pitch);
   }
 
-  Future speak(text) async {
+  Future speak(String text) async {
     if (isSupportingOS()) {
       if (text != null && text != "") {
         if (ttsState == TtsState.playing) {
           await stop();
         }
-        await flutterTts.speak(text);
+        await flutterTts.speak(text.replaceAll("**", "").replaceAll("###", ""));
       }
     }
   }

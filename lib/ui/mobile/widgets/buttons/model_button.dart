@@ -33,6 +33,9 @@ class _ModelButtonState extends State<ModelButton> {
                 future: session.model.options,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
+                    if(snapshot.data==null){
+                      return Container();
+                    }
                     options = snapshot.data as List<String>;
                     List<DropdownMenuEntry<dynamic>> modelOptions = options
                         .map((String modelName) => DropdownMenuEntry(

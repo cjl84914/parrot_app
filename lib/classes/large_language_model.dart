@@ -332,7 +332,7 @@ class LargeLanguageModel extends ChangeNotifier {
     }
 
     if (_token.isEmpty) {
-      missing.add('- 需要身份令牌验证.\n');
+      missing.add('- 需要身份令牌验证(Api Key).\n');
     } 
     
     return missing;

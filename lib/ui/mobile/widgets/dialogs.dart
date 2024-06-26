@@ -59,7 +59,7 @@ void showMissingRequirementsDialog(BuildContext context) {
           FilledButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text(
-              "OK",
+              "关闭",
             ),
           ),
         ],
