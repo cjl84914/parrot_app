@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:parrot/ui/mobile/widgets/dialogs.dart';
 import 'package:parrot/classes/large_language_model.dart';
 import 'package:parrot/providers/session.dart';
@@ -55,6 +56,11 @@ class _ChatFieldState extends State<ChatField> {
   }
 
   void send() async {
+    if (_promptController.text.isEmpty) {
+      EasyLoading.showToast("请输入Prompt");
+      return;
+    }
+
     if (!kIsWeb) {
       if (Platform.isAndroid || Platform.isIOS) {
         FocusScope.of(context).unfocus();
@@ -84,7 +90,7 @@ class _ChatFieldState extends State<ChatField> {
         child: Row(
           children: [
             if (!session.chat.tail.finalised &&
-                session.model.type != LargeLanguageModelType.ollama)
+                session.model.type == LargeLanguageModelType.ollama)
               IconButton(
                   onPressed: session.stop,
                   iconSize: 50,
@@ -96,7 +102,7 @@ class _ChatFieldState extends State<ChatField> {
                 child: KeyboardListener(
               focusNode: FocusNode(),
               onKeyEvent: (KeyEvent event) {
-                if(event.logicalKey.keyLabel=="Enter"){
+                if (event.logicalKey.keyLabel == "Enter") {
                   if (session.model.missingRequirements.isNotEmpty) {
                     showMissingRequirementsDialog(context);
                   } else if (session.chat.tail.finalised) {
@@ -112,7 +118,7 @@ class _ChatFieldState extends State<ChatField> {
                 controller: _promptController,
                 cursorColor: Theme.of(context).colorScheme.secondary,
                 decoration: InputDecoration(
-                  labelText: '请问有什么需要？',
+                  labelText: '请输入Prompt',
                   hintStyle: Theme.of(context).textTheme.labelSmall,
                 ),
               ),

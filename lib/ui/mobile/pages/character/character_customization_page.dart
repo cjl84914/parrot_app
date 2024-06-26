@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:parrot/providers/session.dart';
-import 'package:parrot/ui/mobile/widgets/appbars/generic_app_bar.dart';
+import 'package:parrot/ui/mobile/pages/model_page.dart';
 import 'package:parrot/ui/mobile/widgets/dialogs.dart';
 import 'package:parrot/ui/mobile/widgets/future_avatar.dart';
 import 'package:parrot/ui/mobile/widgets/session_busy_overlay.dart';
@@ -20,7 +21,6 @@ class _CharacterCustomizationPageState
   bool regenerate = true;
   late TextEditingController nameController;
   late TextEditingController systemController;
-
   @override
   void dispose() {
     super.dispose();
@@ -30,83 +30,82 @@ class _CharacterCustomizationPageState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: const GenericAppBar(title: "助手设置"),
-        body: Consumer<Session>(
-          builder: (context, session, child) {
-            nameController =
-                TextEditingController(text: session.character.name);
-            systemController =
-                TextEditingController(text: session.character.system);
-
-            return SessionBusyOverlay(
-                child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 10.0),
-                  FutureAvatar(
-                    key: session.character.key,
-                    image: session.character.profile,
-                    radius: 75,
-                  ),
-                  const SizedBox(height: 10.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      FilledButton(
-                        onPressed: () async{
-                          regenerate = true;
-                          await storageOperationDialog(
-                              context, session.character.importImage);
-                          session.notify();
-                        },
-                        child: const Text(
-                          "修改头像",
-                        ),
-                      ),
-                      const SizedBox(width: 10.0),
-                      FilledButton(
-                        onPressed: () {
-                          regenerate = true;
-                          session.character.reset();
-                          setState(() {
-
-                          });
-                        },
-                        child: const Text(
-                          "还原默认",
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 15.0),
-                  Divider(
-                    indent: 10,
-                    endIndent: 10,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  TextFieldListTile(
-                    headingText: '名字',
-                    labelText: '请输入助手名字',
-                    controller: nameController,
-                    onChanged: (value) {
-                      session.character.name = value;
+    return Consumer<Session>(builder: (context, session, child) {
+      nameController = TextEditingController(text: session.character.name);
+      systemController = TextEditingController(text: session.character.system);
+      return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            foregroundColor: Theme.of(context).colorScheme.onPrimary,
+            elevation: 0.0,
+            title: const Text("助手设置"),
+          ),
+          body: SessionBusyOverlay(
+              child: SingleChildScrollView(
+            child: Column(
+              children: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (c) {
+                        return const ModelSettingPage();
+                      }));
                     },
-                    multiline: false,
-                  ),
-                  TextFieldListTile(
-                    headingText: '角色设定',
-                    labelText: '请输入Prompt提示词',
-                    controller: systemController,
-                    onChanged: (value) {
-                      session.character.system = value;
-                    },
-                    multiline: true,
-                  ),
-                ],
-              ),
-            ));
-          },
-        ));
+                    child: ShaderMask(
+                        shaderCallback: (bounds) => const LinearGradient(
+                          colors: [
+                            Color.fromARGB(255, 226, 86, 61),
+                            Color.fromARGB(255, 255, 210, 110)
+                          ],
+                          stops: [0.25, 0.75],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ).createShader(bounds),
+                        blendMode: BlendMode.srcIn,
+                        // This blend mode applies the shader to the text color.
+                        child: Text(
+                            session.model.name == '' ? "选择模型" : session.model.name,
+                            style: const TextStyle(fontSize: 20)))),
+                Divider(
+                  indent: 10,
+                  endIndent: 10,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                GestureDetector(
+                  onTap: () async{
+                      regenerate = true;
+                      await storageOperationDialog(
+                      context, session.character.importImage);
+                      session.notify();
+                  },
+                  child:
+                FutureAvatar(
+                  key: session.character.key,
+                  image: session.character.profile,
+                  radius: 75,
+                )),
+                const SizedBox(height: 10.0),
+                TextFieldListTile(
+                  headingText: '名字',
+                  labelText: '请输入助手名字',
+                  controller: nameController,
+                  onChanged: (value) {
+                    session.character.name = value;
+                  },
+                  multiline: false,
+                ),
+                TextFieldListTile(
+                  headingText: '角色设定',
+                  labelText: '请输入Prompt提示词',
+                  controller: systemController,
+                  onChanged: (value) {
+                    session.character.system = value;
+                  },
+                  multiline: true,
+                ),
+
+              ],
+            ),
+          )));
+    });
   }
 }

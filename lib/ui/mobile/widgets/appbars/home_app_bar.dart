@@ -26,15 +26,15 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).colorScheme.background,
       foregroundColor: Theme.of(context).colorScheme.onPrimary,
       elevation: 0.0,
+      leadingWidth: 36,
       title: ListTile(
         onTap: () async{
           await Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => const CharacterCustomizationPage()));
-          context.read<Session>().notify();
+          session.notify();
         },
-        contentPadding: EdgeInsets.zero,
         leading: FutureAvatar(
           key: session.character.key,
           image: session.character.profile,

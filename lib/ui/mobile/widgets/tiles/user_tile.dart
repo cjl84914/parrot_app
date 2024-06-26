@@ -129,7 +129,7 @@ class _UserTileState extends State<UserTile> {
           builder: (context, user, child) {
             return AlertDialog(
               title: const Text(
-                "Change Profile Picture",
+                "更改头像",
                 textAlign: TextAlign.center,
               ),
               content: SizedBox(
@@ -159,13 +159,13 @@ class _UserTileState extends State<UserTile> {
                 FilledButton(
                   onPressed: user.loadImage,
                   child: const Text(
-                    "Load Custom",
+                    "自定义照片",
                   ),
                 ),
                 FilledButton(
                   onPressed: () => Navigator.of(context).pop(),
                   child: const Text(
-                    "Close",
+                    "关闭",
                   ),
                 ),
               ],

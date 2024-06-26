@@ -158,7 +158,6 @@ class Character {
       }
 
     } catch (e) {
-      await reset();
       Logger.log("Error: $e");
       return "Error: $e";
     }

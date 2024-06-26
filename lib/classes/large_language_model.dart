@@ -324,7 +324,7 @@ class LargeLanguageModel extends ChangeNotifier {
     List<String> missing = [];
 
     if (_name.isEmpty) {
-      missing.add('- 请点击右上角按钮选择模型.\n');
+      missing.add('- 请点击头部选择模型.\n');
     } 
     
     if (_uri.isEmpty) {

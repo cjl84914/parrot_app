@@ -52,22 +52,6 @@ class _MenuButtonState extends State<MenuButton> {
           padding: EdgeInsets.zero,
           child: ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-            title: const Text('模型设置'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context)
-              {
-                return const ModelSettingPage();
-              }
-              ));},
-          ),
-        ),
-        PopupMenuItem(
-          padding: EdgeInsets.zero,
-          child: ListTile(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
             title: const Text('清除上下文'),
             onTap: () {
               Navigator.pop(context);

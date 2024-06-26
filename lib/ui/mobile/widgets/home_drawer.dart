@@ -73,7 +73,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
         SharedPreferences.getInstance().then((prefs) {
           prefs.setString("last_session", json.encode(session.toMap()));
         });
-
         return Drawer(
             backgroundColor: Theme.of(context).colorScheme.background,
             shape: const RoundedRectangleBorder(
@@ -100,6 +99,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     },
                     child: const Text("创建助手"),
                   ),
+                  const SizedBox(height: 10.0),
                   Expanded(
                     child: ListView.builder(
                         padding: EdgeInsets.zero,
@@ -125,7 +125,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
                           );
                         }),
                   ),
-                  const Expanded(child: SizedBox(height: 5.0)),
                 ])));
       },
     );
