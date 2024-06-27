@@ -7,7 +7,7 @@
 
    <img src="./assets/ui.jpg" width="200" >
 
-<a href="https://www.bilibili.com/video/BV1bZ421u7V7/?share_source=copy_web&vd_source=456a4760536816952cff18d98169c64e" target="_blank">【B站演示：AI外教免费陪聊？】 </a>
+<a href="https://www.bilibili.com/video/BV1tZ3keWEyo/?share_source=copy_web&vd_source=c65662c27569e34f3751563ca5c04368" target="_blank">【B站演示：AI外教免费陪聊？】 </a>
 
 ## 🚀 快速开始
 
