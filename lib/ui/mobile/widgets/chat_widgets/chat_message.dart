@@ -51,9 +51,7 @@ class _ChatMessageState extends State<ChatMessage>
       }
     }
 
-    return
-
-      Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: widgets,
     );
@@ -64,77 +62,85 @@ class _ChatMessageState extends State<ChatMessage>
     return Consumer2<Session, User>(
       builder: (context, session, user, child) {
         node = session.chat.find(widget.key!)!;
-
-        int currentIndex = session.chat.indexOf(widget.key!);
-        int siblingCount = session.chat.siblingCountOf(widget.key!);
-        return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(width: 10.0),
-              FutureAvatar(
-                key: node.role == ChatRole.user ? user.key : session.character.key,
-                image: node.role == ChatRole.user
-                    ? user.profile
-                    : session.character.profile,
-                radius: 16,
-              ),
-              const SizedBox(width: 10.0),
-              Text(
-                node.role == ChatRole.user ? user.name : session.character.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.normal,
-                  color: Color.fromARGB(255, 226, 86, 61),
-                  // This color is needed, but it will be overridden by the shader.
-                  fontSize: 14,
-                ),
-              ),
-              const Expanded(child: SizedBox()),
-            ],
-          ),
-          Padding(
-              // left padding 30 right 10
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: editing ? editingColumn() : standardColumn(),
-              )),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              if (node.finalised) ...messageOptions(),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  IconButton(
-                      padding: const EdgeInsets.all(0),
-                      onPressed: () {
-                        if (!session.chat.tail.finalised) return;
-                        session.chat.last(node.key);
-                        session.notify();
-                      },
-                      icon: Icon(Icons.arrow_left,
-                          color: Theme.of(context).colorScheme.onPrimary)),
-                  Text('${currentIndex + 1}/$siblingCount',
-                      style: Theme.of(context).textTheme.labelLarge),
-                  IconButton(
-                    padding: const EdgeInsets.all(0),
-                    onPressed: () {
-                      if (!session.chat.tail.finalised) return;
-                      session.chat.next(node.key);
-                      session.notify();
-                    },
-                    icon: Icon(Icons.arrow_right,
-                        color: Theme.of(context).colorScheme.onPrimary),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ]);
+        return node.role == ChatRole.user
+            ? _userMessage()
+            : _assistantMessage(session);
       },
     );
+  }
+
+  Widget _userMessage() {
+    return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+      Container(
+          margin: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: const Color.fromRGBO(35, 107, 244, 1)),
+          child: SelectableText(node.content,
+              style: const TextStyle(
+                fontWeight: FontWeight.normal,
+                color: Colors.white,
+                fontSize: 16,
+              )))
+    ]);
+  }
+
+  Widget _assistantMessage(Session session) {
+    int currentIndex = session.chat.indexOf(widget.key!);
+    int siblingCount = session.chat.siblingCountOf(widget.key!);
+    return
+      Container(
+          margin: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: const Color.fromRGBO(246, 246, 246, 1)),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: editing ? editingColumn() : standardColumn(),
+                    )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (node.finalised) ...messageOptions(),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        IconButton(
+                            padding: const EdgeInsets.all(0),
+                            onPressed: () {
+                              if (!session.chat.tail.finalised) return;
+                              session.chat.last(node.key);
+                              session.notify();
+                            },
+                            icon: Icon(Icons.arrow_left,
+                                color:
+                                    Theme.of(context).colorScheme.onPrimary)),
+                        Text('${currentIndex + 1}/$siblingCount',
+                            style: Theme.of(context).textTheme.labelLarge),
+                        IconButton(
+                          padding: const EdgeInsets.all(0),
+                          onPressed: () {
+                            if (!session.chat.tail.finalised) return;
+                            session.chat.next(node.key);
+                            session.notify();
+                          },
+                          icon: Icon(Icons.arrow_right,
+                              color: Theme.of(context).colorScheme.onPrimary),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ]))
+    ;
   }
 
   List<Widget> messageOptions() {
@@ -174,15 +180,16 @@ class _ChatMessageState extends State<ChatMessage>
         icon: Icon(ttsState == TtsState.playing ? Icons.stop : Icons.play_arrow,
             size: 18),
       ),
-      !kIsWeb?Visibility(
-          visible: Platform.isIOS || Platform.isAndroid,
-          child:
-      IconButton(
-        onPressed: () {
-          showTranslateTextDialog(context, node.content);
-        },
-        icon: const Icon(Icons.translate, size: 18),
-      )):Container(),
+      !kIsWeb
+          ? Visibility(
+              visible: Platform.isIOS || Platform.isAndroid,
+              child: IconButton(
+                onPressed: () {
+                  showTranslateTextDialog(context, node.content);
+                },
+                icon: const Icon(Icons.translate, size: 18),
+              ))
+          : Container(),
       IconButton(
         onPressed: () {
           showSmartReplyDialog(context, node.content);
@@ -224,8 +231,7 @@ class _ChatMessageState extends State<ChatMessage>
         keyboardType: TextInputType.multiline,
       ),
       Row(children: [
-        InkWell
-        (
+        InkWell(
             onTap: () {
               if (!context.read<Session>().chat.tail.finalised) return;
 
@@ -246,8 +252,7 @@ class _ChatMessageState extends State<ChatMessage>
             },
             child: const Icon(Icons.done)),
         const SizedBox(width: 16),
-        InkWell
-          (
+        InkWell(
             onTap: () {
               setState(() {
                 editing = false;

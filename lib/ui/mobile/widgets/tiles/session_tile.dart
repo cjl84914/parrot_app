@@ -33,23 +33,22 @@ class _SessionTileState extends State<SessionTile> {
             child: ListTile(
                 onTap: () {
                   if (!widget.session.chat.tail.finalised) return;
-                  print(widget.session.character.name);
                   session.from(widget.session);
                   Navigator.pop(context);
                 },
                 leading: FutureAvatar(
                   key: widget.session.character.key,
                   image: widget.session.character.profile,
-                  radius: 16,
+                  radius: 20,
                 ),
                 title: Text(
                   displayMessage,
-                  style: Theme.of(context).textTheme.labelLarge,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 subtitle: Text(
                   widget.session.model.name,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.grey, fontSize: 14),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.grey),
                 )));
       },
     );

@@ -21,6 +21,7 @@ class _CharacterCustomizationPageState
   bool regenerate = true;
   late TextEditingController nameController;
   late TextEditingController systemController;
+
   @override
   void dispose() {
     super.dispose();
@@ -44,6 +45,19 @@ class _CharacterCustomizationPageState
               child: SingleChildScrollView(
             child: Column(
               children: [
+                SizedBox(height: 10),
+                GestureDetector(
+                    onTap: () async {
+                      regenerate = true;
+                      await storageOperationDialog(
+                          context, session.character.importImage);
+                      session.notify();
+                    },
+                    child: FutureAvatar(
+                      key: session.character.key,
+                      image: session.character.profile,
+                      radius: 75,
+                    )),
                 TextButton(
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (c) {
@@ -52,37 +66,21 @@ class _CharacterCustomizationPageState
                     },
                     child: ShaderMask(
                         shaderCallback: (bounds) => const LinearGradient(
-                          colors: [
-                            Color.fromARGB(255, 226, 86, 61),
-                            Color.fromARGB(255, 255, 210, 110)
-                          ],
-                          stops: [0.25, 0.75],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ).createShader(bounds),
+                              colors: [
+                                Color.fromARGB(255, 226, 86, 61),
+                                Color.fromARGB(255, 255, 210, 110)
+                              ],
+                              stops: [0.25, 0.75],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ).createShader(bounds),
                         blendMode: BlendMode.srcIn,
                         // This blend mode applies the shader to the text color.
                         child: Text(
-                            session.model.name == '' ? "选择模型" : session.model.name,
+                            session.model.name == ''
+                                ? "选择模型"
+                                : session.model.name,
                             style: const TextStyle(fontSize: 20)))),
-                Divider(
-                  indent: 10,
-                  endIndent: 10,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                GestureDetector(
-                  onTap: () async{
-                      regenerate = true;
-                      await storageOperationDialog(
-                      context, session.character.importImage);
-                      session.notify();
-                  },
-                  child:
-                FutureAvatar(
-                  key: session.character.key,
-                  image: session.character.profile,
-                  radius: 75,
-                )),
                 const SizedBox(height: 10.0),
                 TextFieldListTile(
                   headingText: '名字',
@@ -102,7 +100,6 @@ class _CharacterCustomizationPageState
                   },
                   multiline: true,
                 ),
-
               ],
             ),
           )));

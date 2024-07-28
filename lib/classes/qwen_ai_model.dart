@@ -96,7 +96,7 @@ class QWenAiModel extends LargeLanguageModel {
 
   @override
   Future<List<String>> get options async {
-    return ["qwen-turbo" ,"qwen-plus","qwen-max","qwen-max-0428","qwen-max-0403","qwen-max-0107","qwen-max-longcontext"];
+    return ["qwen-long" ,"qwen-turbo" ,"qwen-plus","qwen-max","qwen-max-0428","qwen-max-0403","qwen-max-0107","qwen-max-longcontext"];
   }
 
   @override

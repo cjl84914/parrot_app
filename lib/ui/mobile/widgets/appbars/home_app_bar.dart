@@ -4,6 +4,7 @@ import 'package:parrot/providers/session.dart';
 import 'package:parrot/providers/tts.dart';
 import 'package:parrot/providers/user.dart';
 import 'package:parrot/ui/mobile/pages/character/character_customization_page.dart';
+import 'package:parrot/ui/mobile/pages/character/character_detail_page.dart';
 import 'package:parrot/ui/mobile/widgets/buttons/menu_button.dart';
 import 'package:parrot/ui/mobile/widgets/future_avatar.dart';
 import 'package:parrot/ui/mobile/widgets/tiles/session_tile.dart';
@@ -26,30 +27,29 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).colorScheme.background,
       foregroundColor: Theme.of(context).colorScheme.onPrimary,
       elevation: 0.0,
-      leadingWidth: 36,
-      title: ListTile(
-        onTap: () async{
-          await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const CharacterCustomizationPage()));
-          session.notify();
-        },
-        leading: FutureAvatar(
+      title: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+        FutureAvatar(
           key: session.character.key,
           image: session.character.profile,
           radius: 16,
         ),
-        title:Text(
-          displayMessage,
-          style: Theme.of(context).textTheme.labelLarge,
+        const SizedBox(
+          width: 6,
         ),
-       subtitle:  Text(
-          session.model.name,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(color: Colors.grey, fontSize: 14),
-        )
-      ),
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(
+            displayMessage,
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+          Container(
+              width: 120,
+              child: Text(
+                session.model.name,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(color: Colors.grey, fontSize: 14),
+              ))
+        ])
+      ]),
       actions: [
         Builder(builder: (context) {
           bool isMuted = context.watch<TTS>().isMuted;
@@ -61,7 +61,11 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             },
           );
         }),
-        const MenuButton()
+        IconButton(onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (c){
+            return CharacterDetail();
+          }));
+        }, icon: const Icon(Icons.more_horiz))
       ],
     );
   }

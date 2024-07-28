@@ -2,6 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/session.dart';
+import 'package:parrot/ui/mobile/pages/more_page.dart';
+import 'package:parrot/ui/mobile/widgets/buttons/menu_button.dart';
+import 'package:parrot/ui/mobile/widgets/future_avatar.dart';
 import 'package:parrot/ui/mobile/widgets/tiles/session_tile.dart';
 import 'package:parrot/ui/mobile/widgets/tiles/user_tile.dart';
 import 'package:provider/provider.dart';
@@ -83,23 +86,31 @@ class _HomeDrawerState extends State<HomeDrawer> {
             child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
                 child: Column(children: [
-                  const UserTile(),
+                  Row(children: [
+                    Expanded(
+                        child: InkWell(
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (c) {
+                                return MorePage();
+                              }));
+                            },
+                            child: const Row(children: [
+                              CircleAvatar(
+                                backgroundImage:
+                                    AssetImage("assets/parrot.png"),
+                                radius: 30,
+                              ),
+                              SizedBox(width: 12),
+                              Text("语鹦助手")
+                            ]))),
+                    MenuButton()
+                  ]),
                   const SizedBox(height: 5.0),
                   Divider(
+                    height: 0,
                     color: Theme.of(context).colorScheme.primary,
                   ),
-                  FilledButton(
-                    onPressed: () {
-                      if (!session.chat.tail.finalised) return;
-                      setState(() {
-                        final newSession = Session();
-                        sessions.add(newSession);
-                        session.from(newSession);
-                      });
-                    },
-                    child: const Text("创建助手"),
-                  ),
-                  const SizedBox(height: 10.0),
                   Expanded(
                     child: ListView.builder(
                         padding: EdgeInsets.zero,
@@ -125,6 +136,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
                           );
                         }),
                   ),
+                  Divider(
+                    height: 0,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  const UserTile(),
                 ])));
       },
     );

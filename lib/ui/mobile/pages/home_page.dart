@@ -49,7 +49,7 @@ class HomePageState extends State<HomePage> {
             key: message.key,
           ));
         }
-        _setStateAndMoreToListViewEnd();
+        // _setStateAndMoreToListViewEnd();
         return Builder(
           builder: (BuildContext context) =>
               GestureDetector(

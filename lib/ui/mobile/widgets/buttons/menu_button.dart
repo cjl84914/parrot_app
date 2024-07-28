@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:parrot/ui/mobile/pages/about_page.dart';
+import 'package:parrot/ui/mobile/pages/character/character_customization_page.dart';
 import 'package:parrot/ui/mobile/pages/model_page.dart';
 import 'package:parrot/ui/mobile/pages/settings_page.dart';
 import 'package:parrot/ui/mobile/widgets/llm/chat_node_tree.dart';
@@ -24,8 +25,9 @@ class _MenuButtonState extends State<MenuButton> {
           return IconButton(
             key: iconButtonKey,
             icon: const Icon(
-              Icons.settings,
+              Icons.add,
               size: 24,
+              color: Colors.black,
             ),
             onPressed: () =>onPressed(context, session, child ),
           );
@@ -49,43 +51,12 @@ class _MenuButtonState extends State<MenuButton> {
       ),
       items: [
         PopupMenuItem(
-          padding: EdgeInsets.zero,
-          child: ListTile(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-            title: const Text('清除上下文'),
-            onTap: () {
-              Navigator.pop(context);
-              session.chat = ChatNodeTree();
-              session.notify();
-            },
-          ),
-        ),
-        PopupMenuItem(
-          padding: EdgeInsets.zero,
-          child: ListTile(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-            title: const Text('应用设置'),
-            onTap: () {
-              cache.clear();
-              Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SettingsPage()));
-            },
-          ),
-        ),
-        PopupMenuItem(
-          padding: EdgeInsets.zero,
-          child: ListTile(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-            title: const Text('关于'),
-            onTap: () {
-              Navigator.pop(context); // Close the menu first
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const AboutPage()));
-            },
-          ),
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (c){
+              return const CharacterCustomizationPage();
+            }));
+          },
+          child: const Text('创建助手'),
         ),
       ],
     );
