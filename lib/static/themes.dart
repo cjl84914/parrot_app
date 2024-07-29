@@ -82,8 +82,7 @@ class Themes {
           overlayColor: tertiary,
         ),
         inputDecorationTheme: InputDecorationTheme(
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+          isDense: true,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30.0),
             borderSide: BorderSide.none,
@@ -119,10 +118,10 @@ class Themes {
                 tertiary: tertiary,
                 inversePrimary: inversePrimary,
               ),
-        dividerTheme: DividerThemeData(
+        dividerTheme: const DividerThemeData(
           color: secondaryColor,
         ),
-        listTileTheme:  ListTileThemeData(
+        listTileTheme:  const ListTileThemeData(
           iconColor: buttonBorder1,
         ),
         scaffoldBackgroundColor: secondaryColor);

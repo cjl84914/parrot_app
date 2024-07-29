@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 import 'package:parrot/providers/session.dart';
+import 'package:parrot/ui/mobile/pages/character/character_customization_page.dart';
 import 'package:provider/provider.dart';
 
 Future storageOperationDialog(BuildContext context,
@@ -57,9 +58,20 @@ void showMissingRequirementsDialog(BuildContext context) {
         content: Text(requirement.join()),
         actions: [
           FilledButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (c){
+                return const CharacterCustomizationPage();
+              }));
+            },
+            child: const Text(
+              "去设置",
+            ),
+          ),
+          MaterialButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(
+            child: const Text(
               "关闭",
+              style: TextStyle(color: Colors.grey)
             ),
           ),
         ],

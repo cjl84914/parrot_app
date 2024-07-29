@@ -35,17 +35,17 @@ class _CharacterCustomizationPageState
       nameController = TextEditingController(text: session.character.name);
       systemController = TextEditingController(text: session.character.system);
       return Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
             backgroundColor: Theme.of(context).colorScheme.background,
             foregroundColor: Theme.of(context).colorScheme.onPrimary,
             elevation: 0.0,
             title: const Text("助手设置"),
           ),
-          body: SessionBusyOverlay(
-              child: SingleChildScrollView(
+          body: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 GestureDetector(
                     onTap: () async {
                       regenerate = true;
@@ -58,30 +58,33 @@ class _CharacterCustomizationPageState
                       image: session.character.profile,
                       radius: 75,
                     )),
-                TextButton(
-                    onPressed: () {
+                const SizedBox(height: 10),
+                ListTile(
+                    onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (c) {
                         return const ModelSettingPage();
                       }));
                     },
-                    child: ShaderMask(
-                        shaderCallback: (bounds) => const LinearGradient(
-                              colors: [
-                                Color.fromARGB(255, 226, 86, 61),
-                                Color.fromARGB(255, 255, 210, 110)
-                              ],
-                              stops: [0.25, 0.75],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ).createShader(bounds),
-                        blendMode: BlendMode.srcIn,
-                        // This blend mode applies the shader to the text color.
-                        child: Text(
-                            session.model.name == ''
-                                ? "选择模型"
-                                : session.model.name,
-                            style: const TextStyle(fontSize: 20)))),
-                const SizedBox(height: 10.0),
+                    title: Column(children: [
+                      const Text("模型"),
+                      Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.grey.shade300,
+                          ),
+                          child: Row(children: [
+                            Expanded(
+                                child: Text(
+                                    overflow: TextOverflow.ellipsis,
+                                    session.model.name == ""
+                                        ? "选择模型"
+                                        : session.model.name,
+                                    style: const TextStyle(fontSize: 16))),
+                            const Icon(Icons.keyboard_arrow_down)
+                          ]))
+                    ])),
+                const SizedBox(height: 10),
                 TextFieldListTile(
                   headingText: '名字',
                   labelText: '请输入助手名字',
@@ -102,7 +105,7 @@ class _CharacterCustomizationPageState
                 ),
               ],
             ),
-          )));
+          ));
     });
   }
 }

@@ -62,7 +62,8 @@ class ZhiPuAiModel extends LargeLanguageModel {
         case ChatRole.assistant:
           chatMessages.add(ChatMessage.ai(message.content));
           break;
-        case ChatRole.system: // Under normal circumstances, this should only be used for preprompt
+        case ChatRole
+              .system: // Under normal circumstances, this should only be used for preprompt
           chatMessages.add(ChatMessage.system(message.content));
           break;
         default:
@@ -72,20 +73,17 @@ class ZhiPuAiModel extends LargeLanguageModel {
 
     try {
       final chat = ChatOpenAI(
-        baseUrl: uri,
-        apiKey: token,
-        defaultOptions: ChatOpenAIOptions(
-          model: name,
-          temperature: temperature,
-          frequencyPenalty: penaltyFreq,
-          presencePenalty: penaltyPresent,
-          maxTokens: nPredict,
-          topP: topP
-        )
-      );
+          baseUrl: uri,
+          apiKey: token,
+          defaultOptions: ChatOpenAIOptions(
+              model: name,
+              temperature: temperature,
+              frequencyPenalty: penaltyFreq,
+              presencePenalty: penaltyPresent,
+              maxTokens: nPredict,
+              topP: topP));
       final stream = chat.stream(PromptValue.chat(chatMessages));
       yield* stream.map((final res) => res.output.content);
-
     } catch (e) {
       final exception = e as OpenAIClientException;
       yield exception.toString();
@@ -95,7 +93,7 @@ class ZhiPuAiModel extends LargeLanguageModel {
 
   @override
   Future<List<String>> get options async {
-    return ["glm-4" ,"glm-4-0520","glm-4-air","glm-4-airx","glm-4-flash"];
+    return ["glm-4", "glm-4-0520", "glm-4-air", "glm-4-airx", "glm-4-flash"];
   }
 
   @override

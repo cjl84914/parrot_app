@@ -1,12 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:parrot/ui/mobile/pages/more_page.dart';
-import 'package:parrot/ui/mobile/widgets/buttons/menu_button.dart';
-import 'package:parrot/ui/mobile/widgets/future_avatar.dart';
 import 'package:parrot/ui/mobile/widgets/tiles/session_tile.dart';
-import 'package:parrot/ui/mobile/widgets/tiles/user_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -49,8 +45,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
   Future<void> saveSessions() async {
     final prefs = await SharedPreferences.getInstance();
     sessions.removeWhere((session) => session.key == current);
-    final String sessionsJson =
-        json.encode(sessions.map((session) => session.toMap()).toList());
+    final String sessionsJson = json.encode(sessions.map((session) => session.toMap()).toList());
     await prefs.setString("sessions", sessionsJson);
   }
 
@@ -80,31 +75,33 @@ class _HomeDrawerState extends State<HomeDrawer> {
             backgroundColor: Theme.of(context).colorScheme.background,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(20)),
+                  topRight: Radius.circular(0),
+                  bottomRight: Radius.circular(0)),
             ),
             child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                 child: Column(children: [
                   Row(children: [
-                    Expanded(
-                        child: InkWell(
-                            onTap: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (c) {
-                                return MorePage();
-                              }));
-                            },
-                            child: const Row(children: [
-                              CircleAvatar(
-                                backgroundImage:
-                                    AssetImage("assets/parrot.png"),
-                                radius: 30,
-                              ),
-                              SizedBox(width: 12),
-                              Text("语鹦助手")
-                            ]))),
-                    MenuButton()
+                    const Expanded(
+                        child: Row(children: [
+                      CircleAvatar(
+                        backgroundImage: AssetImage("assets/parrot.png"),
+                        radius: 30,
+                      ),
+                      SizedBox(width: 12),
+                      Text("语鹦助手")
+                    ])),
+                    IconButton(
+                        onPressed: () async {
+                          if (!session.chat.tail.finalised) return;
+                          final newSession = Session();
+                          sessions.add(newSession);
+                          session.from(newSession);
+                          Future.delayed(const Duration(seconds: 1), () {
+                            setState(() {});
+                          });
+                        },
+                        icon: const Icon(Icons.add))
                   ]),
                   const SizedBox(height: 5.0),
                   Divider(
@@ -140,7 +137,15 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     height: 0,
                     color: Theme.of(context).colorScheme.primary,
                   ),
-                  const UserTile(),
+                  ListTile(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (c) {
+                          return MorePage();
+                        }));
+                      },
+                      title: const Text("更多"),
+                      trailing: const Icon(Icons.keyboard_arrow_right))
+                  // const UserTile(),
                 ])));
       },
     );

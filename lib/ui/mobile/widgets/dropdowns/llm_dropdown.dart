@@ -97,11 +97,11 @@ class LlmDropdown extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 20,
               ),
-              label: const Text("选择厂商"),
+              label: const Text("选择模型厂商"),
               inputDecorationTheme: const InputDecorationTheme(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
               ),
-              width: 175),
+              width: 200),
         );
       }
     );

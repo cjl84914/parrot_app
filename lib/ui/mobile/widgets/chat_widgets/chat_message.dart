@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:parrot/providers/tts.dart';
 import 'package:parrot/ui/mobile/widgets/code_box.dart';
 import 'package:parrot/ui/mobile/widgets/dialogs.dart';
-import 'package:parrot/providers/character.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:parrot/providers/user.dart';
-import 'package:parrot/ui/mobile/widgets/future_avatar.dart';
 import 'package:parrot/ui/mobile/widgets/llm/chat_node.dart';
 import 'package:parrot/ui/mobile/widgets/typing_indicator.dart';
 import 'package:provider/provider.dart';
@@ -72,11 +70,11 @@ class _ChatMessageState extends State<ChatMessage>
   Widget _userMessage() {
     return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
       Container(
-          margin: const EdgeInsets.all(12),
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: const Color.fromRGBO(35, 107, 244, 1)),
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(12), bottomRight: Radius.circular(12), bottomLeft: Radius.circular(12)),
+              color:  Color.fromARGB(255, 16, 63, 92)),
           child: SelectableText(node.content,
               style: const TextStyle(
                 fontWeight: FontWeight.normal,
@@ -91,16 +89,16 @@ class _ChatMessageState extends State<ChatMessage>
     int siblingCount = session.chat.siblingCountOf(widget.key!);
     return
       Container(
-          margin: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: const Color.fromRGBO(246, 246, 246, 1)),
+          margin: const EdgeInsets.all(10),
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(topRight: Radius.circular(12), bottomRight: Radius.circular(12), bottomLeft: Radius.circular(12)),
+              color: Color.fromRGBO(246, 246, 246, 1)),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: editing ? editingColumn() : standardColumn(),

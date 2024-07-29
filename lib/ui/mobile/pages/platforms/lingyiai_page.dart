@@ -30,6 +30,7 @@ class LingYiAiPage extends StatelessWidget {
             });
 
             return ListView(
+                padding: const EdgeInsets.only(top: 16),
               children: [
                 Align(
                   alignment: Alignment.center, // Center the button horizontally

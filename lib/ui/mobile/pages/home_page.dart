@@ -28,10 +28,12 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return
+      SafeArea(child:
+      Scaffold(
         appBar: const HomeAppBar(),
         drawer: const HomeDrawer(),
-        body: _buildBody());
+        body: _buildBody()));
   }
 
   Widget _buildBody() {

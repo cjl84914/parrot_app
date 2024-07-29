@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/session.dart';
+import 'package:parrot/static/themes.dart';
 import 'package:parrot/ui/mobile/pages/character/character_customization_page.dart';
 import 'package:parrot/ui/mobile/widgets/future_avatar.dart';
+import 'package:parrot/ui/mobile/widgets/llm/chat_node_tree.dart';
 import 'package:parrot/ui/mobile/widgets/session_busy_overlay.dart';
 import 'package:provider/provider.dart';
 
@@ -29,17 +31,16 @@ class _CharacterDetailState extends State<CharacterDetail> {
     return Consumer<Session>(builder: (context, session, child) {
       nameController = TextEditingController(text: session.character.name);
       systemController = TextEditingController(text: session.character.system);
-      return Scaffold(
+      return
+        Scaffold(
           appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: secondaryColor,
             foregroundColor: Theme.of(context).colorScheme.onPrimary,
             elevation: 0.0,
           ),
-          body: SessionBusyOverlay(
-              child: SingleChildScrollView(
+          body: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 10.0),
                 Center(
                     child: GestureDetector(
                         onTap: () async {},
@@ -51,30 +52,46 @@ class _CharacterDetailState extends State<CharacterDetail> {
                 const SizedBox(height: 10.0),
                 Text(session.character.name,
                     style: Theme.of(context).textTheme.titleLarge),
+                const SizedBox(height: 10.0),
+                Text(session.model.name,
+                    style: Theme.of(context).textTheme.bodyMedium),
+                Container(
+                    margin: const EdgeInsets.all(24),
+                    width: 250,
+                    child:
+                Text(session.character.system,
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey))),
                 Card(
                     elevation: 0,
                     margin: const EdgeInsets.all(16),
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       ListTile(
                           leading: const Icon(Icons.edit),
-                          title: const Text("助手设定"),
+                          title: const Text("修改助手设定 "),
                           trailing: const Icon(Icons.keyboard_arrow_right),
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(builder: (c){
                               return const CharacterCustomizationPage();
                             }));
                           }),
-                      const Divider(
-                        height: 0.0,
-                      ),
+                    ])),
+                Card(
+                    elevation: 0,
+                    margin: const EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 16),
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
                       ListTile(
                           leading: const Icon(Icons.cleaning_services),
                           title: const Text("清除上下文"),
-                          onTap: () {}),
+                          onTap: () {
+                            session.chat = ChatNodeTree();
+                            session.notify();
+                          }),
                     ])),
               ],
             ),
-          )));
+          ));
     });
   }
 }

@@ -21,49 +21,47 @@ class MoonAiPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SessionBusyOverlay(
-        child: Consumer<Session>(
-          builder: (context, session, child) {
-            SharedPreferences.getInstance().then((prefs) {
-              prefs.setString("moon_ai_model", json.encode(session.model.toMap()));
-            });
+    return Scaffold(body: SessionBusyOverlay(
+      child: Consumer<Session>(
+        builder: (context, session, child) {
+          SharedPreferences.getInstance().then((prefs) {
+            prefs.setString(
+                "moon_ai_model", json.encode(session.model.toMap()));
+          });
 
-            return ListView(
-              children: [
-                Align(
-                  alignment: Alignment.center, // Center the button horizontally
-                  child: FilledButton(
-                    onPressed: () {
-                      session.model.reset();
-                    },
-                    child: const Text(
-                      "Reset",
-                    ),
-                  ),
+          return ListView(padding: const EdgeInsets.only(top: 16), children: [
+            Align(
+              alignment: Alignment.center,
+              // Center the button horizontally
+              child: FilledButton(
+                onPressed: () {
+                  session.model.reset();
+                },
+                child: const Text(
+                  "Reset",
                 ),
-                const SizedBox(height: 10.0),
-                const ApiKeyParameter(),
-                Divider(
-                  height: 20,
-                  indent: 10,
-                  endIndent: 10,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const UrlParameter(),
-                const ModelButton(),
-                const SizedBox(height: 20.0),
-                const SeedParameter(),
-                const TemperatureParameter(),
-                const PenaltyFrequencyParameter(),
-                const PenaltyPresentParameter(),
-                const NPredictParameter(),
-                const TopPParameter()
-              ]
-            );
-          },
-        ),
-      )
-    );
+              ),
+            ),
+            const SizedBox(height: 10.0),
+            const ApiKeyParameter(),
+            Divider(
+              height: 20,
+              indent: 10,
+              endIndent: 10,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            const UrlParameter(),
+            const ModelButton(),
+            const SizedBox(height: 20.0),
+            const SeedParameter(),
+            const TemperatureParameter(),
+            const PenaltyFrequencyParameter(),
+            const PenaltyPresentParameter(),
+            const NPredictParameter(),
+            const TopPParameter()
+          ]);
+        },
+      ),
+    ));
   }
 }

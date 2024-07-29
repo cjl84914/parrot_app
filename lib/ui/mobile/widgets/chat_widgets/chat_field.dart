@@ -57,7 +57,7 @@ class _ChatFieldState extends State<ChatField> {
 
   void send() async {
     if (_promptController.text.isEmpty) {
-      EasyLoading.showToast("请输入Prompt");
+      EasyLoading.showToast("请输入消息内容");
       return;
     }
 
@@ -117,9 +117,8 @@ class _ChatFieldState extends State<ChatField> {
                 enableInteractiveSelection: true,
                 controller: _promptController,
                 cursorColor: Theme.of(context).colorScheme.secondary,
-                decoration: InputDecoration(
-                  labelText: '请输入Prompt',
-                  hintStyle: Theme.of(context).textTheme.labelSmall,
+                decoration: const InputDecoration(
+                  hintText: '发消息...',
                 ),
               ),
             )),
