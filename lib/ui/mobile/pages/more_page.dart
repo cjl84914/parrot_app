@@ -1,9 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:parrot/ui/mobile/pages/about_page.dart';
 import 'package:parrot/ui/mobile/pages/settings_page.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MorePage extends StatefulWidget {
   const MorePage({super.key});
@@ -31,7 +28,7 @@ class _MorePageState extends State<MorePage> {
                         MaterialPageRoute(
                             builder: (context) => const SettingsPage()));
                   }),
-              Divider(
+              const Divider(
                 height: 0.0,
               ),
               ListTile(

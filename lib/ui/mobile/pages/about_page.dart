@@ -30,7 +30,6 @@ class _AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
         appBar: const GenericAppBar(title: "关于语鹦助手"),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 0.0),

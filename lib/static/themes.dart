@@ -21,7 +21,7 @@ const textColor6 = Color.fromARGB(255, 91, 101, 137);
 class Themes {
   static ThemeData lightTheme() {
     return genericTheme(
-      background: Colors.white,
+      background: secondaryColor,
       onBackground: Colors.grey.shade700,
       primary: Colors.grey.shade300,
       onPrimary: Colors.black,
@@ -118,12 +118,12 @@ class Themes {
                 tertiary: tertiary,
                 inversePrimary: inversePrimary,
               ),
-        dividerTheme: const DividerThemeData(
-          color: secondaryColor,
+        dividerTheme: DividerThemeData(
+          color: primary,
         ),
         listTileTheme:  const ListTileThemeData(
           iconColor: buttonBorder1,
         ),
-        scaffoldBackgroundColor: secondaryColor);
+        scaffoldBackgroundColor: background);
   }
 }

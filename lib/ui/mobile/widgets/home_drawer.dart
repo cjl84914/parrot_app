@@ -45,7 +45,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
   Future<void> saveSessions() async {
     final prefs = await SharedPreferences.getInstance();
     sessions.removeWhere((session) => session.key == current);
-    final String sessionsJson = json.encode(sessions.map((session) => session.toMap()).toList());
+    final String sessionsJson =
+        json.encode(sessions.map((session) => session.toMap()).toList());
     await prefs.setString("sessions", sessionsJson);
   }
 
@@ -78,75 +79,72 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   topRight: Radius.circular(0),
                   bottomRight: Radius.circular(0)),
             ),
-            child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                child: Column(children: [
-                  Row(children: [
-                    const Expanded(
-                        child: Row(children: [
-                      CircleAvatar(
+            child: Column(children: [
+              Row(children: [
+                Expanded(
+                    child: Row(children: [
+                  Container(
+                      padding: const EdgeInsets.all(12),
+                      child: const CircleAvatar(
                         backgroundImage: AssetImage("assets/parrot.png"),
-                        radius: 30,
-                      ),
-                      SizedBox(width: 12),
-                      Text("语鹦助手")
-                    ])),
-                    IconButton(
-                        onPressed: () async {
+                        radius: 28,
+                      )),
+                  const Text("语鹦助手")
+                ])),
+                IconButton(
+                    onPressed: () async {
+                      if (!session.chat.tail.finalised) return;
+                      final newSession = Session();
+                      sessions.insert(0, newSession);
+                      session.from(newSession);
+                      Future.delayed(const Duration(seconds: 1), () {
+                        setState(() {});
+                      });
+                    },
+                    icon: const Icon(Icons.add))
+              ]),
+              Divider(
+                height: 0,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              Expanded(
+                child: ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: sessions.length,
+                    itemBuilder: (context, index) {
+                      return SessionTile(
+                        session: sessions[index],
+                        onDelete: () {
                           if (!session.chat.tail.finalised) return;
-                          final newSession = Session();
-                          sessions.add(newSession);
-                          session.from(newSession);
-                          Future.delayed(const Duration(seconds: 1), () {
-                            setState(() {});
+                          setState(() {
+                            if (sessions[index].key == session.key) {
+                              session.from(sessions.firstOrNull ?? Session());
+                            }
+                            sessions.removeAt(index);
                           });
                         },
-                        icon: const Icon(Icons.add))
-                  ]),
-                  const SizedBox(height: 5.0),
-                  Divider(
-                    height: 0,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemCount: sessions.length,
-                        itemBuilder: (context, index) {
-                          return SessionTile(
-                            session: sessions[index],
-                            onDelete: () {
-                              if (!session.chat.tail.finalised) return;
-                              setState(() {
-                                if (sessions[index].key == session.key) {
-                                  session
-                                      .from(sessions.firstOrNull ?? Session());
-                                }
-                                sessions.removeAt(index);
-                              });
-                            },
-                            onRename: (value) {
-                              setState(() {
-                                session.character.name = value;
-                              });
-                            },
-                          );
-                        }),
-                  ),
-                  Divider(
-                    height: 0,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  ListTile(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (c) {
-                          return MorePage();
-                        }));
-                      },
-                      title: const Text("更多"),
-                      trailing: const Icon(Icons.keyboard_arrow_right))
-                  // const UserTile(),
-                ])));
+                        onRename: (value) {
+                          setState(() {
+                            session.character.name = value;
+                          });
+                        },
+                      );
+                    }),
+              ),
+              Divider(
+                height: 0,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              ListTile(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (c) {
+                      return const MorePage();
+                    }));
+                  },
+                  title: const Text("更多"),
+                  trailing: const Icon(Icons.keyboard_arrow_right))
+              // const UserTile(),
+            ]));
       },
     );
   }

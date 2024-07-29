@@ -34,7 +34,7 @@ class _CharacterDetailState extends State<CharacterDetail> {
       return
         Scaffold(
           appBar: AppBar(
-            backgroundColor: secondaryColor,
+            backgroundColor: Colors.transparent,
             foregroundColor: Theme.of(context).colorScheme.onPrimary,
             elevation: 0.0,
           ),

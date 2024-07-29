@@ -92,7 +92,7 @@ class _ChatMessageState extends State<ChatMessage>
           margin: const EdgeInsets.all(10),
           decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(topRight: Radius.circular(12), bottomRight: Radius.circular(12), bottomLeft: Radius.circular(12)),
-              color: Color.fromRGBO(246, 246, 246, 1)),
+              color: Color(0xffe3e3e3)),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,

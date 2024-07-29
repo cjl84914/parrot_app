@@ -35,7 +35,6 @@ class _CharacterCustomizationPageState
       nameController = TextEditingController(text: session.character.name);
       systemController = TextEditingController(text: session.character.system);
       return Scaffold(
-          backgroundColor: Colors.white,
           appBar: AppBar(
             backgroundColor: Theme.of(context).colorScheme.background,
             foregroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -76,7 +75,6 @@ class _CharacterCustomizationPageState
                           child: Row(children: [
                             Expanded(
                                 child: Text(
-                                    overflow: TextOverflow.ellipsis,
                                     session.model.name == ""
                                         ? "选择模型"
                                         : session.model.name,
