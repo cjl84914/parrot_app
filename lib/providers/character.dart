@@ -107,7 +107,7 @@ class Character {
 
     await fromMap(jsonCharacter);
 
-    Logger.log("Character reset");
+    // Logger.log("Character reset");
   }
 
   Future<String> importImage(BuildContext context) async {

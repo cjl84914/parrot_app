@@ -89,6 +89,7 @@ class ClaudeModel extends LargeLanguageModel {
         }
       }
     } catch (e) {
+      yield e.toString();
       Logger.log('Error: $e');
     }
   }

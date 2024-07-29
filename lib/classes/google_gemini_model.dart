@@ -13,7 +13,7 @@ class GoogleGeminiModel extends LargeLanguageModel {
 
   GoogleGeminiModel({
     super.listener, 
-    super.name = 'gemini-pro',
+    super.name = 'gemini-pro' ,
     super.token,
     super.nPredict,
     super.temperature,
@@ -24,6 +24,20 @@ class GoogleGeminiModel extends LargeLanguageModel {
   GoogleGeminiModel.fromMap(VoidCallback listener, Map<String, dynamic> json) {
     addListener(listener);
     fromMap(json);
+  }
+
+  @override
+  List<String> get missingRequirements {
+    List<String> missing = [];
+    if (name.isEmpty) {
+      missing.add('- 请选择模型\n');
+    }
+
+
+    if (token.isEmpty) {
+      missing.add('- 请输入API_KEY\n');
+    }
+    return missing;
   }
 
   @override
@@ -57,7 +71,7 @@ class GoogleGeminiModel extends LargeLanguageModel {
       }
     } catch (e) {
       yield e.toString();
-      Logger.log('Error: $e');
+      Logger.log('Error:  $e');
     }
   }
 

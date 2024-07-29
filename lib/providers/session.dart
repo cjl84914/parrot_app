@@ -155,9 +155,6 @@ class Session extends ChangeNotifier {
 
     final stringStream = model.prompt(messages);
 
-    if(stringStream==null){
-      return;
-    }
     await for (var message in stringStream) {
       chat.tail.content += message;
       notifyListeners();
@@ -244,7 +241,7 @@ class Session extends ChangeNotifier {
 
     Map<String, dynamic> lastOpenAI =
         json.decode(prefs.getString("open_ai_model") ?? "{}");
-    Logger.log(lastOpenAI.toString());
+    // Logger.log(lastOpenAI.toString());
 
     if (lastOpenAI.isNotEmpty) {
       model = OpenAiModel.fromMap(notify, lastOpenAI);
@@ -262,7 +259,7 @@ class Session extends ChangeNotifier {
 
     Map<String, dynamic> lastOllama =
         json.decode(prefs.getString("ollama_model") ?? "{}");
-    Logger.log(lastOllama.toString());
+    // Logger.log(lastOllama.toString());
 
     if (lastOllama.isNotEmpty) {
       model = OllamaModel.fromMap(notify, lastOllama);
@@ -281,7 +278,7 @@ class Session extends ChangeNotifier {
 
     Map<String, dynamic> lastMistralAI =
         json.decode(prefs.getString("mistral_ai_model") ?? "{}");
-    Logger.log(lastMistralAI.toString());
+    // Logger.log(lastMistralAI.toString());
 
     if (lastMistralAI.isNotEmpty) {
       model = MistralAiModel.fromMap(notify, lastMistralAI);
@@ -299,7 +296,7 @@ class Session extends ChangeNotifier {
 
     Map<String, dynamic> lastGemini =
         json.decode(prefs.getString("google_gemini_model") ?? "{}");
-    Logger.log(lastGemini.toString());
+    // Logger.log(lastGemini.toString());
 
     if (lastGemini.isNotEmpty) {
       model = GoogleGeminiModel.fromMap(notify, lastGemini);
@@ -317,7 +314,7 @@ class Session extends ChangeNotifier {
 
     Map<String, dynamic> lastModel =
         json.decode(prefs.getString("baidu_ai_model") ?? "{}");
-    Logger.log(lastModel.toString());
+    // Logger.log(lastModel.toString());
 
     if (lastModel.isNotEmpty) {
       model = BaiduAiModel.fromMap(notify, lastModel);
@@ -335,7 +332,7 @@ class Session extends ChangeNotifier {
 
     Map<String, dynamic> lastModel =
     json.decode(prefs.getString("zhipu_ai_model") ?? "{}");
-    Logger.log(lastModel.toString());
+    // Logger.log(lastModel.toString());
 
     if (lastModel.isNotEmpty) {
       model = ZhiPuAiModel.fromMap(notify, lastModel);
@@ -353,7 +350,7 @@ class Session extends ChangeNotifier {
 
     Map<String, dynamic> lastModel =
     json.decode(prefs.getString("lingyi_ai_model") ?? "{}");
-    Logger.log(model.toString());
+    // Logger.log(model.toString());
 
     if (lastModel.isNotEmpty) {
       model = LingYiAiModel.fromMap(notify, lastModel);
@@ -371,7 +368,7 @@ class Session extends ChangeNotifier {
 
     Map<String, dynamic> lastModel =
     json.decode(prefs.getString("moon_ai_model") ?? "{}");
-    Logger.log(model.toString());
+    // Logger.log(model.toString());
 
     if (lastModel.isNotEmpty) {
       model = MoonAiModel.fromMap(notify, lastModel);
@@ -389,7 +386,7 @@ class Session extends ChangeNotifier {
 
     Map<String, dynamic> lastModel =
     json.decode(prefs.getString("qwen_ai_model") ?? "{}");
-    Logger.log(model.toString());
+    // Logger.log(model.toString());
 
     if (lastModel.isNotEmpty) {
       model = QWenAiModel.fromMap(notify, lastModel);

@@ -70,7 +70,6 @@ class ZhiPuAiModel extends LargeLanguageModel {
           break;
       }
     }
-
     try {
       final chat = ChatOpenAI(
           baseUrl: uri,
@@ -83,7 +82,10 @@ class ZhiPuAiModel extends LargeLanguageModel {
               maxTokens: nPredict,
               topP: topP));
       final stream = chat.stream(PromptValue.chat(chatMessages));
-      yield* stream.map((final res) => res.output.content);
+      // yield* stream.map((final res) => res.output.content);
+      await for(var line in stream){
+        yield line.output.content;
+      }
     } catch (e) {
       final exception = e as OpenAIClientException;
       yield exception.toString();

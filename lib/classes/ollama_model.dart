@@ -224,8 +224,9 @@ class OllamaModel extends LargeLanguageModel {
         );
       }
       final stream = chat.stream(PromptValue.chat(chatMessages));
-
-      yield* stream.map((final res) => res.output.content);
+      await for(var line in stream){
+        yield line.output.content;
+      }
     } catch (e) {
       yield e.toString();
       Logger.log('Error: $e');

@@ -324,15 +324,15 @@ class LargeLanguageModel extends ChangeNotifier {
     List<String> missing = [];
 
     if (_name.isEmpty) {
-      missing.add('- 请点击选择模型.\n');
+      missing.add('- 请选择模型\n');
     } 
     
     if (_uri.isEmpty) {
-      missing.add('- 请输入模型URL.\n');
+      missing.add('- 请输入模型URL\n');
     }
 
     if (_token.isEmpty) {
-      missing.add('- 请输入API_KEY.\n');
+      missing.add('- 请输入API_KEY\n');
     } 
     
     return missing;
