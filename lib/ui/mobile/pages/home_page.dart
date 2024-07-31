@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/user.dart';
-import 'package:parrot/providers/character.dart';
 import 'package:parrot/providers/session.dart';
-import 'package:parrot/static/utilities.dart';
 import 'package:parrot/ui/mobile/widgets/chat_widgets/chat_message.dart';
 import 'package:parrot/ui/mobile/widgets/chat_widgets/chat_field.dart';
 import 'package:parrot/ui/mobile/widgets/appbars/home_app_bar.dart';
@@ -51,7 +48,7 @@ class HomePageState extends State<HomePage> {
             key: message.key,
           ));
         }
-        // _setStateAndMoreToListViewEnd();
+        _setStateAndMoreToListViewEnd();
         return Builder(
           builder: (BuildContext context) =>
               GestureDetector(

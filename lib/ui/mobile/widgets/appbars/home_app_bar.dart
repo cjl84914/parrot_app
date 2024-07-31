@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:parrot/providers/character.dart';
 import 'package:parrot/providers/session.dart';
 import 'package:parrot/providers/tts.dart';
-import 'package:parrot/providers/user.dart';
-import 'package:parrot/ui/mobile/pages/character/character_customization_page.dart';
 import 'package:parrot/ui/mobile/pages/character/character_detail_page.dart';
-import 'package:parrot/ui/mobile/widgets/buttons/menu_button.dart';
 import 'package:parrot/ui/mobile/widgets/future_avatar.dart';
-import 'package:parrot/ui/mobile/widgets/tiles/session_tile.dart';
 import 'package:provider/provider.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {

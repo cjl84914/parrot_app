@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:parrot/providers/session.dart';
-import 'package:parrot/static/themes.dart';
 import 'package:parrot/ui/mobile/pages/character/character_customization_page.dart';
 import 'package:parrot/ui/mobile/widgets/future_avatar.dart';
 import 'package:parrot/ui/mobile/widgets/llm/chat_node_tree.dart';
-import 'package:parrot/ui/mobile/widgets/session_busy_overlay.dart';
 import 'package:provider/provider.dart';
 
 class CharacterDetail extends StatefulWidget {
@@ -42,13 +40,11 @@ class _CharacterDetailState extends State<CharacterDetail> {
             child: Column(
               children: [
                 Center(
-                    child: GestureDetector(
-                        onTap: () async {},
-                        child: FutureAvatar(
+                    child: FutureAvatar(
                           key: session.character.key,
                           image: session.character.profile,
                           radius: 75,
-                        ))),
+                        )),
                 const SizedBox(height: 10.0),
                 Text(session.character.name,
                     style: Theme.of(context).textTheme.titleLarge),

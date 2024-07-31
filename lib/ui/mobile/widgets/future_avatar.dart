@@ -31,7 +31,6 @@ class FutureAvatar extends StatelessWidget {
               return const Icon(Icons.error);
             } else {
               _cache[key!] = snapshot.data!;
-
               return CircleAvatar(
                 backgroundImage: FileImage(snapshot.data!),
                 radius: radius,

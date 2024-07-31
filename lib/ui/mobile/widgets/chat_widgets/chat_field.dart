@@ -6,10 +6,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:parrot/ui/mobile/widgets/dialogs.dart';
 import 'package:parrot/classes/large_language_model.dart';
 import 'package:parrot/providers/session.dart';
-import 'package:parrot/static/logger.dart';
 import 'package:parrot/ui/mobile/widgets/llm/chat_node.dart';
 import 'package:provider/provider.dart';
-import 'package:receive_sharing_intent/receive_sharing_intent.dart';
+// import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
 class ChatField extends StatefulWidget {
   const ChatField({super.key});
@@ -25,33 +24,33 @@ class _ChatFieldState extends State<ChatField> {
   @override
   void initState() {
     super.initState();
-    if (!kIsWeb) {
-      if (Platform.isAndroid) {
-        // For sharing or opening text coming from outside the app while the app is in the memory
-        _intentDataStreamSubscription =
-            ReceiveSharingIntent.instance.getMediaStream().listen((value) {
-          setState(() {
-            _promptController.text = value.first.path;
-          });
-        }, onError: (err) {
-          Logger.log("Error: $err");
-        });
-
-        // For sharing or opening text coming from outside the app while the app is closed
-        ReceiveSharingIntent.instance.getInitialMedia().then((value) {
-          if (value.isNotEmpty) {
-            setState(() {
-              _promptController.text = value.first.path;
-            });
-          }
-        });
-      }
-    }
+    // if (!kIsWeb) {
+    //   if (Platform.isAndroid) {
+    //     // For sharing or opening text coming from outside the app while the app is in the memory
+    //     _intentDataStreamSubscription =
+    //         ReceiveSharingIntent.instance.getMediaStream().listen((value) {
+    //       setState(() {
+    //         _promptController.text = value.first.path;
+    //       });
+    //     }, onError: (err) {
+    //       Logger.log("Error: $err");
+    //     });
+    //
+    //     // For sharing or opening text coming from outside the app while the app is closed
+    //     ReceiveSharingIntent.instance.getInitialMedia().then((value) {
+    //       if (value.isNotEmpty) {
+    //         setState(() {
+    //           _promptController.text = value.first.path;
+    //         });
+    //       }
+    //     });
+    //   }
+    // }
   }
 
   @override
   void dispose() {
-    _intentDataStreamSubscription?.cancel();
+    // _intentDataStreamSubscription?.cancel();
     super.dispose();
   }
 

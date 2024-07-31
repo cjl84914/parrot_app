@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:crypto/crypto.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';

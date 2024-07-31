@@ -18,7 +18,6 @@ permission_handler_android=/Users/alexcai/.pub-cache/hosted/pub.flutter-io.cn/pe
 permission_handler_apple=/Users/alexcai/.pub-cache/hosted/pub.flutter-io.cn/permission_handler_apple-9.4.5/
 permission_handler_html=/Users/alexcai/.pub-cache/hosted/pub.flutter-io.cn/permission_handler_html-0.1.1/
 permission_handler_windows=/Users/alexcai/.pub-cache/hosted/pub.flutter-io.cn/permission_handler_windows-0.2.1/
-receive_sharing_intent=/Users/alexcai/.pub-cache/hosted/pub.flutter-io.cn/receive_sharing_intent-1.8.0/
 shared_preferences=/Users/alexcai/.pub-cache/hosted/pub.flutter-io.cn/shared_preferences-2.2.3/
 shared_preferences_android=/Users/alexcai/.pub-cache/hosted/pub.flutter-io.cn/shared_preferences_android-2.2.2/
 shared_preferences_foundation=/Users/alexcai/.pub-cache/hosted/pub.flutter-io.cn/shared_preferences_foundation-2.4.0/

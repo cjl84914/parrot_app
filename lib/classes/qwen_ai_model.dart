@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
 
-import 'package:http/http.dart';
 import 'package:langchain/langchain.dart';
 import 'package:langchain_openai/langchain_openai.dart';
 import 'package:parrot/classes/large_language_model.dart';
